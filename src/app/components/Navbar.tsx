@@ -1,213 +1,319 @@
-import { Link, useNavigate } from 'react-router';
+import { Link, useLocation } from 'react-router';
 import { useAuth } from '../context/AuthContext';
-import { Button } from './ui/button';
-import { 
-  Briefcase, 
-  User, 
-  LogOut, 
-  Menu, 
-  X,
-  Home,
-  PlusCircle,
-  LayoutDashboard
-} from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
-export function Navbar() {
+export default function Navbar() {
+  const location = useLocation();
   const { user, logout } = useAuth();
-  const navigate = useNavigate();
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
-  const handleLogout = async () => {
-    await logout();
-    navigate('/login');
-    setMobileMenuOpen(false);
-  };
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-lg border-b border-gray-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 group">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500 via-pink-500 to-cyan-500 flex items-center justify-center transform group-hover:scale-110 transition-transform">
-              <Briefcase className="w-6 h-6 text-white" />
-            </div>
-            <span className="font-bold text-xl bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-              JobHub
-            </span>
+    <>
+      <style>{`
+        .navbar {
+          padding: 0.75rem 0;
+          background: rgba(15, 15, 35, 0.8) !important;
+          backdrop-filter: blur(20px) saturate(180%);
+          -webkit-backdrop-filter: blur(20px) saturate(180%);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+          box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+          transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+          padding: 0.5rem 0;
+          background: rgba(15, 15, 35, 0.95) !important;
+          box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.25);
+        }
+
+        .navbar-brand {
+          font-family: 'Poppins', sans-serif;
+          font-size: 1.75rem;
+          font-weight: 800;
+          color: #ffffff !important;
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          transition: all 0.3s ease;
+        }
+
+        .navbar-brand i {
+          background: linear-gradient(135deg, #1e3a8a 0%, #7c3aed 50%, #ec4899 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          filter: drop-shadow(0 0 10px rgba(124, 58, 237, 0.5));
+        }
+
+        .navbar-brand:hover {
+          transform: scale(1.05);
+        }
+
+        .nav-link {
+          color: rgba(255, 255, 255, 0.85) !important;
+          font-weight: 500;
+          font-size: 0.95rem;
+          transition: all 0.3s ease;
+          padding: 0.5rem 1rem !important;
+          border-radius: 0.75rem;
+          position: relative;
+        }
+
+        .nav-link::before {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 0;
+          height: 2px;
+          background: linear-gradient(135deg, #1e3a8a 0%, #7c3aed 50%, #ec4899 100%);
+          transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::before {
+          width: 60%;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+          color: #ffffff !important;
+          background-color: rgba(124, 58, 237, 0.15);
+          box-shadow: 0 0 15px rgba(124, 58, 237, 0.2);
+        }
+
+        .nav-link.active::before {
+          width: 60%;
+        }
+
+        .btn-primary-custom {
+          background: linear-gradient(135deg, #1e3a8a 0%, #7c3aed 50%, #ec4899 100%) !important;
+          color: #ffffff !important;
+          border: none !important;
+          font-weight: 600;
+          padding: 0.6rem 1.75rem !important;
+          border-radius: 9999px;
+          transition: all 0.3s ease;
+          position: relative;
+          overflow: hidden;
+          box-shadow: 0 4px 15px rgba(124, 58, 237, 0.4);
+        }
+
+        .btn-primary-custom::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+          transition: left 0.5s ease;
+        }
+
+        .btn-primary-custom:hover::before {
+          left: 100%;
+        }
+
+        .btn-primary-custom:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 8px 25px rgba(124, 58, 237, 0.6);
+        }
+
+        .navbar-toggler {
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          padding: 0.5rem 0.75rem;
+        }
+
+        .navbar-toggler:focus {
+          box-shadow: 0 0 0 0.2rem rgba(124, 58, 237, 0.3);
+        }
+
+        .navbar-toggler-icon {
+          background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.85%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+
+        .footer {
+          background-color: #111827;
+          color: #9ca3af;
+        }
+
+        .footer h5, .footer h6 {
+          color: #ffffff;
+        }
+
+        .footer a {
+          color: #6b7280;
+          text-decoration: none;
+          transition: all 0.3s ease;
+        }
+
+        .footer a:hover {
+          color: #ffffff;
+        }
+
+        .social-links a {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          background-color: #1f2937;
+          color: #ffffff;
+          font-size: 1.2rem;
+          transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+          background-color: #7c3aed;
+          transform: translateY(-3px);
+        }
+      `}</style>
+
+      <nav className={`navbar navbar-expand-lg navbar-dark fixed-top ${scrolled ? 'scrolled' : ''}`}>
+        <div className="container">
+          <Link className="navbar-brand fw-bold" to="/">
+            <i className="bi bi-briefcase-fill"></i> JobHub
           </Link>
-
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-6">
-            <Link 
-              to="/" 
-              className="flex items-center gap-2 text-gray-700 hover:text-purple-600 transition-colors"
-            >
-              <Home className="w-4 h-4" />
-              หน้าแรก
-            </Link>
-            <Link 
-              to="/jobs" 
-              className="flex items-center gap-2 text-gray-700 hover:text-purple-600 transition-colors"
-            >
-              <Briefcase className="w-4 h-4" />
-              งานทั้งหมด
-            </Link>
-            
-            {user ? (
-              <>
-                {user.role === 'employer' && (
-                  <Link 
-                    to="/post-job" 
-                    className="flex items-center gap-2 text-gray-700 hover:text-purple-600 transition-colors"
-                  >
-                    <PlusCircle className="w-4 h-4" />
-                    ประกาศงาน
-                  </Link>
-                )}
-                <Link 
-                  to="/dashboard" 
-                  className="flex items-center gap-2 text-gray-700 hover:text-purple-600 transition-colors"
-                >
-                  <LayoutDashboard className="w-4 h-4" />
-                  Dashboard
-                </Link>
-                <div className="flex items-center gap-3">
-                  <div className="flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-purple-100 to-pink-100 rounded-lg">
-                    <User className="w-4 h-4 text-purple-600" />
-                    <span className="text-sm font-medium text-purple-900">{user.name}</span>
-                    <span className="text-xs px-2 py-0.5 bg-white rounded-full text-purple-600">
-                      {user.role === 'admin' ? 'แอดมิน' : user.role === 'employer' ? 'ผู้ประกาศงาน' : 'ผู้หางาน'}
-                    </span>
-                  </div>
-                  <Button
-                    onClick={handleLogout}
-                    variant="ghost"
-                    size="sm"
-                    className="text-gray-700 hover:text-red-600"
-                  >
-                    <LogOut className="w-4 h-4" />
-                  </Button>
-                </div>
-              </>
-            ) : (
-              <div className="flex items-center gap-3">
-                <Button
-                  onClick={() => navigate('/login')}
-                  variant="ghost"
-                  className="text-gray-700 hover:text-purple-600"
-                >
-                  เข้าสู่ระบบ
-                </Button>
-                <Button
-                  onClick={() => navigate('/register')}
-                  className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white"
-                >
-                  สมัครสมาชิก
-                </Button>
-              </div>
-            )}
-          </div>
-
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 rounded-lg hover:bg-gray-100"
+          <button 
+            className="navbar-toggler" 
+            type="button" 
+            data-bs-toggle="collapse" 
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
           >
-            {mobileMenuOpen ? (
-              <X className="w-6 h-6 text-gray-700" />
-            ) : (
-              <Menu className="w-6 h-6 text-gray-700" />
-            )}
+            <span className="navbar-toggler-icon"></span>
           </button>
+          <div className="collapse navbar-collapse" id="navbarNav">
+            <ul className="navbar-nav ms-auto">
+              <li className="nav-item">
+                <Link 
+                  className={`nav-link ${location.pathname === '/' ? 'active' : ''}`} 
+                  to="/"
+                >
+                  หน้าแรก
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link 
+                  className={`nav-link ${location.pathname === '/jobs' ? 'active' : ''}`} 
+                  to="/jobs"
+                >
+                  งานทั้งหมด
+                </Link>
+              </li>
+              {user ? (
+                <>
+                  <li className="nav-item">
+                    <Link 
+                      className={`nav-link ${location.pathname === '/dashboard' ? 'active' : ''}`} 
+                      to="/dashboard"
+                    >
+                      Dashboard
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <button 
+                      className="nav-link btn btn-link" 
+                      onClick={logout}
+                    >
+                      ออกจากระบบ
+                    </button>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li className="nav-item">
+                    <Link 
+                      className={`nav-link ${location.pathname === '/login' ? 'active' : ''}`} 
+                      to="/login"
+                    >
+                      เข้าสู่ระบบ
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link 
+                      className="nav-link btn btn-primary-custom ms-2" 
+                      to="/register"
+                    >
+                      สมัครสมาชิก
+                    </Link>
+                  </li>
+                </>
+              )}
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </>
+  );
+}
+
+export function Footer() {
+  return (
+    <footer className="footer py-5">
+      <div className="container">
+        <div className="row g-4">
+          <div className="col-md-4">
+            <h5 className="fw-bold mb-3">
+              <i className="bi bi-briefcase-fill"></i> JobHub
+            </h5>
+            <p className="text-muted">แพลตฟอร์มหางานออนไลน์ที่ทันสมัยสำหรับคนรุ่นใหม่</p>
+            <div className="social-links">
+              <a href="#" className="me-3"><i className="bi bi-facebook"></i></a>
+              <a href="#" className="me-3"><i className="bi bi-twitter"></i></a>
+              <a href="#" className="me-3"><i className="bi bi-instagram"></i></a>
+              <a href="#"><i className="bi bi-linkedin"></i></a>
+            </div>
+          </div>
+          <div className="col-md-2">
+            <h6 className="fw-bold mb-3">เกี่ยวกับเรา</h6>
+            <ul className="list-unstyled">
+              <li><a href="#" className="text-muted">เกี่ยวกับ JobHub</a></li>
+              <li><a href="#" className="text-muted">ทีมงาน</a></li>
+              <li><a href="#" className="text-muted">ร่วมงานกับเรา</a></li>
+              <li><a href="#" className="text-muted">ติดต่อเรา</a></li>
+            </ul>
+          </div>
+          <div className="col-md-2">
+            <h6 className="fw-bold mb-3">สำหรับผู้หางาน</h6>
+            <ul className="list-unstyled">
+              <li><Link to="/jobs" className="text-muted">ค้นหางาน</Link></li>
+              <li><Link to="/register" className="text-muted">สร้างบัญชี</Link></li>
+              <li><a href="#" className="text-muted">คำแนะนำ</a></li>
+            </ul>
+          </div>
+          <div className="col-md-2">
+            <h6 className="fw-bold mb-3">สำหรับนายจ้าง</h6>
+            <ul className="list-unstyled">
+              <li><Link to="/post-job" className="text-muted">ประกาศงาน</Link></li>
+              <li><Link to="/register?type=employer" className="text-muted">สมัครสมาชิก</Link></li>
+              <li><a href="#" className="text-muted">ราคา</a></li>
+            </ul>
+          </div>
+          <div className="col-md-2">
+            <h6 className="fw-bold mb-3">ช่วยเหลือ</h6>
+            <ul className="list-unstyled">
+              <li><a href="#" className="text-muted">ศูนย์ช่วยเหลือ</a></li>
+              <li><a href="#" className="text-muted">เงื่อนไขการใช้</a></li>
+              <li><a href="#" className="text-muted">นโยบายความเป็นส่วนตัว</a></li>
+            </ul>
+          </div>
+        </div>
+        <hr className="my-4" style={{ borderColor: 'rgba(255, 255, 255, 0.1)' }} />
+        <div className="text-center text-muted">
+          <small>&copy; 2026 JobHub. All rights reserved.</small>
         </div>
       </div>
-
-      {/* Mobile Menu */}
-      {mobileMenuOpen && (
-        <div className="md:hidden border-t border-gray-200 bg-white">
-          <div className="px-4 py-4 space-y-3">
-            <Link 
-              to="/" 
-              onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-purple-50 text-gray-700"
-            >
-              <Home className="w-4 h-4" />
-              หน้าแรก
-            </Link>
-            <Link 
-              to="/jobs" 
-              onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-purple-50 text-gray-700"
-            >
-              <Briefcase className="w-4 h-4" />
-              งานทั้งหมด
-            </Link>
-            
-            {user ? (
-              <>
-                {user.role === 'employer' && (
-                  <Link 
-                    to="/post-job" 
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-purple-50 text-gray-700"
-                  >
-                    <PlusCircle className="w-4 h-4" />
-                    ประกาศงาน
-                  </Link>
-                )}
-                <Link 
-                  to="/dashboard" 
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-purple-50 text-gray-700"
-                >
-                  <LayoutDashboard className="w-4 h-4" />
-                  Dashboard
-                </Link>
-                <div className="px-4 py-2 bg-gradient-to-r from-purple-100 to-pink-100 rounded-lg">
-                  <div className="flex items-center gap-2 mb-1">
-                    <User className="w-4 h-4 text-purple-600" />
-                    <span className="text-sm font-medium text-purple-900">{user.name}</span>
-                  </div>
-                  <span className="text-xs px-2 py-0.5 bg-white rounded-full text-purple-600">
-                    {user.role === 'admin' ? 'แอดมิน' : user.role === 'employer' ? 'ผู้ประกาศงาน' : 'ผู้หางาน'}
-                  </span>
-                </div>
-                <button
-                  onClick={handleLogout}
-                  className="w-full flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-red-50 text-red-600"
-                >
-                  <LogOut className="w-4 h-4" />
-                  ออกจากระบบ
-                </button>
-              </>
-            ) : (
-              <div className="space-y-2">
-                <Button
-                  onClick={() => {
-                    navigate('/login');
-                    setMobileMenuOpen(false);
-                  }}
-                  variant="outline"
-                  className="w-full"
-                >
-                  เข้าสู่ระบบ
-                </Button>
-                <Button
-                  onClick={() => {
-                    navigate('/register');
-                    setMobileMenuOpen(false);
-                  }}
-                  className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white"
-                >
-                  สมัครสมาชิก
-                </Button>
-              </div>
-            )}
-          </div>
-        </div>
-      )}
-    </nav>
+    </footer>
   );
 }

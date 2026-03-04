@@ -6,7 +6,7 @@ import { Input } from '../components/ui/input';
 import { Briefcase, Mail, Lock, Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
 
-export function LoginPage() {
+export default function LoginPage() {
   const navigate = useNavigate();
   const { login } = useAuth();
   const [email, setEmail] = useState('');

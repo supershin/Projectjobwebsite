@@ -4,7 +4,7 @@ import { UserDashboard } from '../components/dashboards/UserDashboard';
 import { EmployerDashboard } from '../components/dashboards/EmployerDashboard';
 import { AdminDashboard } from '../components/dashboards/AdminDashboard';
 
-export function DashboardPage() {
+export default function DashboardPage() {
   const { user, isLoading } = useAuth();
 
   if (isLoading) {

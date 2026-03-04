@@ -1,264 +1,294 @@
 import { useState, useEffect } from 'react';
-import { useSearchParams } from 'react-router';
-import { api, Job } from '../services/api';
-import { JobCard } from '../components/JobCard';
-import { Button } from '../components/ui/button';
-import { Input } from '../components/ui/input';
-import { 
-  Search, 
-  Filter, 
-  MapPin,
-  Briefcase,
-  X,
-  Loader2
-} from 'lucide-react';
+import { Link, useSearchParams } from 'react-router';
+import { mockJobs } from '../data/mockJobs';
 
-export function JobsPage() {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [jobs, setJobs] = useState<Job[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [searchQuery, setSearchQuery] = useState(searchParams.get('search') || '');
-  const [location, setLocation] = useState(searchParams.get('location') || '');
-  const [selectedCategory, setSelectedCategory] = useState(searchParams.get('category') || '');
-  const [selectedType, setSelectedType] = useState(searchParams.get('type') || '');
-  const [showFilters, setShowFilters] = useState(false);
-
-  const categories = [
-    'Technology',
-    'Design',
-    'Marketing',
-    'Sales',
-    'Finance',
-    'Human Resources',
-    'Operations',
-    'Customer Service',
-    'Other'
-  ];
-
-  const jobTypes = [
-    { value: 'full-time', label: 'เต็มเวลา' },
-    { value: 'part-time', label: 'พาร์ทไทม์' },
-    { value: 'contract', label: 'สัญญาจ้าง' },
-    { value: 'freelance', label: 'ฟรีแลนซ์' },
-    { value: 'internship', label: 'ฝึกงาน' }
-  ];
+export default function JobsPage() {
+  const [searchParams] = useSearchParams();
+  const [filteredJobs, setFilteredJobs] = useState(mockJobs);
+  const [filters, setFilters] = useState({
+    search: searchParams.get('search') || '',
+    category: searchParams.get('category') || '',
+    type: '',
+    location: '',
+    salary: '',
+  });
 
   useEffect(() => {
-    loadJobs();
-  }, [searchParams]);
+    let filtered = [...mockJobs];
 
-  const loadJobs = async () => {
-    setLoading(true);
-    try {
-      const filters = {
-        search: searchParams.get('search') || undefined,
-        location: searchParams.get('location') || undefined,
-        category: searchParams.get('category') || undefined,
-        type: searchParams.get('type') || undefined,
-      };
-      const data = await api.getJobs(filters);
-      setJobs(data);
-    } catch (error) {
-      console.error('Failed to load jobs:', error);
-    } finally {
-      setLoading(false);
+    if (filters.search) {
+      filtered = filtered.filter(job => 
+        job.title.toLowerCase().includes(filters.search.toLowerCase()) ||
+        job.company.toLowerCase().includes(filters.search.toLowerCase())
+      );
     }
-  };
 
-  const handleSearch = () => {
-    const params: Record<string, string> = {};
-    if (searchQuery) params.search = searchQuery;
-    if (location) params.location = location;
-    if (selectedCategory) params.category = selectedCategory;
-    if (selectedType) params.type = selectedType;
-    setSearchParams(params);
+    if (filters.category) {
+      filtered = filtered.filter(job => job.category === filters.category);
+    }
+
+    if (filters.type) {
+      filtered = filtered.filter(job => job.type === filters.type);
+    }
+
+    if (filters.location) {
+      filtered = filtered.filter(job => 
+        job.location.toLowerCase().includes(filters.location.toLowerCase())
+      );
+    }
+
+    setFilteredJobs(filtered);
+  }, [filters]);
+
+  const handleFilterChange = (key: string, value: string) => {
+    setFilters(prev => ({ ...prev, [key]: value }));
   };
 
   const clearFilters = () => {
-    setSearchQuery('');
-    setLocation('');
-    setSelectedCategory('');
-    setSelectedType('');
-    setSearchParams({});
+    setFilters({
+      search: '',
+      category: '',
+      type: '',
+      location: '',
+      salary: '',
+    });
   };
 
-  const hasActiveFilters = searchQuery || location || selectedCategory || selectedType;
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-cyan-50 pt-20">
-      <div className="max-w-7xl mx-auto px-4 py-8">
-        {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">
-            งานทั้งหมด
-          </h1>
-          <p className="text-gray-600">
-            พบ {jobs.length} ตำแหน่งงานที่เหมาะกับคุณ
-          </p>
+    <>
+      <style>{`
+        .page-header {
+          padding: 120px 0 60px;
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          color: #ffffff;
+        }
+
+        .filters-sidebar {
+          background: #ffffff;
+          padding: 1.5rem;
+          border-radius: 1rem;
+          border: 1px solid #e5e7eb;
+          position: sticky;
+          top: 100px;
+        }
+
+        .job-card {
+          background: #ffffff;
+          border: 1px solid #e5e7eb;
+          border-radius: 1.5rem;
+          padding: 1.75rem;
+          transition: all 0.3s ease;
+          position: relative;
+          overflow: hidden;
+          margin-bottom: 1.5rem;
+        }
+
+        .job-card::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 4px;
+          height: 100%;
+          background: linear-gradient(135deg, #1e3a8a 0%, #7c3aed 50%, #ec4899 100%);
+          transform: scaleY(0);
+          transition: transform 0.3s ease;
+        }
+
+        .job-card:hover::before {
+          transform: scaleY(1);
+        }
+
+        .job-card:hover {
+          box-shadow: 0 20px 40px rgba(124, 58, 237, 0.15);
+          transform: translateY(-4px);
+          border-color: #7c3aed;
+        }
+
+        .company-logo {
+          width: 64px;
+          height: 64px;
+          border-radius: 1rem;
+          object-fit: cover;
+          border: 2px solid #e5e7eb;
+          transition: all 0.3s ease;
+        }
+
+        .job-card:hover .company-logo {
+          transform: scale(1.1) rotate(3deg);
+          border-color: #7c3aed;
+        }
+
+        .job-badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.35rem;
+          padding: 0.4rem 0.85rem;
+          border-radius: 9999px;
+          font-size: 0.85rem;
+          font-weight: 600;
+        }
+
+        .job-badge-primary {
+          background: linear-gradient(135deg, rgba(124, 58, 237, 0.1), rgba(124, 58, 237, 0.05));
+          color: #7c3aed;
+          border: 1px solid rgba(124, 58, 237, 0.2);
+        }
+
+        .job-badge-success {
+          background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.05));
+          color: #10b981;
+          border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+      `}</style>
+
+      {/* Page Header */}
+      <section className="page-header">
+        <div className="container">
+          <h1 className="display-4 fw-bold mb-3">ค้นหางาน</h1>
+          <p className="lead">ค้นพบตำแหน่งงานที่เหมาะกับคุณจาก {mockJobs.length}+ ตำแหน่ง</p>
         </div>
+      </section>
 
-        {/* Search and Filters */}
-        <div className="bg-white rounded-2xl shadow-lg p-6 mb-8">
-          {/* Search Bar */}
-          <div className="flex flex-col md:flex-row gap-4 mb-4">
-            <div className="flex-1 relative">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-              <Input
-                type="text"
-                placeholder="ค้นหาตำแหน่งงาน, บริษัท..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
-                className="pl-12 py-6 rounded-xl border-gray-200 focus:border-purple-300"
-              />
+      {/* Jobs Content */}
+      <section className="jobs-content py-5">
+        <div className="container">
+          <div className="row">
+            {/* Filters Sidebar */}
+            <div className="col-lg-3 mb-4">
+              <div className="filters-sidebar">
+                <h5 className="fw-bold mb-4">กรองงาน</h5>
+                
+                {/* Search */}
+                <div className="mb-4">
+                  <label className="form-label fw-semibold">ค้นหา</label>
+                  <input 
+                    type="text" 
+                    className="form-control" 
+                    placeholder="ชื่อตำแหน่ง, บริษัท..."
+                    value={filters.search}
+                    onChange={(e) => handleFilterChange('search', e.target.value)}
+                  />
+                </div>
+
+                {/* Category Filter */}
+                <div className="mb-4">
+                  <label className="form-label fw-semibold">หมวดหมู่</label>
+                  <select 
+                    className="form-select"
+                    value={filters.category}
+                    onChange={(e) => handleFilterChange('category', e.target.value)}
+                  >
+                    <option value="">ทั้งหมด</option>
+                    <option value="Technology">เทคโนโลยี</option>
+                    <option value="Design">ดีไซน์</option>
+                    <option value="Marketing">การตลาด</option>
+                    <option value="Sales">ขาย</option>
+                    <option value="Customer Service">บริการลูกค้า</option>
+                    <option value="Finance">การเงิน</option>
+                    <option value="HR">ทรัพยากรบุคคล</option>
+                    <option value="Operations">ปฏิบัติการ</option>
+                  </select>
+                </div>
+
+                {/* Job Type Filter */}
+                <div className="mb-4">
+                  <label className="form-label fw-semibold">ประเภทงาน</label>
+                  <select 
+                    className="form-select"
+                    value={filters.type}
+                    onChange={(e) => handleFilterChange('type', e.target.value)}
+                  >
+                    <option value="">ทั้งหมด</option>
+                    <option value="full-time">งานประจำ</option>
+                    <option value="part-time">งานพาร์ทไทม์</option>
+                    <option value="contract">สัญญาจ้าง</option>
+                    <option value="freelance">ฟรีแลนซ์</option>
+                    <option value="internship">ฝึกงาน</option>
+                  </select>
+                </div>
+
+                {/* Location Filter */}
+                <div className="mb-4">
+                  <label className="form-label fw-semibold">สถานที่</label>
+                  <input 
+                    type="text" 
+                    className="form-control" 
+                    placeholder="กรุงเทพ, เชียงใหม่..."
+                    value={filters.location}
+                    onChange={(e) => handleFilterChange('location', e.target.value)}
+                  />
+                </div>
+
+                <button 
+                  className="btn btn-outline-secondary w-100" 
+                  onClick={clearFilters}
+                >
+                  <i className="bi bi-x-circle"></i> ล้างตัวกรอง
+                </button>
+              </div>
             </div>
-            
-            <div className="flex-1 md:max-w-xs relative">
-              <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-              <Input
-                type="text"
-                placeholder="สถานที่"
-                value={location}
-                onChange={(e) => setLocation(e.target.value)}
-                onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
-                className="pl-12 py-6 rounded-xl border-gray-200 focus:border-purple-300"
-              />
-            </div>
 
-            <Button
-              onClick={handleSearch}
-              className="px-8 py-6 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white rounded-xl"
-            >
-              <Search className="w-5 h-5 mr-2" />
-              ค้นหา
-            </Button>
-
-            <Button
-              onClick={() => setShowFilters(!showFilters)}
-              variant="outline"
-              className="px-8 py-6 rounded-xl border-2"
-            >
-              <Filter className="w-5 h-5 mr-2" />
-              ฟิลเตอร์
-            </Button>
-          </div>
-
-          {/* Filters */}
-          {showFilters && (
-            <div className="pt-4 border-t border-gray-200 space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  หมวดหมู่
-                </label>
-                <div className="flex flex-wrap gap-2">
-                  {categories.map((cat) => (
-                    <button
-                      key={cat}
-                      onClick={() => setSelectedCategory(cat === selectedCategory ? '' : cat)}
-                      className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
-                        selectedCategory === cat
-                          ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white'
-                          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                      }`}
-                    >
-                      {cat}
-                    </button>
-                  ))}
+            {/* Jobs List */}
+            <div className="col-lg-9">
+              {/* Sort and Count */}
+              <div className="d-flex justify-content-between align-items-center mb-4">
+                <div>
+                  <h5 className="mb-0">พบ <span>{filteredJobs.length}</span> ตำแหน่ง</h5>
                 </div>
               </div>
 
+              {/* Jobs Container */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  ประเภทงาน
-                </label>
-                <div className="flex flex-wrap gap-2">
-                  {jobTypes.map((type) => (
-                    <button
-                      key={type.value}
-                      onClick={() => setSelectedType(type.value === selectedType ? '' : type.value)}
-                      className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
-                        selectedType === type.value
-                          ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white'
-                          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                      }`}
-                    >
-                      <Briefcase className="w-4 h-4 inline mr-1" />
-                      {type.label}
-                    </button>
-                  ))}
-                </div>
+                {filteredJobs.map((job) => (
+                  <div key={job.id} className="job-card">
+                    <div className="row align-items-center">
+                      <div className="col-md-8">
+                        <div className="d-flex align-items-start">
+                          <img src={job.companyLogo} alt={job.company} className="company-logo me-3" />
+                          <div className="flex-grow-1">
+                            <h5 className="mb-1">
+                              <Link to={`/jobs/${job.id}`} className="text-decoration-none text-dark">
+                                {job.title}
+                              </Link>
+                            </h5>
+                            <p className="text-muted mb-2">{job.company}</p>
+                            <div className="d-flex flex-wrap gap-2">
+                              <span className="job-badge job-badge-primary">
+                                <i className="bi bi-geo-alt"></i> {job.location}
+                              </span>
+                              <span className="job-badge job-badge-success">
+                                <i className="bi bi-briefcase"></i> {job.type}
+                              </span>
+                              <span className="job-badge job-badge-primary">
+                                <i className="bi bi-tag"></i> {job.category}
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="col-md-4 text-md-end mt-3 mt-md-0">
+                        <h6 className="text-primary mb-2">{job.salary}</h6>
+                        <Link to={`/jobs/${job.id}`} className="btn btn-primary">
+                          ดูรายละเอียด <i className="bi bi-arrow-right"></i>
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+
+                {filteredJobs.length === 0 && (
+                  <div className="text-center py-5">
+                    <i className="bi bi-inbox" style={{ fontSize: '4rem', color: '#9ca3af' }}></i>
+                    <h5 className="mt-3 text-muted">ไม่พบงานที่ตรงกับเงื่อนไข</h5>
+                    <p className="text-muted">ลองเปลี่ยนเงื่อนไขการค้นหา</p>
+                  </div>
+                )}
               </div>
             </div>
-          )}
-
-          {/* Active Filters */}
-          {hasActiveFilters && (
-            <div className="pt-4 border-t border-gray-200 flex items-center gap-2 flex-wrap">
-              <span className="text-sm text-gray-600">ฟิลเตอร์ที่ใช้:</span>
-              {searchQuery && (
-                <span className="inline-flex items-center gap-1 px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm">
-                  {searchQuery}
-                  <button onClick={() => { setSearchQuery(''); handleSearch(); }}>
-                    <X className="w-3 h-3" />
-                  </button>
-                </span>
-              )}
-              {location && (
-                <span className="inline-flex items-center gap-1 px-3 py-1 bg-pink-100 text-pink-700 rounded-full text-sm">
-                  {location}
-                  <button onClick={() => { setLocation(''); handleSearch(); }}>
-                    <X className="w-3 h-3" />
-                  </button>
-                </span>
-              )}
-              {selectedCategory && (
-                <span className="inline-flex items-center gap-1 px-3 py-1 bg-cyan-100 text-cyan-700 rounded-full text-sm">
-                  {selectedCategory}
-                  <button onClick={() => { setSelectedCategory(''); handleSearch(); }}>
-                    <X className="w-3 h-3" />
-                  </button>
-                </span>
-              )}
-              {selectedType && (
-                <span className="inline-flex items-center gap-1 px-3 py-1 bg-yellow-100 text-yellow-700 rounded-full text-sm">
-                  {jobTypes.find(t => t.value === selectedType)?.label}
-                  <button onClick={() => { setSelectedType(''); handleSearch(); }}>
-                    <X className="w-3 h-3" />
-                  </button>
-                </span>
-              )}
-              <button
-                onClick={clearFilters}
-                className="text-sm text-red-600 hover:text-red-700 font-medium ml-2"
-              >
-                ล้างทั้งหมด
-              </button>
-            </div>
-          )}
+          </div>
         </div>
-
-        {/* Job List */}
-        {loading ? (
-          <div className="flex items-center justify-center py-20">
-            <Loader2 className="w-8 h-8 animate-spin text-purple-600" />
-          </div>
-        ) : jobs.length === 0 ? (
-          <div className="text-center py-20">
-            <Briefcase className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">ไม่พบตำแหน่งงาน</h3>
-            <p className="text-gray-600 mb-6">ลองปรับเปลี่ยนเงื่อนไขการค้นหาดูนะคะ</p>
-            <Button onClick={clearFilters} variant="outline">
-              ล้างฟิลเตอร์
-            </Button>
-          </div>
-        ) : (
-          <div className="grid gap-6">
-            {jobs.map((job) => (
-              <JobCard key={job.id} job={job} />
-            ))}
-          </div>
-        )}
-      </div>
-    </div>
+      </section>
+    </>
   );
 }

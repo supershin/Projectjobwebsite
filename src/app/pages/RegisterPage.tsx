@@ -6,7 +6,7 @@ import { Input } from '../components/ui/input';
 import { Briefcase, Mail, Lock, User, Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
 
-export function RegisterPage() {
+export default function RegisterPage() {
   const navigate = useNavigate();
   const { register } = useAuth();
   const [name, setName] = useState('');
