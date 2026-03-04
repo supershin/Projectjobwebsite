@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JobHub - เริ่มต้นที่นี่</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        .container {
+            max-width: 900px;
+        }
+        .card {
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            border: none;
+        }
+        .card-header {
+            background: linear-gradient(135deg, #1e3a8a 0%, #7c3aed 100%);
+            color: white;
+            border-radius: 20px 20px 0 0 !important;
+            padding: 2rem;
+        }
+        .card-body {
+            padding: 2rem;
+        }
+        h1 {
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+        .badge {
+            font-size: 0.9rem;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+        }
+        .list-group-item {
+            border: none;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 1.25rem;
+            transition: all 0.3s ease;
+        }
+        .list-group-item:hover {
+            background: #f3f4f6;
+            transform: translateX(10px);
+        }
+        .list-group-item:last-child {
+            border-bottom: none;
+        }
+        .btn-custom {
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .btn-custom:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        .alert-info {
+            border-radius: 15px;
+            border: none;
+            background: linear-gradient(135deg, #e0f2fe 0%, #ddd6fe 100%);
+        }
+        .method-card {
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border: 2px solid #e5e7eb;
+            transition: all 0.3s ease;
+        }
+        .method-card:hover {
+            border-color: #7c3aed;
+            box-shadow: 0 5px 15px rgba(124, 58, 237, 0.2);
+        }
+        .method-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #7c3aed, #ec4899);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 1rem;
+        }
+        code {
+            background: #1f2937;
+            color: #10b981;
+            padding: 0.25rem 0.5rem;
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="card-header text-center">
+                <h1><i class="bi bi-briefcase-fill"></i> JobHub</h1>
+                <p class="mb-0">เว็บไซต์สมัครงานสำหรับคนรุ่นใหม่</p>
+                <span class="badge bg-success mt-2"><i class="bi bi-check-circle"></i> ระบบพร้อมใช้งาน</span>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-info mb-4">
+                    <h5><i class="bi bi-info-circle"></i> วิธีเปิด Preview</h5>
+                    <p class="mb-0">เนื่องจากเว็บไซต์ใช้ external CSS และ JavaScript ต้องเปิดผ่าน <strong>Web Server</strong> เท่านั้น (ไม่สามารถเปิดแบบ file:// ได้)</p>
+                </div>
+
+                <h5 class="mb-3"><i class="bi bi-rocket-takeoff"></i> วิธีเปิดดู (เลือก 1 วิธี)</h5>
+
+                <div class="method-card">
+                    <div class="d-flex align-items-start">
+                        <div class="method-number">1</div>
+                        <div>
+                            <h6 class="fw-bold mb-2">VS Code + Live Server (แนะนำ)</h6>
+                            <ol class="mb-0">
+                                <li>เปิด VS Code</li>
+                                <li>ติดตั้ง Extension: <code>Live Server</code> by Ritwick Dey</li>
+                                <li>คลิกขวาที่ <code>index.html</code></li>
+                                <li>เลือก "Open with Live Server"</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="method-card">
+                    <div class="d-flex align-items-start">
+                        <div class="method-number">2</div>
+                        <div>
+                            <h6 class="fw-bold mb-2">Visual Studio 2022</h6>
+                            <ol class="mb-0">
+                                <li>เปิด Visual Studio 2022</li>
+                                <li>File → Open → Folder → เลือก folder <code>public</code></li>
+                                <li>คลิกที่ปุ่ม "Open in Browser" หรือกด <code>Ctrl + Shift + W</code></li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="method-card">
+                    <div class="d-flex align-items-start">
+                        <div class="method-number">3</div>
+                        <div>
+                            <h6 class="fw-bold mb-2">Python Simple HTTP Server</h6>
+                            <p class="mb-2">เปิด Terminal/CMD ที่ folder <code>public</code> แล้วรัน:</p>
+                            <code>python -m http.server 8000</code>
+                            <p class="mt-2 mb-0">จากนั้นเปิดเบราว์เซอร์: <code>http://localhost:8000</code></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="method-card">
+                    <div class="d-flex align-items-start">
+                        <div class="method-number">4</div>
+                        <div>
+                            <h6 class="fw-bold mb-2">Node.js http-server</h6>
+                            <p class="mb-2">เปิด Terminal/CMD ที่ folder <code>public</code> แล้วรัน:</p>
+                            <code>npx http-server -p 8000</code>
+                            <p class="mt-2 mb-0">จากนั้นเปิดเบราว์เซอร์: <code>http://localhost:8000</code></p>
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="my-4">
+
+                <h5 class="mb-3"><i class="bi bi-folder"></i> หน้าเว็บทั้งหมด</h5>
+                <div class="list-group">
+                    <a href="index.html" class="list-group-item list-group-item-action">
+                        <i class="bi bi-house-door text-primary"></i> 
+                        <strong>index.html</strong> - หน้าแรก
+                    </a>
+                    <a href="jobs.html" class="list-group-item list-group-item-action">
+                        <i class="bi bi-briefcase text-success"></i> 
+                        <strong>jobs.html</strong> - งานทั้งหมด
+                    </a>
+                    <a href="job-detail.html?id=1" class="list-group-item list-group-item-action">
+                        <i class="bi bi-file-text text-info"></i> 
+                        <strong>job-detail.html</strong> - รายละเอียดงาน
+                    </a>
+                    <a href="login.html" class="list-group-item list-group-item-action">
+                        <i class="bi bi-box-arrow-in-right text-warning"></i> 
+                        <strong>login.html</strong> - เข้าสู่ระบบ
+                    </a>
+                    <a href="register.html" class="list-group-item list-group-item-action">
+                        <i class="bi bi-person-plus text-danger"></i> 
+                        <strong>register.html</strong> - สมัครสมาชิก
+                    </a>
+                    <a href="post-job.html" class="list-group-item list-group-item-action">
+                        <i class="bi bi-plus-circle text-primary"></i> 
+                        <strong>post-job.html</strong> - ประกาศงาน
+                    </a>
+                    <a href="dashboard.html" class="list-group-item list-group-item-action">
+                        <i class="bi bi-speedometer2 text-success"></i> 
+                        <strong>dashboard.html</strong> - Dashboard
+                    </a>
+                </div>
+
+                <hr class="my-4">
+
+                <div class="alert alert-warning">
+                    <h6><i class="bi bi-key"></i> ข้อมูลทดสอบ (Demo Accounts)</h6>
+                    <p class="mb-2"><strong>ผู้หางาน:</strong></p>
+                    <ul class="mb-2">
+                        <li>Email: <code>user@test.com</code></li>
+                        <li>Password: <code>password123</code></li>
+                    </ul>
+                    <p class="mb-2"><strong>นายจ้าง:</strong></p>
+                    <ul class="mb-0">
+                        <li>Email: <code>employer@test.com</code></li>
+                        <li>Password: <code>password123</code></li>
+                    </ul>
+                </div>
+
+                <div class="text-center mt-4">
+                    <a href="index.html" class="btn btn-primary btn-custom btn-lg">
+                        <i class="bi bi-rocket"></i> เริ่มต้นใช้งาน JobHub
+                    </a>
+                </div>
+
+                <div class="text-center mt-3">
+                    <small class="text-muted">
+                        <i class="bi bi-code-slash"></i> 
+                        พัฒนาด้วย HTML, CSS, jQuery + Bootstrap 5 | 
+                        พร้อมเชื่อมต่อ .NET 8 MVC API
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -5,6 +5,16 @@
 // API Configuration
 const API_BASE_URL = '/api'; // เปลี่ยนเป็น URL ของ .NET API ของคุณ
 
+// Navbar Scroll Effect
+$(window).on('scroll', function() {
+    const navbar = $('.navbar');
+    if ($(window).scrollTop() > 50) {
+        navbar.addClass('scrolled');
+    } else {
+        navbar.removeClass('scrolled');
+    }
+});
+
 // Check if user is logged in
 function isLoggedIn() {
     return localStorage.getItem('user') !== null;
