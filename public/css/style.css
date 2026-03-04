@@ -233,6 +233,50 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ========================================
+   Language Switcher
+   ======================================== */
+.language-switcher .dropdown-menu {
+    background: rgba(15, 15, 35, 0.95);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    min-width: 180px;
+}
+
+.language-switcher .dropdown-item {
+    color: rgba(255, 255, 255, 0.85);
+    padding: 0.75rem 1rem;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+}
+
+.language-switcher .dropdown-item:hover {
+    background: rgba(124, 58, 237, 0.2);
+    color: var(--white);
+}
+
+.language-switcher .dropdown-item.active {
+    background: rgba(124, 58, 237, 0.3);
+    color: var(--white);
+}
+
+.language-switcher .dropdown-item i {
+    font-size: 0.9rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.language-switcher .dropdown-item.active i {
+    opacity: 1;
+}
+
+.current-lang-text {
+    margin-left: 0.25rem;
+    font-weight: 600;
+}
+
+/* ========================================
    Hero Section
    ======================================== */
 .hero-section {
