@@ -25,16 +25,16 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="index.html">หน้าแรก</a>
+                        <a class="nav-link" href="index.html" data-i18n="nav.home">หน้าแรก</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="jobs.html">งานทั้งหมด</a>
+                        <a class="nav-link" href="jobs.html" data-i18n="nav.jobs">งานทั้งหมด</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="login.html">เข้าสู่ระบบ</a>
+                        <a class="nav-link" href="login.html" data-i18n="nav.login">เข้าสู่ระบบ</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link btn btn-primary-custom ms-2" href="register.html">สมัครสมาชิก</a>
+                        <a class="nav-link btn btn-primary-custom ms-2" href="register.html" data-i18n="nav.register">สมัครสมาชิก</a>
                     </li>
                 </ul>
             </div>
@@ -49,7 +49,7 @@
                 <div class="col-lg-8">
                     <!-- Back Button -->
                     <a href="jobs.html" class="btn btn-link mb-3 ps-0">
-                        <i class="bi bi-arrow-left"></i> กลับไปหน้างานทั้งหมด
+                        <i class="bi bi-arrow-left"></i> <span data-i18n="job-detail.back">กลับไปหน้างานทั้งหมด</span>
                     </a>
 
                     <!-- Job Header Card -->
@@ -70,14 +70,14 @@
                             <div class="d-flex align-items-center justify-content-between">
                                 <div>
                                     <h4 class="text-gradient mb-0" id="jobSalary">-</h4>
-                                    <small class="text-muted">ต่อเดือน</small>
+                                    <small class="text-muted" data-i18n="job-detail.per-month">ต่อเดือน</small>
                                 </div>
                                 <div class="d-flex gap-2">
                                     <button class="btn btn-outline-primary" id="saveJobBtn">
-                                        <i class="bi bi-bookmark"></i> บันทึก
+                                        <i class="bi bi-bookmark"></i> <span data-i18n="job-detail.save">บันทึก</span>
                                     </button>
                                     <button class="btn btn-primary-custom" data-bs-toggle="modal" data-bs-target="#applyModal">
-                                        <i class="bi bi-send"></i> สมัครงาน
+                                        <i class="bi bi-send"></i> <span data-i18n="job-detail.apply">สมัครงาน</span>
                                     </button>
                                 </div>
                             </div>
@@ -87,7 +87,7 @@
                     <!-- Job Description -->
                     <div class="card shadow-sm mb-4">
                         <div class="card-body p-4">
-                            <h4 class="fw-bold mb-3">รายละเอียดงาน</h4>
+                            <h4 class="fw-bold mb-3" data-i18n="job-detail.description">รายละเอียดงาน</h4>
                             <div id="jobDescription" class="text-muted">
                                 กำลังโหลด...
                             </div>
@@ -97,7 +97,7 @@
                     <!-- Requirements -->
                     <div class="card shadow-sm mb-4">
                         <div class="card-body p-4">
-                            <h4 class="fw-bold mb-3">คุณสมบัติที่ต้องการ</h4>
+                            <h4 class="fw-bold mb-3" data-i18n="job-detail.requirements">คุณสมบัติที่ต้องการ</h4>
                             <ul id="jobRequirements" class="list-unstyled">
                                 <li class="mb-2 text-muted">กำลังโหลด...</li>
                             </ul>
@@ -107,7 +107,7 @@
                     <!-- Benefits -->
                     <div class="card shadow-sm mb-4">
                         <div class="card-body p-4">
-                            <h4 class="fw-bold mb-3">สวัสดิการ</h4>
+                            <h4 class="fw-bold mb-3" data-i18n="job-detail.benefits">สวัสดิการ</h4>
                             <div id="jobBenefits" class="d-flex flex-wrap gap-2">
                                 <span class="badge badge-custom">กำลังโหลด...</span>
                             </div>
@@ -120,30 +120,30 @@
                     <!-- Job Info Card -->
                     <div class="card shadow-sm mb-4 sticky-top" style="top: 100px;">
                         <div class="card-body p-4">
-                            <h5 class="fw-bold mb-3">ข้อมูลงาน</h5>
+                            <h5 class="fw-bold mb-3" data-i18n="job-detail.job-info">ข้อมูลงาน</h5>
                             <ul class="list-unstyled">
                                 <li class="mb-3">
-                                    <div class="text-muted small">วันที่ประกาศ</div>
+                                    <div class="text-muted small" data-i18n="job-detail.posted-date">วันที่ประกาศ</div>
                                     <div class="fw-semibold" id="postedDate">-</div>
                                 </li>
                                 <li class="mb-3">
-                                    <div class="text-muted small">วันหมดเขต</div>
+                                    <div class="text-muted small" data-i18n="job-detail.expiry-date">วันหมดเขต</div>
                                     <div class="fw-semibold" id="expiryDate">-</div>
                                 </li>
                                 <li class="mb-3">
-                                    <div class="text-muted small">ผู้สมัครทั้งหมด</div>
+                                    <div class="text-muted small" data-i18n="job-detail.applicants">ผู้สมัครทั้งหมด</div>
                                     <div class="fw-semibold">
                                         <i class="bi bi-people-fill text-primary"></i> 
-                                        <span id="applicantsCount">0</span> คน
+                                        <span id="applicantsCount">0</span> <span data-i18n="job-detail.people">คน</span>
                                     </div>
                                 </li>
                                 <li class="mb-3">
-                                    <div class="text-muted small">สถานะ</div>
+                                    <div class="text-muted small" data-i18n="job-detail.status">สถานะ</div>
                                     <span class="badge bg-success" id="jobStatus">-</span>
                                 </li>
                             </ul>
                             <button class="btn btn-primary-custom w-100" data-bs-toggle="modal" data-bs-target="#applyModal">
-                                <i class="bi bi-send"></i> สมัครงานตอนนี้
+                                <i class="bi bi-send"></i> <span data-i18n="job-detail.apply-now">สมัครงานตอนนี้</span>
                             </button>
                         </div>
                     </div>
@@ -151,7 +151,7 @@
                     <!-- Share Card -->
                     <div class="card shadow-sm">
                         <div class="card-body p-4">
-                            <h6 class="fw-bold mb-3">แชร์งานนี้</h6>
+                            <h6 class="fw-bold mb-3" data-i18n="job-detail.share-job">แชร์งานนี้</h6>
                             <div class="d-flex gap-2">
                                 <button class="btn btn-outline-primary flex-fill" onclick="shareOnFacebook()">
                                     <i class="bi bi-facebook"></i>
@@ -178,39 +178,39 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header border-0">
-                    <h5 class="modal-title fw-bold" id="applyModalLabel">สมัครงาน</h5>
+                    <h5 class="modal-title fw-bold" id="applyModalLabel" data-i18n="job-detail.apply-modal-title">สมัครงาน</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form id="applyForm">
                         <div class="mb-3">
-                            <label for="applicantName" class="form-label">ชื่อ-นามสกุล</label>
+                            <label for="applicantName" class="form-label" data-i18n="job-detail.applicant-name">ชื่อ-นามสกุล</label>
                             <input type="text" class="form-control" id="applicantName" required>
                         </div>
                         <div class="mb-3">
-                            <label for="applicantEmail" class="form-label">อีเมล</label>
+                            <label for="applicantEmail" class="form-label" data-i18n="job-detail.applicant-email">อีเมล</label>
                             <input type="email" class="form-control" id="applicantEmail" required>
                         </div>
                         <div class="mb-3">
-                            <label for="applicantPhone" class="form-label">เบอร์โทรศัพท์</label>
+                            <label for="applicantPhone" class="form-label" data-i18n="job-detail.applicant-phone">เบอร์โทรศัพท์</label>
                             <input type="tel" class="form-control" id="applicantPhone" required>
                         </div>
                         <div class="mb-3">
-                            <label for="resumeFile" class="form-label">อัพโหลดเรซูเม่ (PDF)</label>
+                            <label for="resumeFile" class="form-label" data-i18n="job-detail.resume-upload">อัพโหลดเรซูเม่ (PDF)</label>
                             <input type="file" class="form-control" id="resumeFile" accept=".pdf" required>
                         </div>
                         <div class="mb-3">
-                            <label for="coverLetter" class="form-label">จดหมายสมัครงาน</label>
-                            <textarea class="form-control" id="coverLetter" rows="4" placeholder="แนะนำตัวและเหตุผลที่สนใจตำแหน่งนี้..."></textarea>
+                            <label for="coverLetter" class="form-label" data-i18n="job-detail.cover-letter">จดหมายสมัครงาน</label>
+                            <textarea class="form-control" id="coverLetter" rows="4" data-i18n-placeholder="job-detail.cover-letter-placeholder"></textarea>
                         </div>
                         <div class="alert alert-info">
-                            <i class="bi bi-info-circle"></i> คุณต้องเข้าสู่ระบบก่อนสมัครงาน
+                            <i class="bi bi-info-circle"></i> <span data-i18n="job-detail.login-required">คุณต้องเข้าสู่ระบบก่อนสมัครงาน</span>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer border-0">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก</button>
-                    <button type="button" class="btn btn-primary-custom" onclick="submitApplication()">ส่งใบสมัคร</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-i18n="job-detail.cancel">ยกเลิก</button>
+                    <button type="button" class="btn btn-primary-custom" onclick="submitApplication()" data-i18n="job-detail.submit">ส่งใบสมัคร</button>
                 </div>
             </div>
         </div>
@@ -250,6 +250,9 @@
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Translation System -->
+    <script src="./js/translations.js"></script>
+    <script src="./js/language.js"></script>
     <!-- Custom JS -->
     <script src="./js/main.js"></script>
     <script src="./js/job-detail.js"></script>

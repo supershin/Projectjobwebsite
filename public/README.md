@@ -1,381 +1,257 @@
-# JobHub - Modern Job Portal
+# JobHub - เว็บไซต์สมัครงานสำหรับคน Gen Z 🚀
 
-เว็บไซต์สมัครงานสไตล์ Gen Z ที่ทันสมัย พัฒนาด้วย HTML, CSS, Bootstrap 5 และ jQuery
+## 📋 ภาพรวมโปรเจ็กต์
+
+JobHub เป็นเว็บไซต์สมัครงานออนไลน์ที่ทันสมัย รองรับทุกอุปกรณ์ (Mobile, Tablet, Notebook, PC Desktop) พร้อมระบบ Multi-Language (ไทย-อังกฤษ) และ Theme ที่เหมาะกับคน Gen Z
+
+## ✨ ฟีเจอร์หลัก
+
+### 1. ระบบผู้ใช้งาน 3 ระดับ
+- **User ทั่วไป** - ค้นหางาน, สมัครงาน, บันทึกงาน
+- **User Employer** - ลงประกาศงาน, จัดการตำแหน่งงาน, ดูผู้สมัคร
+- **Admin** - จัดการระบบทั้งหมด
+
+### 2. ฟังก์ชันการทำงาน
+- ✅ ระบบค้นหางานแบบ Advanced (ตามตำแหน่ง, สถานที่, หมวดหมู่)
+- ✅ ระบบกรองและเรียงลำดับงาน
+- ✅ ระบบสมัครงานพร้อมอัพโหลด Resume (PDF)
+- ✅ ระบบบันทึกงานที่สนใจ
+- ✅ ระบบแชร์งานผ่าน Social Media (Facebook, Twitter, LINE)
+- ✅ ระบบลงประกาศงานสำหรับนายจ้าง
+- ✅ ระบบ Dashboard แยกตามประเภทผู้ใช้
+- ✅ ระบบ Multi-Language (Thai-English)
+- ✅ ระบบแสดงสวัสดิการด้วย Badge ที่สวยงาม
+
+### 3. ข้อมูลที่จัดเก็บ
+- ข้อมูลผู้ใช้งาน (User profiles)
+- ข้อมูลตำแหน่งงาน (Job listings)
+- ข้อมูลการสมัครงาน (Applications)
+- ข้อมูล Resume files
+- ข้อมูลนายจ้าง (Employer information)
+- ระบบคิดค่าบริการต่อ 1 post
+
+## 🎨 Design & Theme
+
+### สีหลัก (Gen Z Vibrant)
+- **Primary**: Purple Gradient (#667eea → #764ba2)
+- **Secondary**: Pink (#ec4899)
+- **Accent**: Amber (#f59e0b), Cyan (#06b6d4), Lime (#84cc16)
+
+### Gradients สุดเท่
+- Gradient Cyber: Blue → Purple → Pink
+- Gradient Sunset: Red → Yellow → Blue
+- Gradient Neon: Pink → Orange → Cyan
+
+### Typography
+- **Primary Font**: Inter (สำหรับ Body text)
+- **Secondary Font**: Poppins (สำหรับ Headings)
 
 ## 📁 โครงสร้างไฟล์
 
 ```
 public/
-├── index.html              # หน้าแรก
-├── jobs.html               # หน้าค้นหางาน
-├── job-detail.html         # หน้ารายละเอียดงาน
-├── login.html              # หน้าเข้าสู่ระบบ
-├── register.html           # หน้าสมัครสมาชิก
-├── dashboard.html          # หน้า Dashboard (3 user roles)
-├── post-job.html           # หน้าประกาศงาน (สำหรับนายจ้าง)
 ├── css/
-│   └── style.css           # CSS หลัก (Gen Z Theme)
+│   └── style.css              # Main stylesheet with Gen Z theme
 ├── js/
-│   ├── main.js             # JavaScript หลัก (API, Utils)
-│   ├── home.js             # JavaScript หน้าแรก
-│   ├── jobs.js             # JavaScript หน้าค้นหางาน
-│   ├── job-detail.js       # JavaScript หน้ารายละเอียด
-│   ├── auth.js             # JavaScript Authentication
-│   ├── dashboard.js        # JavaScript Dashboard
-│   └── post-job.js         # JavaScript ประกาศงาน
-└── data/
-    └── jobs.json           # Mock data งาน
+│   ├── main.js                # Core JavaScript functions
+│   ├── auth.js                # Authentication system
+│   ├── home.js                # Homepage functionality
+│   ├── jobs.js                # Jobs listing page
+│   ├── job-detail.js          # Job detail page
+│   ├── post-job.js            # Post job page
+│   ├── dashboard.js           # Dashboard functionality
+│   ├── translations.js        # Multi-language translations
+│   └── language.js            # Language manager system
+├── data/
+│   └── jobs.json              # Mock job data
+├── index.html                 # Homepage
+├── jobs.html                  # Jobs listing page
+├── job-detail.html            # Job detail page (Multi-lang ready ✅)
+├── login.html                 # Login page
+├── register.html              # Register page
+├── post-job.html              # Post job page (for employers)
+├── dashboard.html             # Dashboard page
+└── README.md                  # This file
 ```
 
-## 🚀 ฟีเจอร์หลัก
+## 🌐 ระบบ Multi-Language
 
-### 1. ระบบ 3 User Roles
-- **User (ผู้หางาน)**: ค้นหางาน, สมัครงาน, ดูสถานะใบสมัคร, บันทึกงาน
-- **Employer (นายจ้าง)**: ประกาศงาน, ดูใบสมัคร, จัดการงาน, ชำระเงิน
-- **Admin (ผู้ดูแลระบบ)**: จัดการผู้ใช้, งานทั้งหมด, ดูรายงาน, จัดการการชำระเงิน
+### การทำงาน
+ระบบรองรับ 2 ภาษา: **ไทย (TH)** และ **อังกฤษ (EN)**
 
-### 2. ระบบจัดการงาน
-- ค้นหางานด้วยฟิลเตอร์หลายแบบ (หมวดหมู่, ประเภท, สถานที่, เงินเดือน)
-- แสดงรายละเอียดงานแบบละเอียด
-- ระบบสมัครงานพร้อมอัพโหลด Resume
-- แชร์งานผ่าน Social Media
-
-### 3. ระบบประกาศงาน (สำหรับนายจ้าง)
-- ฟอร์มประกาศงานที่ครบถ้วน
-- ระบบชำระเงิน 299 บาท/ตำแหน่ง
-- บันทึกแบบร่างก่อนประกาศ
-- จัดการงานที่ประกาศ
-
-### 4. Dashboard แยกตาม Role
-- User Dashboard: ดูใบสมัคร, งานที่บันทึก, สถิติ
-- Employer Dashboard: จัดการงาน, ดูผู้สมัคร, สถิติการดู
-- Admin Dashboard: สถิติทั้งระบบ, จัดการผู้ใช้, รายงาน
-
-### 5. Responsive Design
-- รองรับทุกอุปกรณ์ (Mobile, Tablet, Desktop)
-- Bootstrap 5 Grid System
-- Mobile-First Approach
-
-## 🎨 Design Features
-
-### Gen Z Theme
-- สีสันสดใส (Purple Gradient)
-- Typography ทันสมัย (Inter Font)
-- Micro-interactions
-- Glass-morphism Effects
-- Smooth Animations
-
-### UI Components
-- Modern Cards
-- Gradient Buttons
-- Custom Badges
-- Responsive Navigation
-- Modal Dialogs
-- Form Validations
-
-## 💻 การติดตั้ง
-
-### วิธีที่ 1: ใช้กับ .NET 8 MVC
-
-1. คัดลอกโฟลเดอร์ `public/` ไปที่โปรเจค .NET ของคุณ:
-```
-YourProject/
-├── wwwroot/
-│   ├── index.html
-│   ├── jobs.html
-│   ├── ...
-│   ├── css/
-│   ├── js/
-│   └── data/
-```
-
-2. เปิดไฟล์ `js/main.js` และแก้ไข API_BASE_URL:
-```javascript
-const API_BASE_URL = '/api'; // หรือ URL API ของคุณ
-```
-
-3. สร้าง API Controllers ใน .NET ตาม API Documentation (ดูด้านล่าง)
-
-### วิธีที่ 2: ทดสอบแบบ Static Files
-
-1. เปิดไฟล์ `index.html` ด้วย Live Server หรือ Web Server
-2. ระบบจะใช้ Mock Data จากไฟล์ `data/jobs.json`
-
-## 🔑 บัญชีทดสอบ (Demo Accounts)
-
-สามารถใช้บัญชีเหล่านี้เพื่อทดสอบระบบ:
-
-| ประเภท | Email | Password | คำอธิบาย |
-|--------|-------|----------|----------|
-| User | user@demo.com | demo123 | ผู้หางานทั่วไป |
-| Employer | employer@demo.com | demo123 | นายจ้าง/บริษัท |
-| Admin | admin@demo.com | demo123 | ผู้ดูแลระบบ |
-
-## 📡 API Endpoints (.NET MVC)
-
-### Authentication
-```
-POST /api/auth/login
-POST /api/auth/register
-POST /api/auth/logout
-GET  /api/auth/me
-```
-
-### Jobs
-```
-GET    /api/jobs              # ดึงงานทั้งหมด (รองรับ filters)
-GET    /api/jobs/{id}         # ดึงงานตาม ID
-POST   /api/jobs              # สร้างงานใหม่
-PUT    /api/jobs/{id}         # แก้ไขงาน
-DELETE /api/jobs/{id}         # ลบงาน
-GET    /api/jobs/my           # งานของ Employer
-```
-
-### Applications (Resume)
-```
-GET  /api/applications/my           # ใบสมัครของ User
-POST /api/applications              # สมัครงาน
-GET  /api/applications/job/{jobId}  # ใบสมัครของงานนั้นๆ
-PUT  /api/applications/{id}/status  # อัพเดทสถานะใบสมัคร
-```
-
-### Payments
-```
-GET  /api/payments/my          # การชำระเงินของ Employer
-POST /api/payments/process     # ชำระเงิน
-GET  /api/payments/all         # ทั้งหมด (Admin)
-```
-
-### Admin
-```
-GET  /api/admin/users          # ผู้ใช้ทั้งหมด
-PUT  /api/admin/users/{id}     # แก้ไขผู้ใช้
-GET  /api/admin/stats          # สถิติระบบ
-```
-
-## 🗂️ JSON Data Structure
-
-### Job Object
-```json
-{
-  "id": "string",
-  "title": "string",
-  "company": "string",
-  "companyLogo": "string (URL)",
-  "location": "string",
-  "type": "full-time|part-time|contract|freelance|internship",
-  "category": "string",
-  "salary": "string",
-  "description": "string",
-  "requirements": ["string"],
-  "benefits": ["string"],
-  "employerId": "string",
-  "employerName": "string",
-  "postedDate": "ISO 8601 date",
-  "expiryDate": "ISO 8601 date",
-  "status": "active|closed|draft",
-  "applicantsCount": number
-}
-```
-
-### User Object
-```json
-{
-  "id": "string",
-  "name": "string",
-  "email": "string",
-  "phone": "string",
-  "role": "user|employer|admin",
-  "avatar": "string (URL)",
-  "createdAt": "ISO 8601 date"
-}
-```
-
-### Application Object
-```json
-{
-  "id": "string",
-  "userId": "string",
-  "jobId": "string",
-  "fileName": "string",
-  "fileUrl": "string",
-  "coverLetter": "string",
-  "status": "pending|reviewed|accepted|rejected",
-  "submittedAt": "ISO 8601 date"
-}
-```
-
-### Payment Object
-```json
-{
-  "id": "string",
-  "employerId": "string",
-  "jobId": "string",
-  "amount": number,
-  "currency": "THB",
-  "status": "pending|completed|failed",
-  "paymentDate": "ISO 8601 date",
-  "paymentMethod": "string"
-}
-```
-
-## 🔧 การปรับแต่ง
-
-### เปลี่ยนสี Theme
-แก้ไขไฟล์ `css/style.css`:
-```css
-:root {
-    --primary-color: #6366f1;      /* สีหลัก */
-    --secondary-color: #ec4899;     /* สีรอง */
-    --accent-color: #f59e0b;        /* สีเน้น */
-}
-```
-
-### เปลี่ยน Logo และชื่อ
-แก้ไขในทุกไฟล์ HTML:
+### การใช้งาน
+1. **HTML Elements**: ใช้ `data-i18n` attribute
 ```html
-<a class="navbar-brand fw-bold" href="index.html">
-    <i class="bi bi-briefcase-fill"></i> ชื่อเว็บไซต์ของคุณ
-</a>
+<h1 data-i18n="hero.title">ค้นหางานที่ใช่</h1>
 ```
 
-### เพิ่มหมวดหมู่งาน
-แก้ไขในไฟล์:
-- `index.html` (Categories Section)
-- `jobs.html` (Category Filter)
-- `post-job.html` (Category Select)
+2. **Placeholders**: ใช้ `data-i18n-placeholder`
+```html
+<input data-i18n-placeholder="hero.search.placeholder">
+```
 
-## 📱 การทำงานของแต่ละหน้า
+3. **JavaScript**: ใช้ฟังก์ชัน `t()`
+```javascript
+const text = window.t('job-detail.apply');
+```
 
-### 1. index.html (หน้าแรก)
-- Hero Section พร้อมช่องค้นหา
-- แสดงหมวดหมู่ยอดนิยม
-- แสดงงานแนะนำ 6 อันดับแรก
-- ฟีเจอร์ของเว็บไซต์
-- Call-to-Action
+### การเพิ่ม Translation ใหม่
+แก้ไขไฟล์ `/public/js/translations.js`:
+```javascript
+const translations = {
+    th: {
+        'new.key': 'ข้อความภาษาไทย'
+    },
+    en: {
+        'new.key': 'English text'
+    }
+};
+```
 
-### 2. jobs.html (หน้าค้นหางาน)
-- Sidebar กรองงาน
-- แสดงงานทั้งหมดแบบ Card
-- Pagination
-- Sort (ใหม่ล่าสุด, เงินเดือน)
+## 🎯 หน้า Job Detail (ล่าสุด)
 
-### 3. job-detail.html (หน้ารายละเอียด)
-- แสดงข้อมูลงานแบบละเอียด
-- ปุ่มสมัครงาน
-- ปุ่มบันทึกงาน
-- ปุ่มแชร์ Social Media
-- Sidebar ข้อมูลงาน
+### ฟีเจอร์ที่มี
+- ✅ แสดงรายละเอียดงานครบถ้วน
+- ✅ แสดงสวัสดิการด้วย Badge สีสวย (Gradient Purple-Pink)
+- ✅ ระบบ Multi-Language ครบทุก Element
+- ✅ ฟอร์มสมัครงานพร้อม Upload Resume
+- ✅ การแชร์งานผ่าน Social Media
+- ✅ ระบบบันทึกงาน (Save Job)
+- ✅ Responsive Design สำหรับทุกอุปกรณ์
 
-### 4. login.html (เข้าสู่ระบบ)
-- ฟอร์ม Login
-- จำฉันไว้
-- Social Login (UI)
-- ลิงก์ไปหน้าสมัครสมาชิก
+### Translation Keys สำหรับ Job Detail
+```javascript
+// ตัวอย่าง Translation Keys ที่มี
+'job-detail.apply'              // สมัครงานนี้ / Apply for this Job
+'job-detail.save'               // บันทึก / Save
+'job-detail.back'               // กลับไปหน้างานทั้งหมด / Back to All Jobs
+'job-detail.per-month'          // ต่อเดือน / per month
+'job-detail.description'        // รายละเอียดงาน / Job Description
+'job-detail.requirements'       // คุณสมบัติที่ต้องการ / Requirements
+'job-detail.benefits'           // สวัสดิการ / Benefits
+'job-detail.posted-date'        // วันที่ประกาศ / Posted Date
+'job-detail.applicants'         // ผู้สมัครทั้งหมด / Total Applicants
+// ... และอีกมากมาย
+```
 
-### 5. register.html (สมัครสมาชิก)
-- เลือกประเภทบัญชี (User/Employer)
-- ฟอร์มสมัครสมาชิก
-- ยอมรับเงื่อนไข
-- Social Register (UI)
+## 🎨 สไตล์ Badge สวัสดิการ
 
-### 6. dashboard.html (Dashboard)
-- แสดงเนื้อหาตาม Role
-- Sidebar Menu
-- Stats Cards
-- ตารางข้อมูล
-- Charts (Chart.js)
+Badge ในหน้า Job Detail ใช้ Gradient สีม่วง-ชมพูที่มองเห็นชัดบนพื้นขาว:
 
-### 7. post-job.html (ประกาศงาน)
-- ฟอร์มประกาศงาน
-- เพิ่ม/ลบคุณสมบัติ
-- เพิ่ม/ลบสวัสดิการ
-- Modal ชำระเงิน
-- บันทึกแบบร่าง
+```css
+.job-detail-content .badge-custom {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: var(--white);
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-full);
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: var(--transition);
+    box-shadow: 0 2px 8px rgba(124, 58, 237, 0.2);
+}
+```
 
-## 📦 Dependencies
+## 🔧 การพัฒนาต่อ
 
-### CSS Frameworks
-- Bootstrap 5.3.0
-- Bootstrap Icons 1.11.0
-- Google Fonts (Inter)
+### 1. การเชื่อมต่อ Backend (.NET 8 MVC)
+เตรียม API Endpoints ดังนี้:
 
-### JavaScript Libraries
-- jQuery 3.7.0
-- Bootstrap 5.3.0 (JS Bundle)
-- Chart.js (สำหรับ Dashboard)
+```
+GET    /api/jobs              - ดึงรายการงานทั้งหมด
+GET    /api/jobs/{id}         - ดึงรายละเอียดงาน
+POST   /api/jobs              - สร้างตำแหน่งงานใหม่
+PUT    /api/jobs/{id}         - แก้ไขตำแหน่งงาน
+DELETE /api/jobs/{id}         - ลบตำแหน่งงาน
 
-ทั้งหมดโหลดจาก CDN ไม่ต้องติดตั้งเพิ่ม
+POST   /api/applications      - ส่งใบสมัครงาน
+GET    /api/applications      - ดึงข้อมูลการสมัครงาน
+POST   /api/applications/upload-resume - อัพโหลด Resume
 
-## 🌐 Browser Support
-- Chrome (แนะนำ)
-- Firefox
-- Safari
-- Edge
-- Opera
+POST   /api/auth/login        - เข้าสู่ระบบ
+POST   /api/auth/register     - สมัครสมาชิก
+GET    /api/auth/profile      - ดึงข้อมูลโปรไฟล์
+```
+
+### 2. แก้ไขไฟล์สำหรับ Production
+- อัพเดท API URLs ใน `js/main.js`
+- เปลี่ยน Mock data เป็น Real API calls
+- เพิ่มระบบ Authentication จริง
+- เพิ่มระบบจัดการ File uploads
+
+### 3. ฟีเจอร์เพิ่มเติมที่แนะนำ
+- [ ] ระบบแจ้งเตือน (Notifications)
+- [ ] ระบบแชทระหว่างผู้สมัครกับนายจ้าง
+- [ ] ระบบรีวิวบริษัท
+- [ ] ระบบแนะนำงานด้วย AI
+- [ ] ระบบ Email verification
+- [ ] ระบบ Two-Factor Authentication
+
+## 📱 Responsive Breakpoints
+
+```css
+Mobile:     < 576px
+Tablet:     576px - 768px
+Notebook:   768px - 992px
+Desktop:    992px - 1200px
+Large:      > 1200px
+```
+
+## 🚀 วิธีใช้งาน
+
+### 1. เปิดหน้าเว็บไซต์
+```
+เปิดไฟล์ index.html หรือ START_HERE.html ในเบราว์เซอร์
+```
+
+### 2. ทดสอบฟีเจอร์
+- ค้นหางาน → ดูรายละเอียด → สมัครงาน
+- เปลี่ยนภาษา Thai/English
+- ทดสอบ Responsive ในหน้าจอขนาดต่างๆ
+- ทดสอบแชร์งานผ่าน Social Media
+
+### 3. ตรวจสอบ Console
+เปิด Developer Tools (F12) เพื่อดู log และ debug
+
+## 🎯 สิ่งที่ต้องทำต่อไป
+
+### ด้าน Frontend (ที่นี่)
+- [x] ระบบ Multi-Language
+- [x] หน้า Job Detail ครบถ้วน
+- [x] Badge สวัสดิการสวยงาม
+- [x] Responsive Design
+- [ ] ระบบ Loading States
+- [ ] ระบบ Error Handling ที่ดีขึ้น
+- [ ] Form Validation ทุกหน้า
+- [ ] Accessibility (ARIA labels)
+
+### ด้าน Backend (.NET 8 MVC)
+- [ ] สร้าง Database Schema
+- [ ] สร้าง API Endpoints
+- [ ] ระบบ Authentication & Authorization
+- [ ] ระบบจัดการไฟล์ Resume
+- [ ] ระบบคิดค่าบริการ (Payment Gateway)
+- [ ] ระบบส่ง Email
+- [ ] Unit Tests
+
+## 📞 การติดต่อ & การสนับสนุน
+
+หากมีปัญหาหรือข้อสงสัยในการพัฒนา Backend API:
+- ตรวจสอบ API Response Format ใน Console
+- ใช้ Postman/Swagger เพื่อทดสอบ API
+- ตรวจสอบ CORS settings สำหรับการเชื่อมต่อ
 
 ## 📄 License
-สามารถนำไปใช้และปรับแต่งได้ตามต้องการ
 
-## 👨‍💻 สำหรับนักพัฒนา .NET
-
-### การเชื่อมต่อกับ .NET 8 MVC
-
-1. **สร้าง API Controllers** ตาม endpoints ด้านบน
-2. **ใช้ Entity Framework Core** สำหรับจัดการฐานข้อมูล
-3. **ใช้ JWT Authentication** สำหรับระบบ Login
-4. **อัพโหลดไฟล์** Resume ไปยัง Azure Blob Storage หรือ Local Storage
-5. **Payment Gateway** เชื่อมต่อกับ PromptPay, Credit Card Gateway
-
-### ตัวอย่าง Controller (.NET)
-
-```csharp
-[ApiController]
-[Route("api/[controller]")]
-public class JobsController : ControllerBase
-{
-    [HttpGet]
-    public async Task<IActionResult> GetJobs(
-        [FromQuery] string? category,
-        [FromQuery] string? type,
-        [FromQuery] string? search)
-    {
-        // Your logic here
-        return Ok(jobs);
-    }
-    
-    [HttpGet("{id}")]
-    public async Task<IActionResult> GetJobById(string id)
-    {
-        // Your logic here
-        return Ok(job);
-    }
-    
-    [HttpPost]
-    [Authorize(Roles = "Employer")]
-    public async Task<IActionResult> CreateJob([FromBody] JobDto job)
-    {
-        // Your logic here
-        return Ok(createdJob);
-    }
-}
-```
-
-## 🆘 การแก้ปัญหา
-
-### ปัญหา: ไม่สามารถโหลด Mock Data ได้
-**วิธีแก้**: ตรวจสอบว่าไฟล์ `data/jobs.json` อยู่ในตำแหน่งที่ถูกต้อง และเปิดเว็บผ่าน Web Server (ไม่ใช่เปิดไฟล์โดยตรง)
-
-### ปัญหา: หลังจาก Login แล้วไม่ redirect
-**วิธีแก้**: ตรวจสอบ Console (F12) เพื่อดู error และตรวจสอบว่า localStorage ทำงานปกติ
-
-### ปัญหา: รูปภาพไม่แสดง
-**วิธีแก้**: รูปภาพโหลดจาก Unsplash API อาจช้า ใน production ควรใช้รูปจาก server ของคุณเอง
-
-## 📧 ติดต่อสอบถาม
-
-หากมีคำถามหรือต้องการความช่วยเหลือ สามารถติดต่อได้ที่ทีมพัฒนา
+© 2026 JobHub. All rights reserved.
 
 ---
 
-**JobHub** - Modern Job Portal for Gen Z 🚀
+**หมายเหตุ**: โปรเจ็กต์นี้เป็น Frontend เท่านั้น พร้อมสำหรับการเชื่อมต่อกับ Backend API ที่พัฒนาด้วย .NET 8 MVC
+
+**อัพเดทล่าสุด**: 5 มีนาคม 2026
+- ✅ แก้ไขระบบ Multi-Language ในหน้า Job Detail
+- ✅ เพิ่ม Translation Keys มากกว่า 20 keys
+- ✅ ปรับปรุง CSS Badge สวัสดิการให้มองเห็นชัดบนพื้นขาว
+- ✅ ทดสอบและยืนยันการทำงานของระบบแปลภาษา
