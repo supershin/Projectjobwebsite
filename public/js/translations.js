@@ -28,6 +28,8 @@ const translations = {
         'categories.sales': 'ฝ่ายขาย',
         'categories.finance': 'การเงิน',
         'categories.hr': 'ทรัพยากรบุคคล',
+        'categories.customer-service': 'บริการลูกค้า',
+        'categories.operations': 'ปฏิบัติการ',
         'categories.jobs': 'งาน',
         
         // Featured Jobs Section
@@ -39,6 +41,9 @@ const translations = {
         'jobs.share': 'แชร์',
         'jobs.full-time': 'งานประจำ',
         'jobs.part-time': 'งานพาร์ทไทม์',
+        'jobs.contract': 'สัญญาจ้าง',
+        'jobs.freelance': 'ฟรีแลนซ์',
+        'jobs.internship': 'ฝึกงาน',
         'jobs.remote': 'ทำงานจากที่บ้าน',
         'jobs.onsite': 'ทำงานที่บริษัท',
         'jobs.hybrid': 'Hybrid',
@@ -283,6 +288,8 @@ const translations = {
         'categories.sales': 'Sales',
         'categories.finance': 'Finance',
         'categories.hr': 'Human Resources',
+        'categories.customer-service': 'Customer Service',
+        'categories.operations': 'Operations',
         'categories.jobs': 'Jobs',
         
         // Featured Jobs Section
@@ -294,6 +301,9 @@ const translations = {
         'jobs.share': 'Share',
         'jobs.full-time': 'Full-time',
         'jobs.part-time': 'Part-time',
+        'jobs.contract': 'Contract',
+        'jobs.freelance': 'Freelance',
+        'jobs.internship': 'Internship',
         'jobs.remote': 'Remote',
         'jobs.onsite': 'Onsite',
         'jobs.hybrid': 'Hybrid',

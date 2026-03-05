@@ -25,16 +25,16 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="index.html">หน้าแรก</a>
+                        <a class="nav-link" href="index.html" data-i18n="nav.home">หน้าแรก</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="jobs.html">งานทั้งหมด</a>
+                        <a class="nav-link active" href="jobs.html" data-i18n="nav.jobs">งานทั้งหมด</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="login.html">เข้าสู่ระบบ</a>
+                        <a class="nav-link" href="login.html" data-i18n="nav.login">เข้าสู่ระบบ</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link btn btn-primary-custom ms-2" href="register.html">สมัครสมาชิก</a>
+                        <a class="nav-link btn btn-primary-custom ms-2" href="register.html" data-i18n="nav.register">สมัครสมาชิก</a>
                     </li>
                 </ul>
             </div>
@@ -44,8 +44,8 @@
     <!-- Page Header -->
     <section class="page-header">
         <div class="container">
-            <h1 class="display-4 fw-bold mb-3">ค้นหางาน</h1>
-            <p class="lead">ค้นพบตำแหน่งงานที่เหมาะกับคุณจาก 1000+ ตำแหน่ง</p>
+            <h1 class="display-4 fw-bold mb-3" data-i18n="jobs.page.title">ค้นหางาน</h1>
+            <p class="lead" data-i18n="jobs.page.subtitle">ค้นพบตำแหน่งงานที่เหมาะกับคุณจาก 1000+ ตำแหน่ง</p>
         </div>
     </section>
 
@@ -56,54 +56,54 @@
                 <!-- Filters Sidebar -->
                 <div class="col-lg-3 mb-4">
                     <div class="filters-sidebar sticky-top">
-                        <h5 class="fw-bold mb-4">กรองงาน</h5>
+                        <h5 class="fw-bold mb-4" data-i18n="jobs.filters">กรองงาน</h5>
                         
                         <!-- Search -->
                         <div class="mb-4">
-                            <label class="form-label fw-semibold">ค้นหา</label>
-                            <input type="text" class="form-control" id="filterSearch" placeholder="ชื่อตำแหน่ง, บริษัท...">
+                            <label class="form-label fw-semibold" data-i18n="jobs.search.keyword">ค้นหา</label>
+                            <input type="text" class="form-control" id="filterSearch" data-i18n-placeholder="jobs.search.keyword.placeholder" placeholder="ชื่อตำแหน่ง, บริษัท...">
                         </div>
 
                         <!-- Category Filter -->
                         <div class="mb-4">
-                            <label class="form-label fw-semibold">หมวดหมู่</label>
+                            <label class="form-label fw-semibold" data-i18n="jobs.search.category">หมวดหมู่</label>
                             <select class="form-select" id="filterCategory">
-                                <option value="">ทั้งหมด</option>
-                                <option value="Technology">เทคโนโลยี</option>
-                                <option value="Design">ดีไซน์</option>
-                                <option value="Marketing">การตลาด</option>
-                                <option value="Sales">ขาย</option>
-                                <option value="Customer Service">บริการลูกค้า</option>
-                                <option value="Finance">การเงิน</option>
-                                <option value="HR">ทรัพยากรบุคคล</option>
-                                <option value="Operations">ปฏิบัติการ</option>
+                                <option value="" data-i18n="common.all">ทั้งหมด</option>
+                                <option value="Technology" data-i18n="categories.technology">เทคโนโลยี</option>
+                                <option value="Design" data-i18n="categories.design">ดีไซน์</option>
+                                <option value="Marketing" data-i18n="categories.marketing">การตลาด</option>
+                                <option value="Sales" data-i18n="categories.sales">ขาย</option>
+                                <option value="Customer Service" data-i18n="categories.customer-service">บริการลูกค้า</option>
+                                <option value="Finance" data-i18n="categories.finance">การเงิน</option>
+                                <option value="HR" data-i18n="categories.hr">ทรัพยากรบุคคล</option>
+                                <option value="Operations" data-i18n="categories.operations">ปฏิบัติการ</option>
                             </select>
                         </div>
 
                         <!-- Job Type Filter -->
                         <div class="mb-4">
-                            <label class="form-label fw-semibold">ประเภทงาน</label>
+                            <label class="form-label fw-semibold" data-i18n="jobs.filters.job-type">ประเภทงาน</label>
                             <select class="form-select" id="filterType">
-                                <option value="">ทั้งหมด</option>
-                                <option value="full-time">งานประจำ</option>
-                                <option value="part-time">งานพาร์ทไทม์</option>
-                                <option value="contract">สัญญาจ้าง</option>
-                                <option value="freelance">ฟรีแลนซ์</option>
-                                <option value="internship">ฝึกงาน</option>
+                                <option value="" data-i18n="common.all">ทั้งหมด</option>
+                                <option value="full-time" data-i18n="jobs.full-time">งานประจำ</option>
+                                <option value="part-time" data-i18n="jobs.part-time">งานพาร์ทไทม์</option>
+                                <option value="contract" data-i18n="jobs.contract">สัญญาจ้าง</option>
+                                <option value="freelance" data-i18n="jobs.freelance">ฟรีแลนซ์</option>
+                                <option value="internship" data-i18n="jobs.internship">ฝึกงาน</option>
                             </select>
                         </div>
 
                         <!-- Location Filter -->
                         <div class="mb-4">
-                            <label class="form-label fw-semibold">สถานที่</label>
-                            <input type="text" class="form-control" id="filterLocation" placeholder="กรุงเทพ, เชียงใหม่...">
+                            <label class="form-label fw-semibold" data-i18n="jobs.search.location">สถานที่</label>
+                            <input type="text" class="form-control" id="filterLocation" data-i18n-placeholder="jobs.search.location.placeholder" placeholder="กรุงเทพ, เชียงใหม่...">
                         </div>
 
                         <!-- Salary Range -->
                         <div class="mb-4">
-                            <label class="form-label fw-semibold">เงินเดือน</label>
+                            <label class="form-label fw-semibold" data-i18n="jobs.filters.salary">เงินเดือน</label>
                             <select class="form-select" id="filterSalary">
-                                <option value="">ทั้งหมด</option>
+                                <option value="" data-i18n="common.all">ทั้งหมด</option>
                                 <option value="0-20000">ต่ำกว่า 20,000 บาท</option>
                                 <option value="20000-40000">20,000 - 40,000 บาท</option>
                                 <option value="40000-60000">40,000 - 60,000 บาท</option>
@@ -113,10 +113,10 @@
                         </div>
 
                         <button class="btn btn-primary-custom w-100 mb-2" id="applyFilters">
-                            <i class="bi bi-funnel"></i> กรองงาน
+                            <i class="bi bi-funnel"></i> <span data-i18n="jobs.filters.apply">กรองงาน</span>
                         </button>
                         <button class="btn btn-outline-secondary w-100" id="clearFilters">
-                            <i class="bi bi-x-circle"></i> ล้างตัวกรอง
+                            <i class="bi bi-x-circle"></i> <span data-i18n="jobs.filters.clear">ล้างตัวกรอง</span>
                         </button>
                     </div>
                 </div>
@@ -126,14 +126,14 @@
                     <!-- Sort and Count -->
                     <div class="d-flex justify-content-between align-items-center mb-4">
                         <div>
-                            <h5 class="mb-0">พบ <span id="jobsCount">0</span> ตำแหน่ง</h5>
+                            <h5 class="mb-0"><span data-i18n="jobs.showing">พบ</span> <span id="jobsCount">0</span> <span data-i18n="jobs.results">ตำแหน่ง</span></h5>
                         </div>
                         <div>
                             <select class="form-select form-select-sm" id="sortBy" style="width: auto;">
-                                <option value="newest">ใหม่ล่าสุด</option>
+                                <option value="newest" data-i18n="jobs.sort.latest">ใหม่ล่าสุด</option>
                                 <option value="oldest">เก่าสุด</option>
-                                <option value="salary-high">เงินเดือนสูงสุด</option>
-                                <option value="salary-low">เงินเดือนต่ำสุด</option>
+                                <option value="salary-high" data-i18n="jobs.sort.salary-high">เงินเดือนสูงสุด</option>
+                                <option value="salary-low" data-i18n="jobs.sort.salary-low">เงินเดือนต่ำสุด</option>
                             </select>
                         </div>
                     </div>
@@ -213,6 +213,9 @@
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Translation System -->
+    <script src="./js/translations.js"></script>
+    <script src="./js/language.js"></script>
     <!-- Custom JS -->
     <script src="./js/main.js"></script>
     <script src="./js/jobs.js"></script>
