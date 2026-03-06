@@ -488,7 +488,7 @@ function loadUserSavedJobs() {
 
 function generateImprovedSavedJobCards() {
     const jobs = [
-        { id: 1, title: 'Senior Frontend Developer', company: 'TechCorp Thailand', location: 'กรุงเทพ���', salary: '50,000 - 80,000', type: 'Full-time', logo: 'https://ui-avatars.com/api/?name=TC&background=6366f1&color=fff' },
+        { id: 1, title: 'Senior Frontend Developer', company: 'TechCorp Thailand', location: 'กรุงเทพ', salary: '50,000 - 80,000', type: 'Full-time', logo: 'https://ui-avatars.com/api/?name=TC&background=6366f1&color=fff' },
         { id: 2, title: 'UX/UI Designer', company: 'Creative Studio', location: 'กรุงเทพฯ', salary: '35,000 - 50,000', type: 'Part-time', logo: 'https://ui-avatars.com/api/?name=CS&background=10b981&color=fff' },
         { id: 3, title: 'Marketing Manager', company: 'Digital Agency', location: 'เชียงใหม่', salary: '45,000 - 60,000', type: 'Full-time', logo: 'https://ui-avatars.com/api/?name=DA&background=f59e0b&color=fff' },
         { id: 4, title: 'Full Stack Developer', company: 'Startup Hub', location: 'กรุงเทพฯ', salary: '40,000 - 70,000', type: 'Contract', logo: 'https://ui-avatars.com/api/?name=SH&background=ef4444&color=fff' },
@@ -1142,15 +1142,9 @@ function applyJob(id) {
     window.location.href = 'job-detail.html?id=' + id; 
 }
 
-// Placeholder functions for Employer and Admin (keep existing code)
-function loadEmployerDashboard() {
-    $('#dashboardTitle').text('Dashboard - Employer');
-    $('#dashboardMenu').html('<li class="nav-item"><a class="nav-link" href="#">Employer Menu</a></li>');
-    $('#dashboardContent').html('<div class="alert alert-info">Employer Dashboard (เก็บโค้ดเดิม)</div>');
-}
-
-function loadAdminDashboard() {
-    $('#dashboardTitle').text('Dashboard - Admin');
-    $('#dashboardMenu').html('<li class="nav-item"><a class="nav-link" href="#">Admin Menu</a></li>');
-    $('#dashboardContent').html('<div class="alert alert-info">Admin Dashboard (เก็บโค้ดเดิม)</div>');
-}
+// ========================================
+// NOTE: Employer & Admin Dashboard functions
+// are loaded from separate files:
+// - dashboard-employer.js
+// - dashboard-admin.js
+// ========================================
