@@ -5,6 +5,23 @@
 let currentUser = null;
 let currentView = 'overview';
 
+// Logout function
+function logout() {
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+    showNotification('ออกจากระบบสำเร็จ', 'success');
+    setTimeout(() => {
+        window.location.href = 'index.html';
+    }, 1000);
+}
+
+// Translate page helper
+function translatePage() {
+    if (window.langManager) {
+        window.langManager.updatePageLanguage();
+    }
+}
+
 $(document).ready(function() {
     // Check if user is logged in
     if (!isLoggedIn()) {
