@@ -121,7 +121,7 @@ const translations = {
         'register.password.placeholder': 'กรอกรหัสผ่าน (อย่างน้อย 8 ตัวอักษร)',
         'register.confirm-password': 'ยืนยันรหัสผ่าน',
         'register.confirm-password.placeholder': 'กรอกรหัสผ่านอีกครั้ง',
-        'register.terms': 'ฉันยอมร���บ',
+        'register.terms': 'ฉันยอมร���',
         'register.terms-link': 'ข้อกำหนดและเงื่อนไข',
         'register.button': 'สมัครสมาชิก',
         'register.have-account': 'มีบัญชีอยู่แล้ว?',
@@ -338,6 +338,9 @@ const translations = {
         
         // Admin Dashboard
         'dashboard.admin.title': 'Dashboard - ผู้ดูแลระบบ',
+        'dashboard.admin.users': 'จัดการผู้ใช้',
+        'dashboard.admin.employers': 'จัดการนายจ้าง',
+        'dashboard.admin.jobs': 'จัดการงาน',
         'dashboard.admin.manage-users': 'จัดการผู้ใช้',
         'dashboard.admin.manage-employers': 'จัดการนายจ้าง',
         'dashboard.admin.manage-jobs': 'จัดการงาน',
@@ -805,6 +808,9 @@ const translations = {
         
         // Admin Dashboard
         'dashboard.admin.title': 'Dashboard - Admin',
+        'dashboard.admin.users': 'Manage Users',
+        'dashboard.admin.employers': 'Manage Employers',
+        'dashboard.admin.jobs': 'Manage Jobs',
         'dashboard.admin.manage-users': 'Manage Users',
         'dashboard.admin.manage-employers': 'Manage Employers',
         'dashboard.admin.manage-jobs': 'Manage Jobs',
