@@ -122,6 +122,11 @@ function loadUserDashboard() {
             </a>
         </li>
         <li class="nav-item">
+            <a class="nav-link ${currentView === 'announcements' ? 'active' : ''}" href="dashboard.html?view=announcements">
+                <i class="bi bi-megaphone"></i> <span>ข่าวสาร</span>
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link ${currentView === 'profile' ? 'active' : ''}" href="dashboard.html?view=profile">
                 <i class="bi bi-person"></i> <span data-i18n="dashboard.profile">โปรไฟล์</span>
             </a>
@@ -150,6 +155,9 @@ function loadUserDashboard() {
             break;
         case 'saved-jobs':
             loadUserSavedJobs();
+            break;
+        case 'announcements':
+            loadUserAnnouncements();
             break;
         case 'profile':
             loadUserProfile();
@@ -547,6 +555,53 @@ function getJobTypeBadgeClass(type) {
     return classes[type] || 'bg-primary text-white px-3 py-2';
 }
 
+// USER: Announcements - IMPROVED WITH DYNAMIC CONTENT
+function loadUserAnnouncements() {
+    $('#dashboardContent').html(`
+        <div class="card shadow-sm">
+            <div class="card-header bg-white py-3 border-bottom">
+                <h5 class="mb-0 fw-bold" data-i18n="dashboard.announcements">ข่าวสาร</h5>
+            </div>
+            <div class="card-body">
+                ${generateAnnouncements()}
+            </div>
+        </div>
+    `);
+    
+    translatePage();
+}
+
+function generateAnnouncements() {
+    const announcements = [
+        { id: 1, title: 'การเปลี่ยนแปลงนโยบายการสมัครงาน', date: '1 มีนาคม 2026', content: 'เรามีการเปลี่ยนแปลงนโยบายการสมัครงานใหม่ โปรดอ่านรายละเอียดเพิ่มเติมในลิงค์ด้านล่าง' },
+        { id: 2, title: 'การปรับปรุงระบบค้นหางาน', date: '15 กุมภาพันธ์ 2026', content: 'เราได้ปรับปรุงระบบค้นหางานเพื่อให้มีประสิทธิภาพมากขึ้น โปรดลองใช้งานใหม่' },
+        { id: 3, title: 'การเพิ่มบริษัทใหม่ในระบบ', date: '20 มกราคม 2026', content: 'เราได้เพิ่มบริษัทใหม่หลายแห่งในระบบ โปรดตรวจสอบงานใหม่ที่มีอยู่' },
+    ];
+    
+    return `
+        <div class="list-group list-group-flush">
+            ${announcements.map(ann => `
+                <div class="list-group-item p-3 hover-shadow">
+                    <div class="d-flex align-items-start">
+                        <div class="flex-grow-1">
+                            <h6 class="mb-1 fw-bold">${ann.title}</h6>
+                            <small class="text-muted">
+                                <i class="bi bi-calendar3 me-1"></i>${ann.date}
+                            </small>
+                            <p class="text-muted mt-2">${ann.content}</p>
+                        </div>
+                        <div class="col-auto">
+                            <a href="announcement-detail.html?id=${ann.id}" class="btn btn-sm btn-outline-primary">
+                                <i class="bi bi-eye me-1"></i> ดูรายละเอียด
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            `).join('')}
+        </div>
+    `;
+}
+
 // USER: Profile - IMPROVED WITH WORKING FUNCTIONS
 function loadUserProfile() {
     $('#dashboardContent').html(`
@@ -578,7 +633,7 @@ function loadUserProfile() {
                                 </div>
                                 <div class="col-12">
                                     <label class="form-label">ที่อยู่</label>
-                                    <textarea class="form-control" id="address" rows="2">123 ถ.สุขุมวิท แขวงคลองเตย เขตคลองเตย กรุงเทพฯ 10110</textarea>
+                                    <textarea class="form-control" id="address" rows="2">123 ถ.สุขุมวิท แขวงคลองเตย เขตคลองเตย กรุงเท��ฯ 10110</textarea>
                                 </div>
                             </div>
                         </form>
