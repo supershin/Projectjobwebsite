@@ -28,6 +28,11 @@ function loadAdminDashboard() {
             </a>
         </li>
         <li class="nav-item">
+            <a class="nav-link ${currentView === 'announcements' ? 'active' : ''}" href="dashboard.html?view=announcements">
+                <i class="bi bi-megaphone"></i> <span data-i18n="dashboard.admin.announcements">แจ้งข่าวสาร</span>
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link ${currentView === 'payments' ? 'active' : ''}" href="dashboard.html?view=payments">
                 <i class="bi bi-credit-card"></i> <span data-i18n="dashboard.admin.payments">การชำระเงิน</span>
             </a>
@@ -59,6 +64,9 @@ function loadAdminDashboard() {
             break;
         case 'jobs':
             loadAdminJobs();
+            break;
+        case 'announcements':
+            loadAdminAnnouncements();
             break;
         case 'payments':
             loadAdminPayments();
@@ -526,6 +534,77 @@ function generateAdminJobsList() {
                                     </button>
                                 ` : ''}
                                 <button class="btn btn-sm btn-outline-danger" onclick="deleteJobAdmin(${job.id})">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('')}
+        </div>
+    `;
+}
+
+// ADMIN: Announcements
+function loadAdminAnnouncements() {
+    $('#dashboardContent').html(`
+        <!-- Add New Announcement Button -->
+        <div class="mb-4">
+            <button class="btn btn-primary" onclick="showAddAnnouncementModal()">
+                <i class="bi bi-plus-circle me-2"></i>สร้างข่าวสารใหม่
+            </button>
+        </div>
+
+        <div class="card shadow-sm">
+            <div class="card-header bg-white py-3 border-bottom">
+                <h5 class="mb-0 fw-bold">จัดการข่าวสาร</h5>
+            </div>
+            <div class="card-body p-0">
+                ${generateAdminAnnouncementsList()}
+            </div>
+        </div>
+    `);
+    
+    translatePage();
+}
+
+function generateAdminAnnouncementsList() {
+    const announcements = [
+        { id: 1, title: 'การปรับปรุงเว็บไซต์', date: '5 มีนาคม 2026', content: 'เริ่มต้นการปรับปรุงเว็บไซต์เพื่อเพิ่มประสิทธิภาพและประสบการณ์การใช้งาน', target: 'all', targetText: 'ทุกคน' },
+        { id: 2, title: 'โปรโมชั่นใหม่สำหรับนายจ้าง', date: '4 มีนาคม 2026', content: 'โปรโมชั่นใหม่สำหรับแพ็คเกจ Pro ลด 20% สำหรับ 1 เดือนแรก', target: 'employer', targetText: 'นายจ้าง' },
+        { id: 3, title: 'ฟีเจอร์ใหม่สำหรับผู้สมัครงาน', date: '3 มีนาคม 2026', content: 'เพิ่มฟีเจอร์การติดตามประวัติการสมัครงานของผู้ใช้', target: 'user', targetText: 'ผู้ใช้' },
+        { id: 4, title: 'การปรับปรุงระบบชำระเงิน', date: '2 มีนาคม 2026', content: 'ปรับปรุงระบบชำระเงินเพื่อเพิ่มความปลอดภัยและประสิทธิภาพ', target: 'employer', targetText: 'นายจ้าง' },
+        { id: 5, title: 'การปรับปรุงการแจ้งเตือน', date: '1 มีนาคม 2026', content: 'ปรับปรุงการแจ้งเตือนเพื่อให้ผู้ใช้ได้รับข้อมูลทันท่วงที', target: 'all', targetText: 'ทุกคน' },
+    ];
+    
+    return `
+        <div class="list-group list-group-flush">
+            ${announcements.map(ann => `
+                <div class="list-group-item p-3 hover-shadow">
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                            <i class="bi bi-megaphone fs-4 text-primary"></i>
+                        </div>
+                        <div class="col">
+                            <h6 class="mb-1 fw-bold">${ann.title}</h6>
+                            <small class="text-muted d-block mb-1">
+                                <i class="bi bi-calendar me-1"></i>${ann.date}
+                                <span class="mx-2">•</span>
+                                <i class="bi bi-people me-1"></i>ถึง: <span class="badge bg-info">${ann.targetText}</span>
+                            </small>
+                            <small class="text-muted">
+                                ${ann.content}
+                            </small>
+                        </div>
+                        <div class="col-auto">
+                            <div class="btn-group">
+                                <button class="btn btn-sm btn-outline-primary" onclick="viewAnnouncementDetail(${ann.id})">
+                                    <i class="bi bi-eye"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-warning" onclick="editAnnouncement(${ann.id})">
+                                    <i class="bi bi-pencil"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-danger" onclick="deleteAnnouncement(${ann.id})">
                                     <i class="bi bi-trash"></i>
                                 </button>
                             </div>
@@ -1048,4 +1127,103 @@ function clearSystemCache() {
 
 function searchUsers(query) {
     // Search logic here
+}
+
+// ========================================
+// ADMIN ANNOUNCEMENT FUNCTIONS
+// ========================================
+
+function showAddAnnouncementModal() {
+    const modalHtml = `
+        <div class="modal fade" id="addAnnouncementModal" tabindex="-1">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title fw-bold">สร้างข่าวสารใหม่</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="addAnnouncementForm">
+                            <div class="mb-3">
+                                <label class="form-label">หัวข้อข่าวสาร <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="announcementTitle" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">เนื้อหา <span class="text-danger">*</span></label>
+                                <textarea class="form-control" id="announcementContent" rows="5" required></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">ส่งถึง <span class="text-danger">*</span></label>
+                                <select class="form-select" id="announcementTarget" required>
+                                    <option value="">เลือกกลุ่มเป้าหมาย</option>
+                                    <option value="all">ทุกคน</option>
+                                    <option value="user">ผู้ใช้ (ผู้สมัครงาน)</option>
+                                    <option value="employer">นายจ้าง (ผู้ประกาศงาน)</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">ความสำคัญ</label>
+                                <select class="form-select" id="announcementPriority">
+                                    <option value="normal">ปกติ</option>
+                                    <option value="important">สำคัญ</option>
+                                    <option value="urgent">เร่งด่วน</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก</button>
+                        <button type="button" class="btn btn-primary" onclick="submitAnnouncement()">
+                            <i class="bi bi-send me-2"></i>ส่งข่าวสาร
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    // Remove existing modal if any
+    $('#addAnnouncementModal').remove();
+    
+    // Add modal to body
+    $('body').append(modalHtml);
+    
+    // Show modal
+    $('#addAnnouncementModal').modal('show');
+}
+
+function submitAnnouncement() {
+    const title = $('#announcementTitle').val();
+    const content = $('#announcementContent').val();
+    const target = $('#announcementTarget').val();
+    const priority = $('#announcementPriority').val();
+    
+    if (!title || !content || !target) {
+        showNotification('กรุณากรอกข้อมูลให้ครบถ้วน', 'warning');
+        return;
+    }
+    
+    showNotification('กำลังส่งข่าวสาร...', 'info');
+    
+    // Simulate API call
+    setTimeout(() => {
+        showNotification('ส่งข่าวสารสำเร็จ!', 'success');
+        $('#addAnnouncementModal').modal('hide');
+        setTimeout(() => loadAdminAnnouncements(), 500);
+    }, 1500);
+}
+
+function viewAnnouncementDetail(id) {
+    showNotification('กำลังโหลดรายละเอียดข่าวสาร...', 'info');
+}
+
+function editAnnouncement(id) {
+    showNotification('กำลังเปิดหน้าแก้ไขข่าวสาร...', 'info');
+}
+
+function deleteAnnouncement(id) {
+    if (confirm('ยืนยันการลบข่าวสารนี้?')) {
+        showNotification('ลบข่าวสารสำเร็จ', 'success');
+        setTimeout(() => loadAdminAnnouncements(), 1000);
+    }
 }

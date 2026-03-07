@@ -3,8 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="refresh" content="0; url=/public/index.html">
     <title>JobHub</title>
+    <!-- Error Suppressor -->
+    <script>
+        (function(){const e=console.error;console.error=function(...r){const o=r.join(' ').toString();if(['iframemessageaborterror','message port was destroyed','message aborted','webpack-artifacts'].some(s=>o.toLowerCase().includes(s)))return;e.apply(console,r)};window.addEventListener('error',function(r){const o=(r.message||'').toLowerCase();if(o.includes('iframemessageaborterror')||o.includes('message port was destroyed')){r.preventDefault();return false}},true)})();
+    </script>
+    <meta http-equiv="refresh" content="0; url=/public/index.html">
     <script>window.location.href='/public/index.html';</script>
 </head>
 <body style="margin:0;padding:0;background:#6366f1;color:#fff;font-family:system-ui;display:flex;align-items:center;justify-content:center;min-height:100vh;">
