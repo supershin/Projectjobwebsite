@@ -29,7 +29,7 @@ function loadEmployerDashboard() {
         </li>
         <li class="nav-item">
             <a class="nav-link ${currentView === 'announcements' ? 'active' : ''}" href="dashboard.html?view=announcements">
-                <i class="bi bi-megaphone"></i> <span data-i18n="dashboard.announcements">ข่าวสาร</span>
+                <i class="bi bi-megaphone"></i> <span>ข่าวสาร</span>
             </a>
         </li>
         <li class="nav-item">
@@ -1159,30 +1159,48 @@ function generateEmployerAnnouncementsList() {
     
     return `
         <div class="list-group list-group-flush">
-            ${announcements.map(ann => `
-                <div class="list-group-item p-4 ${ann.isRead ? '' : 'bg-light border-start border-primary border-4'} hover-shadow" style="cursor: pointer;" onclick="viewAnnouncementUser(${ann.id})">
-                    <div class="d-flex align-items-start">
-                        <div class="me-3">
-                            <div class="rounded-circle bg-primary bg-opacity-10 p-3">
-                                <i class="bi bi-megaphone fs-4 text-primary"></i>
+            ${announcements.map(ann => {
+                const priorityColor = ann.priority === 'urgent' ? 'danger' : ann.priority === 'important' ? 'warning' : 'primary';
+                const borderClass = ann.isRead ? 'border-start border-3 border-secondary border-opacity-25' : `border-start border-4 border-${priorityColor}`;
+                
+                return `
+                <a href="announcement-detail.html?id=${ann.id}" class="list-group-item list-group-item-action p-4 ${borderClass}" style="text-decoration: none; transition: all 0.3s ease;">
+                    <div class="d-flex align-items-start gap-3">
+                        <div class="flex-shrink-0">
+                            <div class="rounded-3 bg-${priorityColor} bg-opacity-10 p-3 shadow-sm">
+                                <i class="bi bi-megaphone-fill fs-4 text-${priorityColor}"></i>
                             </div>
                         </div>
                         <div class="flex-grow-1">
                             <div class="d-flex justify-content-between align-items-start mb-2">
-                                <h6 class="mb-0 fw-bold">
+                                <h6 class="mb-0 fw-bold text-dark">
                                     ${ann.title}
-                                    ${!ann.isRead ? '<span class="badge bg-danger ms-2">ใหม่</span>' : ''}
-                                    ${ann.priority === 'important' ? '<span class="badge bg-warning ms-2">สำคัญ</span>' : ''}
-                                    ${ann.priority === 'urgent' ? '<span class="badge bg-danger ms-2">เร่งด่วน</span>' : ''}
+                                    ${!ann.isRead ? '<span class="badge bg-danger ms-2 pulse-badge">ใหม่</span>' : ''}
+                                    ${ann.priority === 'important' ? '<span class="badge bg-warning text-dark ms-2"><i class="bi bi-exclamation-circle-fill"></i> สำคัญ</span>' : ''}
+                                    ${ann.priority === 'urgent' ? '<span class="badge bg-danger ms-2"><i class="bi bi-exclamation-triangle-fill"></i> เร่งด่วน</span>' : ''}
                                 </h6>
-                                <small class="text-muted">${ann.date}</small>
+                                <small class="text-muted ms-2"><i class="bi bi-clock"></i> ${ann.date}</small>
                             </div>
-                            <p class="mb-0 text-muted">${ann.content}</p>
+                            <p class="mb-2 text-muted" style="line-height: 1.6;">${ann.content}</p>
+                            <small class="text-primary"><i class="bi bi-arrow-right-circle"></i> อ่านเพิ่มเติม</small>
                         </div>
                     </div>
-                </div>
-            `).join('')}
+                </a>
+            `}).join('')}
         </div>
+        <style>
+            .pulse-badge {
+                animation: pulse 2s infinite;
+            }
+            @keyframes pulse {
+                0%, 100% { opacity: 1; }
+                50% { opacity: 0.7; }
+            }
+            .list-group-item-action:hover {
+                transform: translateX(5px);
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1) !important;
+            }
+        </style>
     `;
 }
 

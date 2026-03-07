@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>รายละเอียดข่าวสาร - JobHub</title>
+    
+    <!-- Error Suppressor - Must load first -->
+    <script src="./js/error-suppressor.js"></script>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="./css/style.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-gradient fixed-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">
+                <i class="bi bi-briefcase-fill"></i> JobHub
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <!-- Language Switcher -->
+                    <li class="nav-item dropdown me-2">
+                        <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-translate"></i>
+                            <span id="currentLanguage">TH</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item language-option" href="#" data-lang="th">
+                                <i class="bi bi-check-circle-fill text-success me-2"></i> ไทย
+                            </a></li>
+                            <li><a class="dropdown-item language-option" href="#" data-lang="en">
+                                <i class="bi bi-circle me-2"></i> English
+                            </a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="dashboard.html">Dashboard</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Announcement Detail Content -->
+    <section class="announcement-detail-content py-5" style="padding-top: 100px !important;">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <!-- Back Button -->
+                    <div class="mb-4">
+                        <a href="dashboard.html?view=announcements" class="btn btn-outline-secondary btn-sm">
+                            <i class="bi bi-arrow-left"></i> กลับไปหน้าข่าวสาร
+                        </a>
+                    </div>
+
+                    <!-- Announcement Card -->
+                    <div class="card shadow-sm border-0">
+                        <!-- Header with Priority Badge -->
+                        <div class="card-header bg-white border-bottom py-4" id="announcementHeader">
+                            <!-- Will be populated by JavaScript -->
+                        </div>
+
+                        <!-- Body -->
+                        <div class="card-body p-4 p-md-5" id="announcementBody">
+                            <!-- Will be populated by JavaScript -->
+                        </div>
+
+                        <!-- Footer with Actions -->
+                        <div class="card-footer bg-light border-top py-3">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">
+                                    <i class="bi bi-eye"></i> อ่านแล้ว
+                                </small>
+                                <div class="d-flex gap-2">
+                                    <button class="btn btn-sm btn-outline-secondary" onclick="window.print()">
+                                        <i class="bi bi-printer"></i> พิมพ์
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-primary" onclick="shareAnnouncement()">
+                                        <i class="bi bi-share"></i> แชร์
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Related Announcements -->
+                    <div class="mt-5">
+                        <h5 class="fw-bold mb-4">ข่าวสารอื่นๆ</h5>
+                        <div class="row g-3" id="relatedAnnouncements">
+                            <!-- Will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer py-5 mt-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <h5 class="fw-bold mb-3"><i class="bi bi-briefcase-fill"></i> JobHub</h5>
+                    <p class="text-muted">แพลตฟอร์มหางานออนไลน์ที่ทันสมัยสำหรับคนรุ่นใหม่</p>
+                </div>
+                <div class="col-md-2">
+                    <h6 class="fw-bold mb-3">สำหรับผู้หางาน</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="jobs.html" class="text-muted">ค้นหางาน</a></li>
+                        <li><a href="register.html" class="text-muted">สร้างบัญชี</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2">
+                    <h6 class="fw-bold mb-3">สำหรับนายจ้าง</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="post-job.html" class="text-muted">ประกาศงาน</a></li>
+                        <li><a href="register.html?type=employer" class="text-muted">สมัครสมาชิก</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2">
+                    <h6 class="fw-bold mb-3">ช่วยเหลือ</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-muted">ศูนย์ช่วยเหลือ</a></li>
+                        <li><a href="#" class="text-muted">เงื่อนไขการใช้</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="text-center text-muted">
+                <div class="mb-2">
+                    <small>&copy; 2026 JobHub. All rights reserved.</small>
+                </div>
+                <div>
+                    <span class="badge bg-primary bg-opacity-10 text-primary px-2 py-1">
+                        <i class="bi bi-tag-fill me-1"></i>Version 1.0.0
+                    </span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="./js/translations.js"></script>
+    <script src="./js/language.js"></script>
+    <script src="./js/main.js"></script>
+    <script src="./js/announcement-detail.js"></script>
+</body>
+</html>
