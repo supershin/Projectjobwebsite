@@ -29,7 +29,7 @@ function loadAdminDashboard() {
         </li>
         <li class="nav-item">
             <a class="nav-link ${currentView === 'announcements' ? 'active' : ''}" href="dashboard.html?view=announcements">
-                <i class="bi bi-megaphone"></i> <span data-i18n="dashboard.admin.announcements">แจ้งข่าวสาร</span>
+                <i class="bi bi-megaphone"></i> <span>แจ้งข่าวสาร</span>
             </a>
         </li>
         <li class="nav-item">
@@ -1214,11 +1214,172 @@ function submitAnnouncement() {
 }
 
 function viewAnnouncementDetail(id) {
-    showNotification('กำลังโหลดรายละเอียดข่าวสาร...', 'info');
+    // Mock data สำหรับข่าวสาร (ในการใช้งานจริงจะดึงจาก Backend API)
+    const announcementsData = {
+        1: { id: 1, title: 'การปรับปรุงเว็บไซต์', date: '5 มีนาคม 2026', content: 'เริ่มต้นการปรับปรุงเว็บไซต์เพื่อเพิ่มประสิทธิภาพและประสบการณ์การใช้งาน', target: 'all', priority: 'normal' },
+        2: { id: 2, title: 'โปรโมชั่นใหม่สำหรับนายจ้าง', date: '4 มีนาคม 2026', content: 'โปรโมชั่นใหม่สำหรับแพ็คเกจ Pro ลด 20% สำหรับ 1 เดือนแรก', target: 'employer', priority: 'important' },
+        3: { id: 3, title: 'ฟีเจอร์ใหม่สำหรับผู้สมัครงาน', date: '3 มีนาคม 2026', content: 'เพิ่มฟีเจอร์การติดตามประวัติการสมัครงานของผู้ใช้', target: 'user', priority: 'important' },
+        4: { id: 4, title: 'การปรับปรุงระบบชำระเงิน', date: '2 มีนาคม 2026', content: 'ปรับปรุงระบบชำระเงินเพื่อเพิ่มความปลอดภัยและประสิทธิภาพ', target: 'employer', priority: 'normal' },
+        5: { id: 5, title: 'การปรับปรุงการแจ้งเตือน', date: '1 มีนาคม 2026', content: 'ปรับปรุงการแจ้งเตือนเพื่อให้ผู้ใช้ได้รับข้อมูลทันท่วงที', target: 'all', priority: 'normal' },
+    };
+    
+    const announcement = announcementsData[id];
+    if (!announcement) {
+        showNotification('ไม่พบข่าวสารที่ต้องการ', 'error');
+        return;
+    }
+    
+    const targetText = announcement.target === 'all' ? 'ทุกคน' : announcement.target === 'user' ? 'ผู้ใช้' : 'นายจ้าง';
+    const priorityText = announcement.priority === 'urgent' ? 'เร่งด่วน' : announcement.priority === 'important' ? 'สำคัญ' : 'ปกติ';
+    const priorityClass = announcement.priority === 'urgent' ? 'danger' : announcement.priority === 'important' ? 'warning' : 'info';
+    
+    const modalHtml = `
+        <div class="modal fade" id="viewAnnouncementModal" tabindex="-1">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title fw-bold">รายละเอียดข่าวสาร</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label class="form-label text-muted">หัวข้อข่าวสาร</label>
+                            <h5 class="fw-bold">${announcement.title}</h5>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label text-muted">เนื้อหา</label>
+                            <p class="mb-0">${announcement.content}</p>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label text-muted">วันที่</label>
+                                <p class="mb-0"><i class="bi bi-calendar3 me-2"></i>${announcement.date}</p>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label text-muted">ส่งถึง</label>
+                                <p class="mb-0"><i class="bi bi-people me-2"></i><span class="badge bg-info">${targetText}</span></p>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label text-muted">ความสำคัญ</label>
+                            <p class="mb-0"><span class="badge bg-${priorityClass}">${priorityText}</span></p>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
+                        <button type="button" class="btn btn-warning" onclick="$('#viewAnnouncementModal').modal('hide'); editAnnouncement(${id});">
+                            <i class="bi bi-pencil me-2"></i>แก้ไข
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    // Remove existing modal if any
+    $('#viewAnnouncementModal').remove();
+    
+    // Add modal to body
+    $('body').append(modalHtml);
+    
+    // Show modal
+    $('#viewAnnouncementModal').modal('show');
 }
 
 function editAnnouncement(id) {
-    showNotification('กำลังเปิดหน้าแก้ไขข่าวสาร...', 'info');
+    // Mock data สำหรับข่าวสาร (ในการใช้งานจริงจะดึงจาก Backend API)
+    const announcementsData = {
+        1: { id: 1, title: 'การปรับปรุงเว็บไซต์', date: '5 มีนาคม 2026', content: 'เริ่มต้นการปรับปรุงเว็บไซต์เพื่อเพิ่มประสิทธิภาพและประสบการณ์การใช้งาน', target: 'all', priority: 'normal' },
+        2: { id: 2, title: 'โปรโมชั่นใหม่สำหรับนายจ้าง', date: '4 มีนาคม 2026', content: 'โปรโมชั่นใหม่สำหรับแพ็คเกจ Pro ลด 20% สำหรับ 1 เดือนแรก', target: 'employer', priority: 'important' },
+        3: { id: 3, title: 'ฟีเจอร์ใหม่สำหรับผู้สมัครงาน', date: '3 มีนาคม 2026', content: 'เพิ่มฟีเจอร์การติดตามประวัติการสมัครงานของผู้ใช้', target: 'user', priority: 'important' },
+        4: { id: 4, title: 'การปรับปรุงระบบชำระเงิน', date: '2 มีนาคม 2026', content: 'ปรับปรุงระบบชำระเงินเพื่อเพิ่มความปลอดภัยและประสิทธิภาพ', target: 'employer', priority: 'normal' },
+        5: { id: 5, title: 'การปรับปรุงการแจ้งเตือน', date: '1 มีนาคม 2026', content: 'ปรับปรุงการแจ้งเตือนเพื่อให้ผู้ใช้ได้รับข้อมูลทันท่วงที', target: 'all', priority: 'normal' },
+    };
+    
+    const announcement = announcementsData[id];
+    if (!announcement) {
+        showNotification('ไม่พบข่าวสารที่ต้องการ', 'error');
+        return;
+    }
+    
+    const modalHtml = `
+        <div class="modal fade" id="editAnnouncementModal" tabindex="-1">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title fw-bold">แก้ไขข่าวสาร</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="editAnnouncementForm">
+                            <input type="hidden" id="editAnnouncementId" value="${announcement.id}">
+                            <div class="mb-3">
+                                <label class="form-label">หัวข้อข่าวสาร <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="editAnnouncementTitle" value="${announcement.title}" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">เนื้อหา <span class="text-danger">*</span></label>
+                                <textarea class="form-control" id="editAnnouncementContent" rows="5" required>${announcement.content}</textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">ส่งถึง <span class="text-danger">*</span></label>
+                                <select class="form-select" id="editAnnouncementTarget" required>
+                                    <option value="all" ${announcement.target === 'all' ? 'selected' : ''}>ทุกคน</option>
+                                    <option value="user" ${announcement.target === 'user' ? 'selected' : ''}>ผู้ใช้ (ผู้สมัครงาน)</option>
+                                    <option value="employer" ${announcement.target === 'employer' ? 'selected' : ''}>นายจ้าง (ผู้ประกาศงาน)</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">ความสำคัญ</label>
+                                <select class="form-select" id="editAnnouncementPriority">
+                                    <option value="normal" ${announcement.priority === 'normal' ? 'selected' : ''}>ปกติ</option>
+                                    <option value="important" ${announcement.priority === 'important' ? 'selected' : ''}>สำคัญ</option>
+                                    <option value="urgent" ${announcement.priority === 'urgent' ? 'selected' : ''}>เร่งด่วน</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก</button>
+                        <button type="button" class="btn btn-primary" onclick="updateAnnouncement()">
+                            <i class="bi bi-save me-2"></i>บันทึกการแก้ไข
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    // Remove existing modal if any
+    $('#editAnnouncementModal').remove();
+    
+    // Add modal to body
+    $('body').append(modalHtml);
+    
+    // Show modal
+    $('#editAnnouncementModal').modal('show');
+}
+
+function updateAnnouncement() {
+    const id = $('#editAnnouncementId').val();
+    const title = $('#editAnnouncementTitle').val();
+    const content = $('#editAnnouncementContent').val();
+    const target = $('#editAnnouncementTarget').val();
+    const priority = $('#editAnnouncementPriority').val();
+    
+    if (!title || !content || !target) {
+        showNotification('กรุณากรอกข้อมูลให้ครบถ้วน', 'warning');
+        return;
+    }
+    
+    showNotification('กำลังบันทึกการแก้ไข...', 'info');
+    
+    // Simulate API call
+    setTimeout(() => {
+        showNotification('บันทึกการแก้ไขสำเร็จ!', 'success');
+        $('#editAnnouncementModal').modal('hide');
+        setTimeout(() => loadAdminAnnouncements(), 500);
+    }, 1500);
 }
 
 function deleteAnnouncement(id) {

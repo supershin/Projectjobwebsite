@@ -10,32 +10,39 @@
     // Store original console methods
     const originalError = console.error;
     const originalWarn = console.warn;
+    const originalLog = console.log;
+    
+    // List of error patterns to suppress
+    const suppressPatterns = [
+        'IframeMessageAbortError',
+        'message port was destroyed',
+        'Message aborted',
+        'AbortError',
+        'setupMessageChannel',
+        'webpack-artifacts',
+        'figma.com/webpack',
+        'cleanup',
+        'eS.setupMessageChannel',
+        'message port',
+        'port was destroyed'
+    ];
+    
+    // Check if message should be suppressed
+    function shouldSuppressMessage(msg) {
+        const message = String(msg || '').toLowerCase();
+        return suppressPatterns.some(pattern => 
+            message.includes(pattern.toLowerCase())
+        );
+    }
     
     // Override console.error to suppress Figma iframe errors
     console.error = function(...args) {
         const errorMsg = args.join(' ').toString();
         
-        // List of error messages to suppress
-        const suppressPatterns = [
-            'IframeMessageAbortError',
-            'message port was destroyed',
-            'Message aborted',
-            'AbortError',
-            'setupMessageChannel',
-            'webpack-artifacts'
-        ];
-        
-        // Check if error message contains any suppress pattern
-        const shouldSuppress = suppressPatterns.some(pattern => 
-            errorMsg.toLowerCase().includes(pattern.toLowerCase())
-        );
-        
-        if (shouldSuppress) {
-            // Silently return without logging
-            return;
+        if (shouldSuppressMessage(errorMsg)) {
+            return; // Silently return
         }
         
-        // Log other errors normally
         originalError.apply(console, args);
     };
     
@@ -43,28 +50,38 @@
     console.warn = function(...args) {
         const warnMsg = args.join(' ').toString();
         
-        if (warnMsg.includes('IframeMessageAbortError') || 
-            warnMsg.includes('message port was destroyed')) {
+        if (shouldSuppressMessage(warnMsg)) {
             return;
         }
         
         originalWarn.apply(console, args);
     };
     
-    // Global error event handler - capture phase
+    // Override console.log to suppress related logs
+    console.log = function(...args) {
+        const logMsg = args.join(' ').toString();
+        
+        if (shouldSuppressMessage(logMsg)) {
+            return;
+        }
+        
+        originalLog.apply(console, args);
+    };
+    
+    // Global error event handler - capture phase (most aggressive)
     window.addEventListener('error', function(e) {
         const errorMessage = (e.message || e.error?.message || '').toLowerCase();
         const errorStack = (e.error?.stack || '').toLowerCase();
+        const errorName = (e.error?.name || '').toLowerCase();
         
-        if (errorMessage.includes('iframemessageaborterror') ||
-            errorMessage.includes('message port was destroyed') ||
-            errorMessage.includes('message aborted') ||
-            errorStack.includes('webpack-artifacts') ||
-            errorStack.includes('setupmessagechannel')) {
+        if (shouldSuppressMessage(errorMessage) ||
+            shouldSuppressMessage(errorStack) ||
+            shouldSuppressMessage(errorName) ||
+            errorName === 'aborterror') {
             e.preventDefault();
             e.stopPropagation();
             e.stopImmediatePropagation();
-            return false;
+            return true;
         }
     }, true);
     
@@ -73,15 +90,12 @@
         const errorMessage = (e.message || e.error?.message || '').toLowerCase();
         const errorStack = (e.error?.stack || '').toLowerCase();
         
-        if (errorMessage.includes('iframemessageaborterror') ||
-            errorMessage.includes('message port was destroyed') ||
-            errorMessage.includes('message aborted') ||
-            errorStack.includes('webpack-artifacts') ||
-            errorStack.includes('setupmessagechannel')) {
+        if (shouldSuppressMessage(errorMessage) ||
+            shouldSuppressMessage(errorStack)) {
             e.preventDefault();
             e.stopPropagation();
             e.stopImmediatePropagation();
-            return false;
+            return true;
         }
     }, false);
     
@@ -90,18 +104,18 @@
         const reason = e.reason || {};
         const reasonMessage = (reason.message || reason.toString() || '').toLowerCase();
         const reasonStack = (reason.stack || '').toLowerCase();
+        const reasonName = (reason.name || '').toLowerCase();
         
-        if (reasonMessage.includes('iframemessageaborterror') ||
-            reasonMessage.includes('message port was destroyed') ||
-            reasonMessage.includes('message aborted') ||
-            reasonStack.includes('webpack-artifacts') ||
-            reasonStack.includes('setupmessagechannel')) {
+        if (shouldSuppressMessage(reasonMessage) ||
+            shouldSuppressMessage(reasonStack) ||
+            shouldSuppressMessage(reasonName) ||
+            reasonName === 'aborterror') {
             e.preventDefault();
             e.stopPropagation();
             e.stopImmediatePropagation();
-            return false;
+            return true;
         }
-    });
+    }, true);
     
     // Override window.onerror
     const originalOnError = window.onerror;
@@ -109,13 +123,12 @@
         const msg = (message || '').toLowerCase();
         const src = (source || '').toLowerCase();
         const err = (error?.message || '').toLowerCase();
+        const errStack = (error?.stack || '').toLowerCase();
         
-        if (msg.includes('iframemessageaborterror') ||
-            msg.includes('message port was destroyed') ||
-            msg.includes('message aborted') ||
-            src.includes('webpack-artifacts') ||
-            src.includes('figma.com') ||
-            err.includes('iframemessageaborterror')) {
+        if (shouldSuppressMessage(msg) ||
+            shouldSuppressMessage(src) ||
+            shouldSuppressMessage(err) ||
+            shouldSuppressMessage(errStack)) {
             return true; // Prevent default error handling
         }
         
@@ -126,6 +139,51 @@
         return false;
     };
     
+    // Monkey patch Error constructor to catch at creation time
+    const OriginalError = Error;
+    window.Error = function(...args) {
+        const error = new OriginalError(...args);
+        const msg = (error.message || '').toLowerCase();
+        
+        if (shouldSuppressMessage(msg)) {
+            // Return a dummy error that won't be logged
+            const dummyError = new OriginalError('');
+            dummyError.stack = '';
+            return dummyError;
+        }
+        
+        return error;
+    };
+    window.Error.prototype = OriginalError.prototype;
+    
+    // Intercept MessagePort errors if available
+    if (typeof MessagePort !== 'undefined') {
+        const originalMessagePortStart = MessagePort.prototype.start;
+        const originalMessagePortClose = MessagePort.prototype.close;
+        
+        MessagePort.prototype.start = function() {
+            try {
+                return originalMessagePortStart.call(this);
+            } catch (e) {
+                if (shouldSuppressMessage(e.message || '')) {
+                    return;
+                }
+                throw e;
+            }
+        };
+        
+        MessagePort.prototype.close = function() {
+            try {
+                return originalMessagePortClose.call(this);
+            } catch (e) {
+                if (shouldSuppressMessage(e.message || '')) {
+                    return;
+                }
+                throw e;
+            }
+        };
+    }
+    
     // Debug log (commented out for production)
-    // console.log('%c[Error Suppressor] Figma iframe error handler loaded', 'color: #10b981; font-weight: bold;');
+    // originalLog('%c[Error Suppressor] Figma iframe error handler loaded', 'color: #10b981; font-weight: bold;');
 })();
