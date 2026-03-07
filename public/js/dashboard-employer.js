@@ -929,67 +929,361 @@ function showPostJobModal() {
     const modalHtml = `
         <div class="modal fade" id="postJobModal" tabindex="-1">
             <div class="modal-dialog modal-xl modal-dialog-scrollable">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title fw-bold">ประกาศงานใหม่</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                <div class="modal-content border-0 shadow-lg">
+                    <div class="modal-header bg-gradient border-0 text-white">
+                        <h5 class="modal-title fw-bold">
+                            <i class="bi bi-megaphone-fill me-2"></i>ประกาศงานใหม่
+                        </h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body p-4">
                         <form id="postJobForm">
-                            <div class="row g-3">
-                                <div class="col-md-8">
-                                    <label class="form-label">ตำแหน่งงาน *</label>
-                                    <input type="text" class="form-control" required placeholder="เช่น Senior Frontend Developer">
+                            <div class="row g-4">
+                                <!-- แบบงาน -->
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold">
+                                        <i class="bi bi-grid-3x3 text-primary me-2"></i>แบบงาน
+                                    </label>
+                                    <select class="form-select" id="jobPattern">
+                                        <option value="">กรอกเลือกจากตัวอย่าง</option>
+                                        <option value="office">งานออฟฟิศ</option>
+                                        <option value="remote">งาน Remote</option>
+                                        <option value="hybrid">งาน Hybrid</option>
+                                        <option value="onsite">งาน Onsite</option>
+                                    </select>
                                 </div>
+
+                                <!-- ตำแหน่ง -->
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold">
+                                        <i class="bi bi-briefcase text-primary me-2"></i>ตำแหน่ง <span class="text-danger">*</span>
+                                    </label>
+                                    <select class="form-select" id="jobPosition" required>
+                                        <option value="">เลือกตำแหน่งงาน</option>
+                                        <option value="developer">นักพัฒนาซอฟต์แวร์</option>
+                                        <option value="designer">นักออกแบบ</option>
+                                        <option value="marketing">นักการตลาด</option>
+                                        <option value="sales">พนักงานขาย</option>
+                                        <option value="engineer">วิศวกร</option>
+                                        <option value="accountant">นักบัญชี</option>
+                                        <option value="hr">ฝ่ายทรัพยากรบุคคล</option>
+                                        <option value="other">อื่นๆ</option>
+                                    </select>
+                                </div>
+
+                                <!-- ชื่อประกาศ -->
+                                <div class="col-12">
+                                    <label class="form-label fw-semibold">
+                                        <i class="bi bi-text-left text-primary me-2"></i>ชื่อประกาศ
+                                    </label>
+                                    <input type="text" class="form-control" id="jobTitle" maxlength="100" 
+                                           placeholder="กรอกชื่อประกาศงาน...">
+                                    <div class="d-flex justify-content-between align-items-start mt-2">
+                                        <div>
+                                            <small class="text-muted">
+                                                <i class="bi bi-info-circle text-danger me-1"></i>
+                                                <strong>Note:</strong> ชื่อประกาศตรงตามงานจริง ทั้งนี้ผู้ใช้ต้นเจอนิเม่าค้นได้
+                                            </small>
+                                            <br>
+                                            <small class="text-warning">
+                                                <i class="bi bi-lightbulb-fill me-1"></i>
+                                                <strong>Tip:</strong> ให้คำสำคัญง่ายต่อการค้นหาเพิ่มโอกาสค้นพบประกาศ
+                                            </small>
+                                        </div>
+                                        <span class="badge bg-secondary" id="titleCounter">0/100 ตัวอักษร</span>
+                                    </div>
+                                </div>
+
+                                <!-- ตำแหน่งจำกัดงวน -->
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold">
+                                        <i class="bi bi-calendar-x text-primary me-2"></i>ตำแหน่งจำกัดงวน
+                                    </label>
+                                    <div class="d-flex gap-4 mt-2">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="limitDuration" id="limitYes" value="yes">
+                                            <label class="form-check-label" for="limitYes">
+                                                ใช่ ❌
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="limitDuration" id="limitNo" value="no" checked>
+                                            <label class="form-check-label" for="limitNo">
+                                                ไม่ใช่ ⭕
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- ตำแหน่งจำกัดงานหีก (with NEW badge) -->
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold">
+                                        <i class="bi bi-star text-primary me-2"></i>ตำแหน่งจำกัดงานพิเศษ
+                                        <span class="badge bg-success ms-2">NEW</span>
+                                    </label>
+                                    <div class="form-check form-switch mt-2">
+                                        <input class="form-check-input" type="checkbox" id="specialPosition" style="width: 50px; height: 25px;">
+                                        <label class="form-check-label ms-2" for="specialPosition">
+                                            เปิดใช้งาน
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <!-- ประเภทงาน -->
+                                <div class="col-12">
+                                    <label class="form-label fw-semibold">
+                                        <i class="bi bi-tag text-primary me-2"></i>ประเภทงาน
+                                    </label>
+                                    <div class="d-flex flex-wrap gap-3 mt-2">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="jobType" id="fulltime" value="fulltime" checked>
+                                            <label class="form-check-label" for="fulltime">
+                                                งานประจำ ⭕
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="jobType" id="parttime" value="parttime">
+                                            <label class="form-check-label" for="parttime">
+                                                งานพาร์ทไทม์
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="jobType" id="freelance" value="freelance">
+                                            <label class="form-check-label" for="freelance">
+                                                ฟรีแลนซ์
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="jobType" id="temporary" value="temporary">
+                                            <label class="form-check-label" for="temporary">
+                                                ร่วมงานชั่วคราวและเป็นทีม
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- จำนวน -->
                                 <div class="col-md-4">
-                                    <label class="form-label">ประเภทงาน *</label>
-                                    <select class="form-select" required>
-                                        <option value="Full-time">Full-time</option>
-                                        <option value="Part-time">Part-time</option>
-                                        <option value="Contract">Contract</option>
-                                        <option value="Freelance">Freelance</option>
-                                        <option value="Internship">Internship</option>
+                                    <label class="form-label fw-semibold">
+                                        <i class="bi bi-people text-primary me-2"></i>จำนวน
+                                    </label>
+                                    <select class="form-select" id="quantity">
+                                        <option value="1" selected>1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="10">10</option>
+                                        <option value="20">20+</option>
                                     </select>
                                 </div>
-                                <div class="col-md-6">
-                                    <label class="form-label">เงินเดือนขั้นต่ำ (บาท) *</label>
-                                    <input type="number" class="form-control" required>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label">เงินเดือนสูงสุด (บาท) *</label>
-                                    <input type="number" class="form-control" required>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label">สถานที่ *</label>
-                                    <input type="text" class="form-control" required placeholder="เช่น กรุงเทพฯ">
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label">ประสบการณ์ *</label>
-                                    <select class="form-select" required>
-                                        <option>0-1 ปี</option>
-                                        <option>1-3 ปี</option>
-                                        <option>3-5 ปี</option>
-                                        <option>5+ ปี</option>
+
+                                <!-- เพศ -->
+                                <div class="col-md-4">
+                                    <label class="form-label fw-semibold">
+                                        <i class="bi bi-gender-ambiguous text-primary me-2"></i>เพศ
+                                    </label>
+                                    <select class="form-select" id="gender">
+                                        <option value="any" selected>ไม่ระบุเพศ</option>
+                                        <option value="male">ชาย</option>
+                                        <option value="female">หญิง</option>
                                     </select>
                                 </div>
-                                <div class="col-12">
-                                    <label class="form-label">รายละเอียดงาน *</label>
-                                    <textarea class="form-control" rows="5" required></textarea>
+
+                                <!-- อายุ -->
+                                <div class="col-md-4">
+                                    <label class="form-label fw-semibold">
+                                        <i class="bi bi-calendar-range text-primary me-2"></i>อายุ
+                                    </label>
+                                    <select class="form-select" id="age">
+                                        <option value="any" selected>ไม่ระบุอายุ</option>
+                                        <option value="18-25">18-25 ปี</option>
+                                        <option value="25-35">25-35 ปี</option>
+                                        <option value="35-45">35-45 ปี</option>
+                                        <option value="45+">45+ ปี</option>
+                                    </select>
                                 </div>
+
+                                <!-- ประเภทเงินเดือน -->
                                 <div class="col-12">
-                                    <label class="form-label">คุณสมบัติที่ต้องการ *</label>
-                                    <textarea class="form-control" rows="4" required placeholder="ระบุคุณสมบัติที่ต้องการ"></textarea>
+                                    <label class="form-label fw-semibold">
+                                        <i class="bi bi-cash text-primary me-2"></i>ประเภทเงินเดือน
+                                    </label>
+                                    <div class="d-flex flex-wrap gap-3 mt-2">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="salaryType" id="noSalary" value="no">
+                                            <label class="form-check-label" for="noSalary">
+                                                ไม่มี
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="salaryType" id="notSpecified" value="notspecified" checked>
+                                            <label class="form-check-label" for="notSpecified">
+                                                ไม่เจาะจงระบุพิมพ์ทั้ง ⭕
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="salaryType" id="negotiable" value="negotiable">
+                                            <label class="form-check-label" for="negotiable">
+                                                ระบบขั้งามารถ
+                                            </label>
+                                        </div>
+                                    </div>
                                 </div>
+
+                                <!-- การศึกษา -->
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold">
+                                        <i class="bi bi-mortarboard text-primary me-2"></i>การศึกษา
+                                    </label>
+                                    <select class="form-select" id="education">
+                                        <option value="">=== เลือกระดับการศึกษา ===</option>
+                                        <option value="high-school">มัธยมศึกษา</option>
+                                        <option value="vocational">ปวช./ปวส.</option>
+                                        <option value="bachelor">ปริญญาตรี</option>
+                                        <option value="master">ปริญญาโท</option>
+                                        <option value="doctorate">ปริญญาเอก</option>
+                                    </select>
+                                </div>
+
+                                <!-- ประสบการณ์ -->
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold">
+                                        <i class="bi bi-award text-primary me-2"></i>ประสบการณ์
+                                    </label>
+                                    <select class="form-select" id="experience">
+                                        <option value="0" selected>0</option>
+                                        <option value="1">1 ปี</option>
+                                        <option value="2">2 ปี</option>
+                                        <option value="3">3 ปี</option>
+                                        <option value="5">5 ปี</option>
+                                        <option value="10">10+ ปี</option>
+                                    </select>
+                                </div>
+
+                                <!-- ที่พักจ้างปัจจุบัน -->
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold">
+                                        <i class="bi bi-building text-primary me-2"></i>ที่พักจ้างปัจจุบัน
+                                    </label>
+                                    <div class="d-flex gap-4 mt-2">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="currentEmployment" id="anyEmployment" value="any" checked>
+                                            <label class="form-check-label" for="anyEmployment">
+                                                ไม่จำเพาะ ⭕
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="currentEmployment" id="noEmployment" value="no">
+                                            <label class="form-check-label" for="noEmployment">
+                                                ไม่มี
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- ที่พักจ้างหลายหัวที่ -->
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold">
+                                        <i class="bi bi-buildings text-primary me-2"></i>ที่พักจ้างหลายหัวที่
+                                    </label>
+                                    <div class="d-flex gap-4 mt-2">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="multiplePositions" id="anyMultiple" value="any" checked>
+                                            <label class="form-check-label" for="anyMultiple">
+                                                ไม่จำเพาะ ⭕
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="multiplePositions" id="noMultiple" value="no">
+                                            <label class="form-check-label" for="noMultiple">
+                                                ไม่มี
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- รายละเอียดงาน -->
                                 <div class="col-12">
-                                    <label class="form-label">สวัสดิการ</label>
-                                    <textarea class="form-control" rows="3"></textarea>
+                                    <label class="form-label fw-semibold">
+                                        <i class="bi bi-file-text text-primary me-2"></i>รายละเอียดงาน (Job Description)
+                                    </label>
+                                    <textarea class="form-control" id="jobDescription" rows="6" 
+                                              placeholder="อธิบายรายละเอียดงาน หน้าที่ความรับผิดชอบ..."></textarea>
+                                </div>
+
+                                <!-- คุณสมบัติผู้สมัครงาน -->
+                                <div class="col-12">
+                                    <label class="form-label fw-semibold">
+                                        <i class="bi bi-list-check text-primary me-2"></i>คุณสมบัติผู้สมัครงาน (Qualification)
+                                    </label>
+                                    <textarea class="form-control" id="qualification" rows="6" 
+                                              placeholder="ระบุคุณสมบัติที่ต้องการ เช่น ทักษะ ความรู้ ประสบการณ์..."></textarea>
+                                </div>
+
+                                <!-- สวัสดิการ -->
+                                <div class="col-12">
+                                    <label class="form-label fw-semibold">
+                                        <i class="bi bi-gift text-primary me-2"></i>สวัสดิการ (Welfare)
+                                    </label>
+                                    <textarea class="form-control" id="welfare" rows="6" 
+                                              placeholder="ระบุสวัสดิการที่บริษัทมอบให้ เช่น ประกันสุขภาพ โบนัส..."></textarea>
+                                </div>
+
+                                <!-- เงินเดือน -->
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold">
+                                        <i class="bi bi-currency-dollar text-primary me-2"></i>เงินเดือน
+                                    </label>
+                                    <select class="form-select" id="salary">
+                                        <option value="0-10000" selected>0 - 10,000</option>
+                                        <option value="10000-20000">10,000 - 20,000</option>
+                                        <option value="20000-30000">20,000 - 30,000</option>
+                                        <option value="30000-40000">30,000 - 40,000</option>
+                                        <option value="40000-50000">40,000 - 50,000</option>
+                                        <option value="50000+">50,000+</option>
+                                    </select>
+                                </div>
+
+                                <!-- ประเทศ -->
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold">
+                                        <i class="bi bi-flag text-primary me-2"></i>ประเทศ
+                                    </label>
+                                    <select class="form-select" id="country">
+                                        <option value="thailand" selected>ประเทศไทย</option>
+                                        <option value="singapore">สิงคโปร์</option>
+                                        <option value="japan">ญี่ปุ่น</option>
+                                        <option value="usa">สหรัฐอเมริกา</option>
+                                    </select>
+                                </div>
+
+                                <!-- สถานที่ปฏิบัติงาน -->
+                                <div class="col-12">
+                                    <label class="form-label fw-semibold">
+                                        <i class="bi bi-geo-alt text-primary me-2"></i>สถานที่ปฏิบัติงาน
+                                    </label>
+                                    <select class="form-select" id="location">
+                                        <option value="">===กรุณาเลือกจังหวัด===</option>
+                                        <option value="bangkok">กรุงเทพมหานคร</option>
+                                        <option value="chiang-mai">เชียงใหม่</option>
+                                        <option value="phuket">ภูเก็ต</option>
+                                        <option value="chonburi">ชลบุรี</option>
+                                        <option value="nonthaburi">นนทบุรี</option>
+                                        <option value="pathum-thani">ปทุมธานี</option>
+                                        <option value="samut-prakan">สมุทรปรากา���</option>
+                                    </select>
                                 </div>
                             </div>
                         </form>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก</button>
-                        <button type="button" class="btn btn-primary" onclick="submitJob()">ประกาศงาน</button>
+                    <div class="modal-footer border-0 bg-light">
+                        <button type="button" class="btn btn-secondary px-4" data-bs-dismiss="modal">
+                            <i class="bi bi-x-circle me-2"></i>ยกเลิก
+                        </button>
+                        <button type="button" class="btn btn-primary px-4" onclick="submitJob()">
+                            <i class="bi bi-send-fill me-2"></i>ลงประกาศ
+                        </button>
                     </div>
                 </div>
             </div>
@@ -998,6 +1292,13 @@ function showPostJobModal() {
     
     $('#postJobModal').remove();
     $('body').append(modalHtml);
+    
+    // Character counter for job title
+    $('#jobTitle').on('input', function() {
+        const length = $(this).val().length;
+        $('#titleCounter').text(`${length}/100 ตัวอักษร`);
+    });
+    
     $('#postJobModal').modal('show');
 }
 

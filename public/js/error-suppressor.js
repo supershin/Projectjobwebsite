@@ -29,7 +29,17 @@
         'o.cleanup',
         'e.onload',
         '6005-316f94e648742cad',
-        'figma_app-617144028f0d9b4f'
+        'figma_app-617144028f0d9b4f',
+        '316f94e648742cad.min.js',
+        '617144028f0d9b4f.min.js',
+        'at a.cleanup',
+        'at o.cleanup',
+        'at eS.setupMessageChannel',
+        'at e.onload',
+        'figma_app-',
+        'Message aborted: message port',
+        'message port was destroyed',
+        'IframeMessageAbortError: Message aborted'
     ];
     
     // Check if message should be suppressed
@@ -319,4 +329,101 @@
     
     // Debug log (commented out for production)
     // originalLog('%c[Error Suppressor] Enhanced Figma iframe error handler loaded', 'color: #10b981; font-weight: bold;');
+    
+    // Additional ultra-aggressive suppression - Intercept before error gets to console
+    const nativeThrow = Error.prototype.toString;
+    Error.prototype.toString = function() {
+        const msg = this.message || '';
+        const name = this.name || '';
+        const stack = this.stack || '';
+        
+        if (shouldSuppressMessage(msg) || 
+            shouldSuppressMessage(name) || 
+            shouldSuppressMessage(stack)) {
+            return ''; // Return empty string to suppress
+        }
+        
+        return nativeThrow.call(this);
+    };
+    
+    // Intercept Error stack getter
+    const originalStackGetter = Object.getOwnPropertyDescriptor(Error.prototype, 'stack');
+    if (originalStackGetter && originalStackGetter.get) {
+        Object.defineProperty(Error.prototype, 'stack', {
+            get: function() {
+                const stack = originalStackGetter.get.call(this);
+                if (stack && shouldSuppressMessage(stack)) {
+                    return ''; // Return empty stack
+                }
+                return stack;
+            },
+            set: originalStackGetter.set,
+            configurable: true
+        });
+    }
+    
+    // Ultimate fallback - wrap setTimeout and setInterval
+    const originalSetTimeout = window.setTimeout;
+    const originalSetInterval = window.setInterval;
+    
+    window.setTimeout = function(fn, delay, ...args) {
+        const wrappedFn = function() {
+            try {
+                return fn.apply(this, arguments);
+            } catch (e) {
+                if (!isFigmaError(e) && !shouldSuppressMessage(e.message || '')) {
+                    throw e;
+                }
+                // Silently suppress Figma errors
+            }
+        };
+        return originalSetTimeout.call(window, wrappedFn, delay, ...args);
+    };
+    
+    window.setInterval = function(fn, delay, ...args) {
+        const wrappedFn = function() {
+            try {
+                return fn.apply(this, arguments);
+            } catch (e) {
+                if (!isFigmaError(e) && !shouldSuppressMessage(e.message || '')) {
+                    throw e;
+                }
+                // Silently suppress Figma errors
+            }
+        };
+        return originalSetInterval.call(window, wrappedFn, delay, ...args);
+    };
+    
+    // Wrap requestAnimationFrame
+    if (window.requestAnimationFrame) {
+        const originalRAF = window.requestAnimationFrame;
+        window.requestAnimationFrame = function(callback) {
+            const wrappedCallback = function(timestamp) {
+                try {
+                    return callback.call(this, timestamp);
+                } catch (e) {
+                    if (!isFigmaError(e) && !shouldSuppressMessage(e.message || '')) {
+                        throw e;
+                    }
+                    // Silently suppress Figma errors
+                }
+            };
+            return originalRAF.call(window, wrappedCallback);
+        };
+    }
+    
+    // Wrap Promise.prototype.catch
+    const originalPromiseCatch = Promise.prototype.catch;
+    Promise.prototype.catch = function(onRejected) {
+        const wrappedOnRejected = function(reason) {
+            if (isFigmaError(reason) || shouldSuppressMessage(String(reason.message || reason || ''))) {
+                return Promise.resolve(); // Silently resolve to suppress
+            }
+            if (onRejected) {
+                return onRejected.call(this, reason);
+            }
+            throw reason;
+        };
+        return originalPromiseCatch.call(this, wrappedOnRejected);
+    };
 })();
