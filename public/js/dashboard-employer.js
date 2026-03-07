@@ -23,6 +23,11 @@ function loadEmployerDashboard() {
             </a>
         </li>
         <li class="nav-item">
+            <a class="nav-link ${currentView === 'search-resume' ? 'active' : ''}" href="dashboard.html?view=search-resume">
+                <i class="bi bi-search"></i> <span data-i18n="dashboard.employer.search-resume">ค้นหา Resume</span>
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link ${currentView === 'payments' ? 'active' : ''}" href="dashboard.html?view=payments">
                 <i class="bi bi-credit-card"></i> <span data-i18n="dashboard.employer.payments">การชำระเงิน</span>
             </a>
@@ -56,6 +61,9 @@ function loadEmployerDashboard() {
             break;
         case 'applications':
             loadEmployerApplications();
+            break;
+        case 'search-resume':
+            loadEmployerSearchResume();
             break;
         case 'payments':
             loadEmployerPayments();
@@ -474,6 +482,110 @@ function generateEmployerApplicationsList() {
     `;
 }
 
+// EMPLOYER: Search Resume
+function loadEmployerSearchResume() {
+    $('#dashboardContent').html(`
+        <div class="card shadow-sm">
+            <div class="card-header bg-white py-3 border-bottom">
+                <h5 class="mb-0 fw-bold">ค้นหา Resume</h5>
+            </div>
+            <div class="card-body">
+                <form id="searchResumeForm">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label">ตำแหน่งงาน</label>
+                            <input type="text" class="form-control" id="jobTitle" placeholder="เช่น Senior Frontend Developer">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">ประสบการณ์</label>
+                            <select class="form-select" id="experience">
+                                <option value="all">ทุกประสบการณ์</option>
+                                <option value="0-1">0-1 ปี</option>
+                                <option value="1-3">1-3 ปี</option>
+                                <option value="3-5">3-5 ปี</option>
+                                <option value="5+">5+ ปี</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">ทักษะ</label>
+                            <input type="text" class="form-control" id="skills" placeholder="เช่น React.js, Vue.js">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">สถานที่</label>
+                            <input type="text" class="form-control" id="location" placeholder="เช่น กรุงเทพฯ">
+                        </div>
+                        <div class="col-12">
+                            <button type="button" class="btn btn-primary" onclick="searchResumes()">
+                                <i class="bi bi-search me-2"></i>ค้นหา
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Search Results -->
+        <div id="searchResults" class="mt-4">
+            ${generateSearchResults()}
+        </div>
+    `);
+    
+    translatePage();
+}
+
+function generateSearchResults() {
+    const results = [
+        { id: 1, name: 'สมชาย ใจดี', position: 'Senior Frontend Developer', photo: 'https://ui-avatars.com/api/?name=สมชาย&background=6366f1&color=fff', date: '5 มีนาคม 2026', experience: '5 ปี', skills: 'React.js, Vue.js, TypeScript, Node.js' },
+        { id: 2, name: 'สมหญิง รักดี', position: 'UX/UI Designer', photo: 'https://ui-avatars.com/api/?name=สมหญิง&background=10b981&color=fff', date: '5 มีนาคม 2026', experience: '3 ปี', skills: 'Adobe XD, Sketch, Figma' },
+        { id: 3, name: 'ธนา ทำดี', position: 'Marketing Manager', photo: 'https://ui-avatars.com/api/?name=ธนา&background=f59e0b&color=fff', date: '4 มีนาคม 2026', experience: '4 ปี', skills: 'SEO, SEM, Google Analytics' },
+    ];
+    
+    return `
+        <div class="list-group list-group-flush">
+            ${results.map(res => `
+                <div class="list-group-item p-3 hover-shadow">
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                            <img src="${res.photo}" alt="${res.name}" class="rounded-circle" width="56" height="56">
+                        </div>
+                        <div class="col">
+                            <h6 class="mb-1 fw-bold">${res.name}</h6>
+                            <small class="text-muted d-block">
+                                <i class="bi bi-briefcase me-1"></i>${res.position}
+                            </small>
+                            <small class="text-muted">
+                                <i class="bi bi-award me-1"></i>${res.experience} ประสบการณ์
+                                <span class="mx-2">•</span>
+                                <i class="bi bi-calendar3 me-1"></i>${res.date}
+                            </small>
+                            <small class="text-muted">
+                                <i class="bi bi-tools me-1"></i>${res.skills}
+                            </small>
+                        </div>
+                        <div class="col-auto">
+                            <div class="btn-group">
+                                <button class="btn btn-sm btn-outline-primary" onclick="viewApplicantDetail(${res.id})">
+                                    <i class="bi bi-eye me-1"></i> ดู
+                                </button>
+                                <button class="btn btn-sm btn-outline-success" onclick="downloadResume(${res.id})">
+                                    <i class="bi bi-download me-2"></i>ดาวน์โหลด
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('')}
+        </div>
+    `;
+}
+
+function searchResumes() {
+    showNotification('กำลังค้นหา Resume...', 'info');
+    setTimeout(() => {
+        $('#searchResults').html(generateSearchResults());
+    }, 1000);
+}
+
 // EMPLOYER: Payments
 function loadEmployerPayments() {
     $('#dashboardContent').html(`
@@ -647,6 +759,74 @@ function loadEmployerCompanyProfile() {
                         <button class="btn btn-outline-primary btn-sm w-100" onclick="$('#companyLogoInput').click()">
                             <i class="bi bi-upload"></i> เปลี่ยนโลโก้
                         </button>
+                    </div>
+                </div>
+
+                <!-- Current Package -->
+                <div class="card shadow-sm mb-4 border-primary">
+                    <div class="card-header bg-primary text-white py-3">
+                        <h6 class="mb-0 fw-bold">
+                            <i class="bi bi-star-fill me-2"></i>แพ็คเกจปัจจุบัน
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center mb-3">
+                            <h4 class="fw-bold text-primary mb-2">Pro Package</h4>
+                            <div class="h2 fw-bold text-primary mb-1">฿2,499</div>
+                            <small class="text-muted">ต่อเดือน</small>
+                        </div>
+                        
+                        <hr>
+                        
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between mb-2">
+                                <small class="text-muted">วันเริ่มต้น</small>
+                                <small class="fw-bold">1 มีนาคม 2026</small>
+                            </div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <small class="text-muted">วันหมดอายุ</small>
+                                <small class="fw-bold">31 มีนาคม 2026</small>
+                            </div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <small class="text-muted">สถานะ</small>
+                                <span class="badge bg-success">ใช้งานอยู่</span>
+                            </div>
+                        </div>
+                        
+                        <hr>
+                        
+                        <h6 class="fw-bold mb-3">สิทธิประโยชน์</h6>
+                        <ul class="list-unstyled small">
+                            <li class="mb-2">
+                                <i class="bi bi-check-circle-fill text-success me-2"></i>10 ตำแหน่งงาน
+                            </li>
+                            <li class="mb-2">
+                                <i class="bi bi-check-circle-fill text-success me-2"></i>โพสต์ได้ 30 วัน
+                            </li>
+                            <li class="mb-2">
+                                <i class="bi bi-check-circle-fill text-success me-2"></i>แสดงผลเด่น
+                            </li>
+                            <li class="mb-2">
+                                <i class="bi bi-check-circle-fill text-success me-2"></i>สถิติรายละเอียด
+                            </li>
+                            <li class="mb-2">
+                                <i class="bi bi-check-circle-fill text-success me-2"></i>ค้นหา Resume ได้
+                            </li>
+                        </ul>
+                        
+                        <div class="d-grid gap-2 mt-3">
+                            <a href="dashboard.html?view=payments" class="btn btn-outline-primary btn-sm">
+                                <i class="bi bi-arrow-up-circle me-2"></i>อัพเกรดแพ็คเกจ
+                            </a>
+                            <button class="btn btn-outline-secondary btn-sm" onclick="viewPaymentHistory()">
+                                <i class="bi bi-receipt me-2"></i>ประวัติการชำระเงิน
+                            </button>
+                        </div>
+                        
+                        <div class="alert alert-info mt-3 mb-0 small">
+                            <i class="bi bi-info-circle me-2"></i>
+                            <strong>เหลืออีก 24 วัน</strong> ก่อนแพ็คเกจหมดอายุ
+                        </div>
                     </div>
                 </div>
 
@@ -919,4 +1099,8 @@ function filterByStatus(status) {
 
 function downloadResume(id) {
     showNotification('กำลังดาวน์โหลดเรซูเม่...', 'info');
+}
+
+function viewPaymentHistory() {
+    window.location.href = 'dashboard.html?view=payments';
 }
