@@ -28,6 +28,11 @@ function loadEmployerDashboard() {
             </a>
         </li>
         <li class="nav-item">
+            <a class="nav-link ${currentView === 'announcements' ? 'active' : ''}" href="dashboard.html?view=announcements">
+                <i class="bi bi-megaphone"></i> <span data-i18n="dashboard.announcements">ข่าวสาร</span>
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link ${currentView === 'payments' ? 'active' : ''}" href="dashboard.html?view=payments">
                 <i class="bi bi-credit-card"></i> <span data-i18n="dashboard.employer.payments">การชำระเงิน</span>
             </a>
@@ -64,6 +69,9 @@ function loadEmployerDashboard() {
             break;
         case 'search-resume':
             loadEmployerSearchResume();
+            break;
+        case 'announcements':
+            loadEmployerAnnouncements();
             break;
         case 'payments':
             loadEmployerPayments();
@@ -1091,7 +1099,7 @@ function rejectApplicant(id) {
 }
 
 function editJob(id) {
-    showNotification('กำลังเปิดหน้าแก้ไขงาน...', 'info');
+    showNotification('กำลั���เปิดหน้าแก้ไขงาน...', 'info');
 }
 
 function deleteJob(id) {
@@ -1113,6 +1121,69 @@ function purchasePackage(id) {
 
 function downloadReceipt(id) {
     showNotification('กำลังดาวน์โหลดใบเสร็จ...', 'info');
+}
+
+// EMPLOYER: Announcements
+function loadEmployerAnnouncements() {
+    $('#dashboardContent').html(`
+        <div class="card shadow-sm">
+            <div class="card-header bg-white py-3 border-bottom">
+                <h5 class="mb-0 fw-bold"><i class="bi bi-megaphone me-2"></i>ข่าวสารจากระบบ</h5>
+            </div>
+            <div class="card-body p-0">
+                ${generateEmployerAnnouncementsList()}
+            </div>
+        </div>
+    `);
+    
+    translatePage();
+}
+
+function generateEmployerAnnouncementsList() {
+    // Filter announcements for employers (target: 'employer' or 'all')
+    const announcements = [
+        { id: 1, title: 'การปรับปรุงเว็บไซต์', date: '5 มีนาคม 2026', content: 'เริ่มต้นการปรับปรุงเว็บไซต์เพื่อเพิ่มประสิทธิภาพและประสบการณ์การใช้งาน', priority: 'normal', isRead: false },
+        { id: 2, title: 'โปรโมชั่นใหม่สำหรับนายจ้าง', date: '4 มีนาคม 2026', content: 'โปรโมชั่นใหม่สำหรับแพ็คเกจ Pro ลด 20% สำหรับ 1 เดือนแรก', priority: 'important', isRead: false },
+        { id: 4, title: 'การปรับปรุงระบบชำระเงิน', date: '2 มีนาคม 2026', content: 'ปรับปรุงระบบชำระเงินเพื่อเพิ่มความปลอดภัยและประสิทธิภาพ', priority: 'normal', isRead: true },
+        { id: 5, title: 'การปรับปรุงการแจ้งเตือน', date: '1 มีนาคม 2026', content: 'ปรับปรุงการแจ้งเตือนเพื่อให้ผู้ใช้ได้รับข้อมูลทันท่วงที', priority: 'normal', isRead: true },
+    ];
+    
+    if (announcements.length === 0) {
+        return `
+            <div class="p-5 text-center text-muted">
+                <i class="bi bi-inbox fs-1 d-block mb-3"></i>
+                <p>ยังไม่มีข่าวสาร</p>
+            </div>
+        `;
+    }
+    
+    return `
+        <div class="list-group list-group-flush">
+            ${announcements.map(ann => `
+                <div class="list-group-item p-4 ${ann.isRead ? '' : 'bg-light border-start border-primary border-4'} hover-shadow" style="cursor: pointer;" onclick="viewAnnouncementUser(${ann.id})">
+                    <div class="d-flex align-items-start">
+                        <div class="me-3">
+                            <div class="rounded-circle bg-primary bg-opacity-10 p-3">
+                                <i class="bi bi-megaphone fs-4 text-primary"></i>
+                            </div>
+                        </div>
+                        <div class="flex-grow-1">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <h6 class="mb-0 fw-bold">
+                                    ${ann.title}
+                                    ${!ann.isRead ? '<span class="badge bg-danger ms-2">ใหม่</span>' : ''}
+                                    ${ann.priority === 'important' ? '<span class="badge bg-warning ms-2">สำคัญ</span>' : ''}
+                                    ${ann.priority === 'urgent' ? '<span class="badge bg-danger ms-2">เร่งด่วน</span>' : ''}
+                                </h6>
+                                <small class="text-muted">${ann.date}</small>
+                            </div>
+                            <p class="mb-0 text-muted">${ann.content}</p>
+                        </div>
+                    </div>
+                </div>
+            `).join('')}
+        </div>
+    `;
 }
 
 function handleCompanyLogoUpload(input) {

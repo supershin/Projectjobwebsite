@@ -95,6 +95,11 @@ function loadUserDashboard() {
             </a>
         </li>
         <li class="nav-item">
+            <a class="nav-link ${currentView === 'announcements' ? 'active' : ''}" href="dashboard.html?view=announcements">
+                <i class="bi bi-megaphone"></i> <span data-i18n="dashboard.announcements">ข่าวสาร</span>
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link ${currentView === 'profile' ? 'active' : ''}" href="dashboard.html?view=profile">
                 <i class="bi bi-person"></i> <span data-i18n="dashboard.profile">โปรไฟล์</span>
             </a>
@@ -124,6 +129,9 @@ function loadUserDashboard() {
             break;
         case 'saved-jobs':
             loadUserSavedJobs();
+            break;
+        case 'announcements':
+            loadUserAnnouncements();
             break;
         case 'profile':
             loadUserProfile();
@@ -2231,6 +2239,73 @@ function contactApplicant(id) { alert('Contact applicant ' + id); }
 function upgradePackage() { alert('Upgrade package'); }
 function buyPackage(type) { alert('Buy package: ' + type); }
 function saveCompanyProfile() { alert('Save company profile'); }
+
+// USER: Announcements
+function loadUserAnnouncements() {
+    $('#dashboardContent').html(`
+        <div class="card shadow-sm">
+            <div class="card-header bg-white py-3 border-bottom">
+                <h5 class="mb-0 fw-bold"><i class="bi bi-megaphone me-2"></i>ข่าวสารจากระบบ</h5>
+            </div>
+            <div class="card-body p-0">
+                ${generateUserAnnouncementsList()}
+            </div>
+        </div>
+    `);
+    
+    translatePage();
+}
+
+function generateUserAnnouncementsList() {
+    // Filter announcements for users (target: 'user' or 'all')
+    const announcements = [
+        { id: 1, title: 'การปรับปรุงเว็บไซต์', date: '5 มีนาคม 2026', content: 'เริ่มต้นการปรับปรุงเว็บไซต์เพื่อเพิ่มประสิทธิภาพและประสบการณ์การใช้งาน', priority: 'normal', isRead: false },
+        { id: 3, title: 'ฟีเจอร์ใหม่สำหรับผู้สมัครงาน', date: '3 มีนาคม 2026', content: 'เพิ่มฟีเจอร์การติดตามประวัติการสมัครงานของผู้ใช้', priority: 'important', isRead: false },
+        { id: 5, title: 'การปรับปรุงการแจ้งเตือน', date: '1 มีนาคม 2026', content: 'ปรับปรุงการแจ้งเตือนเพื่อให้ผู้ใช้ได้รับข้อมูลทันท่วงที', priority: 'normal', isRead: true },
+    ];
+    
+    if (announcements.length === 0) {
+        return `
+            <div class="p-5 text-center text-muted">
+                <i class="bi bi-inbox fs-1 d-block mb-3"></i>
+                <p>ยังไม่มีข่าวสาร</p>
+            </div>
+        `;
+    }
+    
+    return `
+        <div class="list-group list-group-flush">
+            ${announcements.map(ann => `
+                <div class="list-group-item p-4 ${ann.isRead ? '' : 'bg-light border-start border-primary border-4'} hover-shadow" style="cursor: pointer;" onclick="viewAnnouncementUser(${ann.id})">
+                    <div class="d-flex align-items-start">
+                        <div class="me-3">
+                            <div class="rounded-circle bg-primary bg-opacity-10 p-3">
+                                <i class="bi bi-megaphone fs-4 text-primary"></i>
+                            </div>
+                        </div>
+                        <div class="flex-grow-1">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <h6 class="mb-0 fw-bold">
+                                    ${ann.title}
+                                    ${!ann.isRead ? '<span class="badge bg-danger ms-2">ใหม่</span>' : ''}
+                                    ${ann.priority === 'important' ? '<span class="badge bg-warning ms-2">สำคัญ</span>' : ''}
+                                    ${ann.priority === 'urgent' ? '<span class="badge bg-danger ms-2">เร่งด่วน</span>' : ''}
+                                </h6>
+                                <small class="text-muted">${ann.date}</small>
+                            </div>
+                            <p class="mb-0 text-muted">${ann.content}</p>
+                        </div>
+                    </div>
+                </div>
+            `).join('')}
+        </div>
+    `;
+}
+
+function viewAnnouncementUser(id) {
+    showNotification('กำลังโหลดรายละเอียดข่าวสาร...', 'info');
+}
+
 function viewUser(id) { alert('View user ' + id); }
 function suspendUser(id) { 
     if(confirm('ยืนยันการระงับผู้ใช้นี้?')) {
