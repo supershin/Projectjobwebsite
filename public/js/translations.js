@@ -345,6 +345,7 @@ const translations = {
         'dashboard.admin.manage-users': 'จัดการผู้ใช้',
         'dashboard.admin.manage-employers': 'จัดการนายจ้าง',
         'dashboard.admin.manage-jobs': 'จัดการงาน',
+        'dashboard.admin.admins': 'จัดการผู้ดูแลระบบ',
         'dashboard.admin.payments': 'การชำระเงิน',
         'dashboard.admin.reports': 'รายงาน',
         'dashboard.admin.system-settings': 'ตั้งค่าระบบ',

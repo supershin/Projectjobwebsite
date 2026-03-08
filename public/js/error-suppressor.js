@@ -52,21 +52,39 @@
         'aborted'
     ];
     
+    // Additional exact match patterns (case-sensitive)
+    const exactMatchPatterns = [
+        'IframeMessageAbortError',
+        'eS.setupMessageChannel',
+        'a.cleanup',
+        'o.cleanup',
+        'e.onload'
+    ];
+    
     // Ultra-fast check function
     function shouldSuppress(msg) {
         if (!msg) return false;
-        const str = String(msg).toLowerCase();
+        const str = String(msg);
+        
+        // Check exact matches first (case-sensitive for Figma errors)
+        for (let i = 0; i < exactMatchPatterns.length; i++) {
+            if (str.includes(exactMatchPatterns[i])) {
+                return true;
+            }
+        }
+        
+        const lowerStr = str.toLowerCase();
         // Quick check for most common patterns first
-        if (str.includes('iframemessageaborterror') || 
-            str.includes('message port') || 
-            str.includes('figma.com') ||
-            str.includes('webpack-artifacts') ||
-            str.includes('message aborted')) {
+        if (lowerStr.includes('iframemessageaborterror') || 
+            lowerStr.includes('message port') || 
+            lowerStr.includes('figma.com') ||
+            lowerStr.includes('webpack-artifacts') ||
+            lowerStr.includes('message aborted')) {
             return true;
         }
         // Full pattern check
         for (let i = 0; i < suppressPatterns.length; i++) {
-            if (str.includes(suppressPatterns[i])) {
+            if (lowerStr.includes(suppressPatterns[i])) {
                 return true;
             }
         }

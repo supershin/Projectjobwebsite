@@ -477,29 +477,84 @@ function loadUserProfile() {
                             <i class="bi bi-plus-circle"></i> เพิ่มประสบการณ์
                         </button>
                     </div>
-                    <div class="card-body">
-                        <div class="experience-item mb-3 pb-3 border-bottom">
-                            <div class="d-flex justify-content-between">
-                                <div>
+                    <div class="card-body" id="experienceList">
+                        <!-- Experience Item 1 -->
+                        <div class="experience-item mb-4 pb-4 border-bottom">
+                            <div class="d-flex justify-content-between mb-2">
+                                <div class="flex-grow-1">
                                     <h6 class="fw-bold mb-1">Frontend Developer</h6>
-                                    <p class="text-muted mb-1">Tech Company Ltd.</p>
-                                    <small class="text-muted">มกราคม 2023 - ปัจจุบัน</small>
+                                    <p class="text-muted mb-1">
+                                        <i class="bi bi-building me-1"></i>Tech Company Ltd.
+                                    </p>
+                                    <p class="text-muted mb-2">
+                                        <i class="bi bi-calendar-event me-1"></i>
+                                        <small>มกราคม 2023 - ปัจจุบัน (1 ปี 2 เดือน)</small>
+                                    </p>
+                                    <!-- รายละเอียดงาน -->
+                                    <div class="experience-details mt-2">
+                                        <p class="text-muted mb-1 small">
+                                            <strong>รายละเอียดงาน:</strong>
+                                        </p>
+                                        <ul class="small text-muted mb-0 ps-3">
+                                            <li>พัฒนาและดูแล Web Application ด้วย React.js และ TypeScript</li>
+                                            <li>ทำงานร่วมกับ UX/UI Designer เพื่อนำ Design มาพัฒนาเป็น Component</li>
+                                            <li>Implement Responsive Design และ Optimize Performance</li>
+                                            <li>Code Review และ Mentoring สำหรับ Junior Developer</li>
+                                        </ul>
+                                    </div>
                                 </div>
-                                <button class="btn btn-sm btn-outline-danger" onclick="removeExperience(1)">
-                                    <i class="bi bi-trash"></i>
-                                </button>
+                                <div class="ms-2">
+                                    <button class="btn btn-sm btn-outline-secondary me-1" 
+                                            onclick="editExperience(1)" 
+                                            title="แก้ไข">
+                                        <i class="bi bi-pencil"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-danger" 
+                                            onclick="removeExperience(1)"
+                                            title="ลบ">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </div>
                             </div>
                         </div>
+                        
+                        <!-- Experience Item 2 -->
                         <div class="experience-item">
-                            <div class="d-flex justify-content-between">
-                                <div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <div class="flex-grow-1">
                                     <h6 class="fw-bold mb-1">Junior Developer</h6>
-                                    <p class="text-muted mb-1">Startup Hub</p>
-                                    <small class="text-muted">มิถุนายน 2021 - ธันวาคม 2022</small>
+                                    <p class="text-muted mb-1">
+                                        <i class="bi bi-building me-1"></i>Startup Hub
+                                    </p>
+                                    <p class="text-muted mb-2">
+                                        <i class="bi bi-calendar-event me-1"></i>
+                                        <small>มิถุนายน 2021 - ธันวาคม 2022 (1 ปี 7 เดือน)</small>
+                                    </p>
+                                    <!-- รายละเอียดงาน -->
+                                    <div class="experience-details mt-2">
+                                        <p class="text-muted mb-1 small">
+                                            <strong>รายละเอียดงาน:</strong>
+                                        </p>
+                                        <ul class="small text-muted mb-0 ps-3">
+                                            <li>พัฒนา Frontend ด้วย Vue.js และ JavaScript</li>
+                                            <li>ทำงานในทีม Agile และเข้าร่วม Daily Standup</li>
+                                            <li>Fix Bug และ Implement Features ตาม Requirements</li>
+                                            <li>เรียนรู้และนำ Best Practices มาใช้ในโปรเจค</li>
+                                        </ul>
+                                    </div>
                                 </div>
-                                <button class="btn btn-sm btn-outline-danger" onclick="removeExperience(2)">
-                                    <i class="bi bi-trash"></i>
-                                </button>
+                                <div class="ms-2">
+                                    <button class="btn btn-sm btn-outline-secondary me-1" 
+                                            onclick="editExperience(2)" 
+                                            title="แก้ไข">
+                                        <i class="bi bi-pencil"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-danger" 
+                                            onclick="removeExperience(2)"
+                                            title="ลบ">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -2201,8 +2256,184 @@ function cancelApplication(id) {
 function unsaveJob(id) { alert('Unsave job ' + id); }
 function applyJob(id) { window.location.href = 'job-detail.html?id=' + id; }
 function addSkill() { alert('Add skill'); }
-function addExperience() { alert('Add experience'); }
-function removeExperience(id) { alert('Remove experience ' + id); }
+
+// Add/Edit Experience
+function addExperience() { 
+    showExperienceModal();
+}
+
+function editExperience(id) {
+    // Mock data - In production, fetch from API
+    const experience = {
+        id: id,
+        position: id === 1 ? 'Frontend Developer' : 'Junior Developer',
+        company: id === 1 ? 'Tech Company Ltd.' : 'Startup Hub',
+        startDate: id === 1 ? '2023-01' : '2021-06',
+        endDate: id === 1 ? '' : '2022-12',
+        current: id === 1 ? true : false,
+        description: id === 1 ? 
+            '• พัฒนาและดูแล Web Application ด้วย React.js และ TypeScript\n• ทำงานร่วมกับ UX/UI Designer เพื่อนำ Design มาพัฒนาเป็น Component\n• Implement Responsive Design และ Optimize Performance\n• Code Review และ Mentoring สำหรับ Junior Developer' :
+            '• พัฒนา Frontend ด้วย Vue.js และ JavaScript\n• ทำงานในทีม Agile และเข้าร่วม Daily Standup\n• Fix Bug และ Implement Features ตาม Requirements\n• เรียนรู้และนำ Best Practices มาใช้ในโปรเจค'
+    };
+    showExperienceModal(experience);
+}
+
+function showExperienceModal(experience = null) {
+    const isEdit = experience !== null;
+    const modalTitle = isEdit ? 'แก้ไขประสบการณ์ทำงาน' : 'เพิ่มประสบการณ์ทำงาน';
+    
+    const modalHtml = `
+        <div class="modal fade" id="experienceModal" tabindex="-1">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content border-0 shadow-lg">
+                    <div class="modal-header bg-gradient border-0 text-white">
+                        <h5 class="modal-title fw-bold">
+                            <i class="bi bi-briefcase me-2"></i>${modalTitle}
+                        </h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body p-4">
+                        <form id="experienceForm">
+                            <div class="row g-3">
+                                <!-- Position -->
+                                <div class="col-12">
+                                    <label class="form-label fw-semibold">
+                                        ตำแหน่งงาน <span class="text-danger">*</span>
+                                    </label>
+                                    <input type="text" class="form-control" id="expPosition" 
+                                           value="${experience?.position || ''}" 
+                                           placeholder="เช่น Frontend Developer, Project Manager" required>
+                                </div>
+                                
+                                <!-- Company -->
+                                <div class="col-12">
+                                    <label class="form-label fw-semibold">
+                                        บริษัท <span class="text-danger">*</span>
+                                    </label>
+                                    <input type="text" class="form-control" id="expCompany" 
+                                           value="${experience?.company || ''}" 
+                                           placeholder="เช่น Tech Company Ltd." required>
+                                </div>
+                                
+                                <!-- Start Date -->
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold">
+                                        เริ่มทำงาน <span class="text-danger">*</span>
+                                    </label>
+                                    <input type="month" class="form-control" id="expStartDate" 
+                                           value="${experience?.startDate || ''}" required>
+                                </div>
+                                
+                                <!-- End Date -->
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold">
+                                        สิ้นสุด
+                                    </label>
+                                    <input type="month" class="form-control" id="expEndDate" 
+                                           value="${experience?.endDate || ''}"
+                                           ${experience?.current ? 'disabled' : ''}>
+                                </div>
+                                
+                                <!-- Current Job Checkbox -->
+                                <div class="col-12">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="expCurrent" 
+                                               ${experience?.current ? 'checked' : ''}>
+                                        <label class="form-check-label" for="expCurrent">
+                                            ฉันยังทำงานที่นี่อยู่
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <!-- Description -->
+                                <div class="col-12">
+                                    <label class="form-label fw-semibold">
+                                        รายละเอียดงาน
+                                        <small class="text-muted">(แนะนำ)</small>
+                                    </label>
+                                    <textarea class="form-control" id="expDescription" rows="8" 
+                                              placeholder="เช่น:&#10;• พัฒนาและดูแล Web Application&#10;• ทำงานร่วมกับทีม UX/UI&#10;• Code Review และ Mentoring&#10;• จัดการโปรเจคด้วย Agile Methodology">${experience?.description || ''}</textarea>
+                                    <div class="form-text">
+                                        <i class="bi bi-lightbulb text-warning me-1"></i>
+                                        <strong>เคล็ดลับ:</strong> ใช้จุด • หรือ - เพื่อแสดงรายละเอียดเป็นข้อๆ แต่ละบรรทัด
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer border-0">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            <i class="bi bi-x-circle me-2"></i>ยกเลิก
+                        </button>
+                        <button type="submit" form="experienceForm" class="btn btn-primary">
+                            <i class="bi bi-check-circle me-2"></i>${isEdit ? 'บันทึกการแก้ไข' : 'เพิ่มประสบการณ์'}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    // Remove existing modal
+    $('#experienceModal').remove();
+    
+    // Add modal to body
+    $('body').append(modalHtml);
+    
+    // Show modal
+    const modal = new bootstrap.Modal(document.getElementById('experienceModal'));
+    modal.show();
+    
+    // Handle current job checkbox
+    $('#expCurrent').on('change', function() {
+        $('#expEndDate').prop('disabled', this.checked);
+        if (this.checked) {
+            $('#expEndDate').val('');
+        }
+    });
+    
+    // Form submit handler
+    $('#experienceForm').on('submit', function(e) {
+        e.preventDefault();
+        
+        const formData = {
+            id: experience?.id || Date.now(),
+            position: $('#expPosition').val(),
+            company: $('#expCompany').val(),
+            startDate: $('#expStartDate').val(),
+            endDate: $('#expCurrent').is(':checked') ? '' : $('#expEndDate').val(),
+            current: $('#expCurrent').is(':checked'),
+            description: $('#expDescription').val()
+        };
+        
+        console.log('Experience Data:', formData);
+        
+        // Show success notification
+        showNotification(
+            isEdit ? 'แก้ไขประสบการณ์สำเร็จ!' : 'เพิ่มประสบการณ์สำเร็จ!', 
+            'success'
+        );
+        
+        // Close modal
+        modal.hide();
+        
+        // In production, send to API and reload experience list
+        setTimeout(() => {
+            // Reload profile page
+            window.location.href = 'dashboard.html?view=profile';
+        }, 1000);
+    });
+}
+
+function removeExperience(id) { 
+    if(confirm('ยืนยันการลบประสบการณ์นี้?')) {
+        showNotification('ลบประสบการณ์สำเร็จ', 'success');
+        // In production, send to API and reload
+        setTimeout(() => {
+            window.location.href = 'dashboard.html?view=profile';
+        }, 1000);
+    }
+}
 function saveProfile() { alert('Save profile'); }
 function changePassword() { alert('Change password'); }
 function deleteAccount() { 
