@@ -301,7 +301,7 @@ function loadUserApplications() {
                             <option value="all">ทั้งหมด</option>
                             <option value="pending">รอการตอบกลับ</option>
                             <option value="reviewing">กำลังตรวจสอบ</option>
-                            <option value="accepted">ได้รับการตอบรับ</option>
+                            <option value="accepted">ได้รับการตอบ���ับ</option>
                             <option value="rejected">ไม่ผ่าน</option>
                         </select>
                     </div>
@@ -888,12 +888,29 @@ function showAddExperienceModal() {
                                 <input type="text" class="form-control" id="newExpCompany" 
                                        placeholder="เช่น Tech Company Ltd." required>
                             </div>
+                            <!-- ช่วงเวลา from - to -->
                             <div class="col-12">
                                 <label class="form-label fw-semibold">
                                     ช่วงเวลา <span class="text-danger">*</span>
                                 </label>
-                                <input type="text" class="form-control" id="newExpPeriod" 
-                                       placeholder="เช่น มกราคม 2023 - ปัจจุบัน" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label text-muted small">
+                                    <i class="bi bi-calendar-event me-1"></i>เริ่มต้น
+                                </label>
+                                <input type="month" class="form-control" id="newExpStartDate" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label text-muted small">
+                                    <i class="bi bi-calendar-check me-1"></i>สิ้นสุด
+                                </label>
+                                <input type="month" class="form-control" id="newExpEndDate">
+                                <div class="form-check mt-2">
+                                    <input class="form-check-input" type="checkbox" id="newExpCurrent" onchange="toggleEndDate()">
+                                    <label class="form-check-label text-primary" for="newExpCurrent">
+                                        <i class="bi bi-check-circle me-1"></i>ยังทำงานอยู่ (ปัจจุบัน)
+                                    </label>
+                                </div>
                             </div>
                             <!-- รายละเอียดงาน -->
                             <div class="col-12">
@@ -928,14 +945,44 @@ function showAddExperienceModal() {
     $('#addExperienceModal').modal('show');
 }
 
+// Toggle end date field when "current" checkbox is checked
+function toggleEndDate() {
+    const isChecked = $('#newExpCurrent').is(':checked');
+    $('#newExpEndDate').prop('disabled', isChecked);
+    if (isChecked) {
+        $('#newExpEndDate').val('');
+    }
+}
+
 // Add new experience
 function addNewExperience() {
     const position = $('#newExpPosition').val().trim();
     const company = $('#newExpCompany').val().trim();
-    const period = $('#newExpPeriod').val().trim();
+    const startDate = $('#newExpStartDate').val();
+    const endDate = $('#newExpEndDate').val();
+    const isCurrent = $('#newExpCurrent').is(':checked');
     const description = $('#newExpDescription').val().trim();
     
-    if (!position || !company || !period) {
+    // Validate required fields
+    if (!position || !company || !startDate) {
+        showNotification('กรุณากรอกข้อมูลให้ครบถ้วน', 'warning');
+        return;
+    }
+    
+    // Format period string
+    const thaiMonths = ['มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน',
+                        'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'];
+    
+    const formatDate = (dateStr) => {
+        const [year, month] = dateStr.split('-');
+        return `${thaiMonths[parseInt(month) - 1]} ${parseInt(year) + 543}`;
+    };
+    
+    const period = isCurrent 
+        ? `${formatDate(startDate)} - ปัจจุบัน`
+        : `${formatDate(startDate)} - ${formatDate(endDate)}`;
+    
+    const newId = Date.now();
         showNotification('กรุณากรอกข้อมูลให้ครบถ้วน', 'warning');
         return;
     }
