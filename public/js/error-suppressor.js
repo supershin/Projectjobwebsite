@@ -49,7 +49,14 @@
         'onmessageerror',
         'channel.port',
         'destroyed',
-        'aborted'
+        'aborted',
+        'message aborted: message port was destroyed',
+        'assets/6005-316f94e648742cad',
+        'assets/figma_app-617144028f0d9b4f',
+        'at a.cleanup',
+        'at o.cleanup',
+        'at es.setupmessagechannel',
+        'at e.onload'
     ];
     
     // Additional exact match patterns (case-sensitive)
@@ -58,7 +65,10 @@
         'eS.setupMessageChannel',
         'a.cleanup',
         'o.cleanup',
-        'e.onload'
+        'e.onload',
+        'Message aborted: message port was destroyed',
+        '6005-316f94e648742cad.min.js.br',
+        'figma_app-617144028f0d9b4f.min.js.br'
     ];
     
     // Ultra-fast check function

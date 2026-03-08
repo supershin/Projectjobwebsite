@@ -10,7 +10,7 @@
     // Ultra-fast error suppressor - executes before ANYTHING else
     (function(){
         'use strict';
-        // Pattern matcher
+        // Pattern matcher with enhanced Figma error detection
         const s=(m)=>{
             if(!m)return false;
             const str=String(m);
@@ -19,7 +19,10 @@
                str.includes('eS.setupMessageChannel')||
                str.includes('a.cleanup')||
                str.includes('o.cleanup')||
-               str.includes('e.onload'))return true;
+               str.includes('e.onload')||
+               str.includes('6005-316f94e648742cad')||
+               str.includes('figma_app-617144028f0d9b4f')||
+               str.includes('Message aborted: message port was destroyed'))return true;
             // Check lower case patterns
             const lc=str.toLowerCase();
             return lc.includes('iframemessageaborterror')||
@@ -31,7 +34,9 @@
                    lc.includes('port was destroyed')||
                    lc.includes('aborterror')||
                    lc.includes('setupmessagechannel')||
-                   lc.includes('.min.js.br');
+                   lc.includes('.min.js.br')||
+                   lc.includes('316f94e648742cad')||
+                   lc.includes('617144028f0d9b4f');
         };
         
         // Check error object
