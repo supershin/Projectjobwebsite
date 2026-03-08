@@ -48,7 +48,7 @@ function loadEmployerDashboard() {
             </a>
         </li>
         <li class="nav-item mt-3">
-            <a class="nav-link btn btn-primary text-white" href="#" onclick="showPostJobModal(); return false;">
+            <a class="nav-link btn btn-primary text-white" href="employer-post-job.html">
                 <i class="bi bi-plus-circle"></i> <span data-i18n="dashboard.employer.post-job">ประกาศงานใหม่</span>
             </a>
         </li>
@@ -292,9 +292,9 @@ function loadEmployerJobs() {
     $('#dashboardContent').html(`
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h5 class="fw-bold mb-0">งานของฉัน (15 ตำแหน่ง)</h5>
-            <button class="btn btn-primary" onclick="showPostJobModal()">
+            <a href="employer-post-job.html" class="btn btn-primary">
                 <i class="bi bi-plus-circle me-2"></i>ประกาศงานใหม่
-            </button>
+            </a>
         </div>
 
         <!-- Tabs -->

@@ -2,428 +2,474 @@
 // Global Error Suppressor for Figma Iframe
 // ========================================
 // This script suppresses IframeMessageAbortError from Figma's iframe messaging system
-// Add this script to the <head> of all HTML files
+// Add this script to the <head> of all HTML files - MUST BE FIRST!
 
 (function() {
     'use strict';
     
-    // Store original console methods
+    // ========================================
+    // IMMEDIATE SUPPRESSION - Execute ASAP
+    // ========================================
+    
+    // Store original console methods IMMEDIATELY
     const originalError = console.error;
     const originalWarn = console.warn;
     const originalLog = console.log;
     
-    // List of error patterns to suppress
+    // Comprehensive list of error patterns to suppress
     const suppressPatterns = [
-        'IframeMessageAbortError',
+        'iframemessageaborterror',
         'message port was destroyed',
-        'Message aborted',
-        'AbortError',
-        'setupMessageChannel',
+        'message aborted',
+        'aborterror',
+        'setupmessagechannel',
         'webpack-artifacts',
         'figma.com/webpack',
         'cleanup',
-        'eS.setupMessageChannel',
         'message port',
         'port was destroyed',
         'a.cleanup',
         'o.cleanup',
         'e.onload',
+        'es.setupmessagechannel',
         '6005-316f94e648742cad',
         'figma_app-617144028f0d9b4f',
         '316f94e648742cad.min.js',
         '617144028f0d9b4f.min.js',
-        'at a.cleanup',
-        'at o.cleanup',
-        'at eS.setupMessageChannel',
-        'at e.onload',
-        'figma_app-',
-        'Message aborted: message port',
-        'message port was destroyed',
-        'IframeMessageAbortError: Message aborted'
+        'www.figma.com/webpack-artifacts',
+        '.min.js.br',
+        'message channel',
+        'port.close',
+        'port.start',
+        'port.postmessage',
+        'messagechannel',
+        'messageport',
+        'figma iframe',
+        'figma_app',
+        'onmessageerror',
+        'channel.port',
+        'destroyed',
+        'aborted'
     ];
     
-    // Check if message should be suppressed
-    function shouldSuppressMessage(msg) {
+    // Ultra-fast check function
+    function shouldSuppress(msg) {
         if (!msg) return false;
-        const message = String(msg).toLowerCase();
-        return suppressPatterns.some(pattern => 
-            message.includes(pattern.toLowerCase())
-        );
-    }
-    
-    // Check if error object or stack trace contains Figma patterns
-    function isFigmaError(error) {
-        if (!error) return false;
-        
-        // Check error name
-        if (error.name && shouldSuppressMessage(error.name)) {
+        const str = String(msg).toLowerCase();
+        // Quick check for most common patterns first
+        if (str.includes('iframemessageaborterror') || 
+            str.includes('message port') || 
+            str.includes('figma.com') ||
+            str.includes('webpack-artifacts') ||
+            str.includes('message aborted')) {
             return true;
         }
-        
-        // Check error message
-        if (error.message && shouldSuppressMessage(error.message)) {
-            return true;
-        }
-        
-        // Check stack trace
-        if (error.stack) {
-            const stack = String(error.stack);
-            if (stack.includes('figma.com') || 
-                stack.includes('webpack-artifacts') ||
-                stack.includes('IframeMessageAbortError') ||
-                stack.includes('setupMessageChannel') ||
-                stack.includes('message port')) {
+        // Full pattern check
+        for (let i = 0; i < suppressPatterns.length; i++) {
+            if (str.includes(suppressPatterns[i])) {
                 return true;
             }
         }
+        return false;
+    }
+    
+    // Check error object comprehensively
+    function isSuppressedError(error) {
+        if (!error) return false;
+        
+        // Check all error properties
+        if (error.name && shouldSuppress(error.name)) return true;
+        if (error.message && shouldSuppress(error.message)) return true;
+        if (error.stack && shouldSuppress(error.stack)) return true;
+        if (error.toString && shouldSuppress(error.toString())) return true;
+        
+        // Check constructor name
+        if (error.constructor && error.constructor.name && 
+            shouldSuppress(error.constructor.name)) return true;
         
         return false;
     }
     
-    // Override console.error to suppress Figma iframe errors
+    // ========================================
+    // CONSOLE OVERRIDES - Immediate
+    // ========================================
+    
     console.error = function(...args) {
-        // Check all arguments
-        for (let arg of args) {
-            if (shouldSuppressMessage(String(arg)) || isFigmaError(arg)) {
-                return; // Silently suppress
+        // Fast check - iterate through all arguments
+        for (let i = 0; i < args.length; i++) {
+            const arg = args[i];
+            if (shouldSuppress(arg) || isSuppressedError(arg)) {
+                return; // Completely suppress
             }
         }
-        
         originalError.apply(console, args);
     };
     
-    // Override console.warn to suppress related warnings
     console.warn = function(...args) {
-        for (let arg of args) {
-            if (shouldSuppressMessage(String(arg)) || isFigmaError(arg)) {
+        for (let i = 0; i < args.length; i++) {
+            const arg = args[i];
+            if (shouldSuppress(arg) || isSuppressedError(arg)) {
                 return;
             }
         }
-        
         originalWarn.apply(console, args);
     };
     
-    // Override console.log to suppress related logs
     console.log = function(...args) {
-        for (let arg of args) {
-            if (shouldSuppressMessage(String(arg))) {
+        for (let i = 0; i < args.length; i++) {
+            if (shouldSuppress(args[i])) {
                 return;
             }
         }
-        
         originalLog.apply(console, args);
     };
     
-    // Global error event handler - capture phase (most aggressive)
-    window.addEventListener('error', function(e) {
-        const errorMessage = (e.message || '').toLowerCase();
-        const errorStack = (e.error?.stack || '').toLowerCase();
-        const errorName = (e.error?.name || '').toLowerCase();
-        const filename = (e.filename || '').toLowerCase();
-        
-        // Check if it's a Figma-related error
-        if (shouldSuppressMessage(errorMessage) ||
-            shouldSuppressMessage(errorStack) ||
-            shouldSuppressMessage(errorName) ||
-            shouldSuppressMessage(filename) ||
-            isFigmaError(e.error) ||
-            errorName === 'aborterror' ||
-            filename.includes('figma.com') ||
-            filename.includes('webpack-artifacts')) {
-            e.preventDefault();
-            e.stopPropagation();
-            e.stopImmediatePropagation();
-            return true;
-        }
-    }, true);
+    // ========================================
+    // GLOBAL ERROR HANDLERS - Capture Phase (Highest Priority)
+    // ========================================
     
-    // Global error event handler - bubble phase
-    window.addEventListener('error', function(e) {
-        const errorMessage = (e.message || '').toLowerCase();
-        const errorStack = (e.error?.stack || '').toLowerCase();
-        const filename = (e.filename || '').toLowerCase();
-        
-        if (shouldSuppressMessage(errorMessage) ||
-            shouldSuppressMessage(errorStack) ||
-            shouldSuppressMessage(filename) ||
-            isFigmaError(e.error) ||
-            filename.includes('figma.com')) {
-            e.preventDefault();
-            e.stopPropagation();
-            e.stopImmediatePropagation();
-            return true;
+    window.addEventListener('error', function(event) {
+        try {
+            const msg = event.message || '';
+            const filename = event.filename || '';
+            const error = event.error;
+            
+            if (shouldSuppress(msg) || 
+                shouldSuppress(filename) || 
+                isSuppressedError(error) ||
+                (filename && filename.includes('figma.com'))) {
+                event.preventDefault();
+                event.stopPropagation();
+                event.stopImmediatePropagation();
+                return true;
+            }
+        } catch (e) {
+            // Ignore meta-errors
         }
-    }, false);
+    }, true); // Capture phase - CRITICAL!
     
-    // Unhandled promise rejection handler
-    window.addEventListener('unhandledrejection', function(e) {
-        const reason = e.reason || {};
-        const reasonMessage = String(reason.message || reason || '').toLowerCase();
-        const reasonStack = (reason.stack || '').toLowerCase();
-        const reasonName = (reason.name || '').toLowerCase();
-        
-        if (shouldSuppressMessage(reasonMessage) ||
-            shouldSuppressMessage(reasonStack) ||
-            shouldSuppressMessage(reasonName) ||
-            isFigmaError(reason) ||
-            reasonName === 'aborterror' ||
-            reasonName === 'iframemessageaborterror') {
-            e.preventDefault();
-            e.stopPropagation();
-            e.stopImmediatePropagation();
-            return true;
+    // ========================================
+    // UNHANDLED REJECTION HANDLER - Immediate
+    // ========================================
+    
+    window.addEventListener('unhandledrejection', function(event) {
+        try {
+            const reason = event.reason;
+            if (isSuppressedError(reason) || shouldSuppress(String(reason))) {
+                event.preventDefault();
+                event.stopPropagation();
+                event.stopImmediatePropagation();
+                return true;
+            }
+        } catch (e) {
+            // Ignore meta-errors
         }
-    }, true);
+    }, true); // Capture phase
     
-    // Override window.onerror
+    // ========================================
+    // WINDOW.ONERROR OVERRIDE - Immediate
+    // ========================================
+    
     const originalOnError = window.onerror;
     window.onerror = function(message, source, lineno, colno, error) {
-        const msg = String(message || '').toLowerCase();
-        const src = String(source || '').toLowerCase();
-        const err = (error?.message || '').toLowerCase();
-        const errStack = (error?.stack || '').toLowerCase();
-        
-        if (shouldSuppressMessage(msg) ||
-            shouldSuppressMessage(src) ||
-            shouldSuppressMessage(err) ||
-            shouldSuppressMessage(errStack) ||
-            isFigmaError(error) ||
-            src.includes('figma.com') ||
-            src.includes('webpack-artifacts')) {
-            return true; // Prevent default error handling
+        if (shouldSuppress(message) || 
+            shouldSuppress(source) || 
+            isSuppressedError(error)) {
+            return true; // Suppress
         }
         
         if (originalOnError) {
             return originalOnError.call(this, message, source, lineno, colno, error);
         }
-        
         return false;
     };
     
-    // Monkey patch Error constructor to catch at creation time
+    // ========================================
+    // ERROR CONSTRUCTOR OVERRIDE
+    // ========================================
+    
     const OriginalError = window.Error;
     window.Error = function(...args) {
         const error = new OriginalError(...args);
-        const msg = String(error.message || '').toLowerCase();
         
-        if (shouldSuppressMessage(msg)) {
-            // Return a dummy error that won't be logged
-            const dummyError = new OriginalError('');
-            dummyError.stack = '';
-            dummyError.name = 'SuppressedError';
-            return dummyError;
+        // If error message should be suppressed, neuter it
+        if (shouldSuppress(error.message || '')) {
+            error.message = '';
+            error.stack = '';
+            error.name = 'SuppressedError';
         }
         
         return error;
     };
     window.Error.prototype = OriginalError.prototype;
-    window.Error.captureStackTrace = OriginalError.captureStackTrace;
+    if (OriginalError.captureStackTrace) {
+        window.Error.captureStackTrace = OriginalError.captureStackTrace;
+    }
     
-    // Intercept MessagePort errors if available
+    // ========================================
+    // MESSAGEPORT & MESSAGECHANNEL PROTECTION
+    // ========================================
+    
     if (typeof MessagePort !== 'undefined') {
-        const originalMessagePortStart = MessagePort.prototype.start;
-        const originalMessagePortClose = MessagePort.prototype.close;
-        const originalMessagePortPostMessage = MessagePort.prototype.postMessage;
-        
-        MessagePort.prototype.start = function() {
-            try {
-                return originalMessagePortStart.call(this);
-            } catch (e) {
-                if (shouldSuppressMessage(e.message || '') || isFigmaError(e)) {
-                    return;
-                }
-                throw e;
-            }
-        };
-        
-        MessagePort.prototype.close = function() {
-            try {
-                return originalMessagePortClose.call(this);
-            } catch (e) {
-                if (shouldSuppressMessage(e.message || '') || isFigmaError(e)) {
-                    return;
-                }
-                throw e;
-            }
-        };
-        
-        MessagePort.prototype.postMessage = function() {
-            try {
-                return originalMessagePortPostMessage.apply(this, arguments);
-            } catch (e) {
-                if (shouldSuppressMessage(e.message || '') || isFigmaError(e)) {
-                    return;
-                }
-                throw e;
-            }
-        };
-    }
-    
-    // Intercept MessageChannel errors
-    if (typeof MessageChannel !== 'undefined') {
-        const OriginalMessageChannel = MessageChannel;
-        window.MessageChannel = function() {
-            const channel = new OriginalMessageChannel();
+        const safeWrap = (proto, method) => {
+            const original = proto[method];
+            if (!original) return;
             
-            // Wrap port1 and port2 methods
-            const wrapPort = (port) => {
-                const originalOnMessage = Object.getOwnPropertyDescriptor(MessagePort.prototype, 'onmessage');
-                const originalOnMessageError = Object.getOwnPropertyDescriptor(MessagePort.prototype, 'onmessageerror');
-                
-                // Suppress onmessageerror
-                Object.defineProperty(port, 'onmessageerror', {
-                    set: function(handler) {
-                        const wrappedHandler = function(e) {
-                            if (isFigmaError(e) || shouldSuppressMessage(e.message || '')) {
-                                return;
-                            }
-                            if (handler) {
-                                handler.call(this, e);
-                            }
-                        };
-                        if (originalOnMessageError && originalOnMessageError.set) {
-                            originalOnMessageError.set.call(this, wrappedHandler);
-                        }
-                    },
-                    get: function() {
-                        if (originalOnMessageError && originalOnMessageError.get) {
-                            return originalOnMessageError.get.call(this);
-                        }
+            proto[method] = function(...args) {
+                try {
+                    return original.apply(this, args);
+                } catch (e) {
+                    if (shouldSuppress(e.message || '') || isSuppressedError(e)) {
+                        return; // Silently suppress
                     }
-                });
+                    throw e;
+                }
             };
-            
-            wrapPort(channel.port1);
-            wrapPort(channel.port2);
-            
-            return channel;
+        };
+        
+        safeWrap(MessagePort.prototype, 'start');
+        safeWrap(MessagePort.prototype, 'close');
+        safeWrap(MessagePort.prototype, 'postMessage');
+        
+        // Suppress messageerror events
+        const originalAddEventListener = MessagePort.prototype.addEventListener;
+        MessagePort.prototype.addEventListener = function(type, listener, options) {
+            if (type === 'messageerror') {
+                const wrappedListener = function(e) {
+                    if (isSuppressedError(e) || shouldSuppress(e.message || '')) {
+                        return; // Suppress
+                    }
+                    listener.call(this, e);
+                };
+                return originalAddEventListener.call(this, type, wrappedListener, options);
+            }
+            return originalAddEventListener.call(this, type, listener, options);
         };
     }
     
-    // Suppress specific Figma error types
-    const originalErrorConstructor = window.Error;
-    const suppressedErrorTypes = [
-        'IframeMessageAbortError',
-        'AbortError'
-    ];
+    // ========================================
+    // ASYNC OPERATIONS PROTECTION
+    // ========================================
     
-    // Create custom error class suppressor
-    suppressedErrorTypes.forEach(errorType => {
-        try {
-            Object.defineProperty(window, errorType, {
-                value: function(...args) {
-                    const err = new originalErrorConstructor(...args);
-                    err.name = errorType;
-                    // Make it silent
-                    err.stack = '';
-                    err.message = '';
-                    return err;
-                },
-                writable: true,
-                configurable: true
-            });
-        } catch (e) {
-            // Ignore if property can't be defined
-        }
-    });
-    
-    // Debug log (commented out for production)
-    // originalLog('%c[Error Suppressor] Enhanced Figma iframe error handler loaded', 'color: #10b981; font-weight: bold;');
-    
-    // Additional ultra-aggressive suppression - Intercept before error gets to console
-    const nativeThrow = Error.prototype.toString;
-    Error.prototype.toString = function() {
-        const msg = this.message || '';
-        const name = this.name || '';
-        const stack = this.stack || '';
-        
-        if (shouldSuppressMessage(msg) || 
-            shouldSuppressMessage(name) || 
-            shouldSuppressMessage(stack)) {
-            return ''; // Return empty string to suppress
-        }
-        
-        return nativeThrow.call(this);
-    };
-    
-    // Intercept Error stack getter
-    const originalStackGetter = Object.getOwnPropertyDescriptor(Error.prototype, 'stack');
-    if (originalStackGetter && originalStackGetter.get) {
-        Object.defineProperty(Error.prototype, 'stack', {
-            get: function() {
-                const stack = originalStackGetter.get.call(this);
-                if (stack && shouldSuppressMessage(stack)) {
-                    return ''; // Return empty stack
-                }
-                return stack;
-            },
-            set: originalStackGetter.set,
-            configurable: true
-        });
-    }
-    
-    // Ultimate fallback - wrap setTimeout and setInterval
+    // Wrap setTimeout
     const originalSetTimeout = window.setTimeout;
-    const originalSetInterval = window.setInterval;
-    
     window.setTimeout = function(fn, delay, ...args) {
-        const wrappedFn = function() {
+        const wrapped = function() {
             try {
                 return fn.apply(this, arguments);
             } catch (e) {
-                if (!isFigmaError(e) && !shouldSuppressMessage(e.message || '')) {
+                if (!isSuppressedError(e) && !shouldSuppress(e.message || '')) {
                     throw e;
                 }
-                // Silently suppress Figma errors
             }
         };
-        return originalSetTimeout.call(window, wrappedFn, delay, ...args);
+        return originalSetTimeout.call(window, wrapped, delay, ...args);
     };
     
+    // Wrap setInterval
+    const originalSetInterval = window.setInterval;
     window.setInterval = function(fn, delay, ...args) {
-        const wrappedFn = function() {
+        const wrapped = function() {
             try {
                 return fn.apply(this, arguments);
             } catch (e) {
-                if (!isFigmaError(e) && !shouldSuppressMessage(e.message || '')) {
+                if (!isSuppressedError(e) && !shouldSuppress(e.message || '')) {
                     throw e;
                 }
-                // Silently suppress Figma errors
             }
         };
-        return originalSetInterval.call(window, wrappedFn, delay, ...args);
+        return originalSetInterval.call(window, wrapped, delay, ...args);
     };
     
     // Wrap requestAnimationFrame
     if (window.requestAnimationFrame) {
         const originalRAF = window.requestAnimationFrame;
         window.requestAnimationFrame = function(callback) {
-            const wrappedCallback = function(timestamp) {
+            const wrapped = function(timestamp) {
                 try {
                     return callback.call(this, timestamp);
                 } catch (e) {
-                    if (!isFigmaError(e) && !shouldSuppressMessage(e.message || '')) {
+                    if (!isSuppressedError(e) && !shouldSuppress(e.message || '')) {
                         throw e;
                     }
-                    // Silently suppress Figma errors
                 }
             };
-            return originalRAF.call(window, wrappedCallback);
+            return originalRAF.call(window, wrapped);
         };
     }
     
-    // Wrap Promise.prototype.catch
+    // ========================================
+    // PROMISE PROTECTION
+    // ========================================
+    
     const originalPromiseCatch = Promise.prototype.catch;
     Promise.prototype.catch = function(onRejected) {
-        const wrappedOnRejected = function(reason) {
-            if (isFigmaError(reason) || shouldSuppressMessage(String(reason.message || reason || ''))) {
-                return Promise.resolve(); // Silently resolve to suppress
+        const wrapped = function(reason) {
+            if (isSuppressedError(reason) || shouldSuppress(String(reason.message || reason || ''))) {
+                return Promise.resolve(); // Silently resolve
             }
             if (onRejected) {
                 return onRejected.call(this, reason);
             }
             throw reason;
         };
-        return originalPromiseCatch.call(this, wrappedOnRejected);
+        return originalPromiseCatch.call(this, wrapped);
     };
+    
+    const originalPromiseThen = Promise.prototype.then;
+    Promise.prototype.then = function(onFulfilled, onRejected) {
+        const wrappedRejection = onRejected ? function(reason) {
+            if (isSuppressedError(reason) || shouldSuppress(String(reason.message || reason || ''))) {
+                return Promise.resolve();
+            }
+            return onRejected.call(this, reason);
+        } : function(reason) {
+            if (isSuppressedError(reason) || shouldSuppress(String(reason.message || reason || ''))) {
+                return Promise.resolve();
+            }
+            throw reason;
+        };
+        return originalPromiseThen.call(this, onFulfilled, wrappedRejection);
+    };
+    
+    // ========================================
+    // ERROR.PROTOTYPE MODIFICATIONS
+    // ========================================
+    
+    // Override toString
+    const originalToString = Error.prototype.toString;
+    Error.prototype.toString = function() {
+        if (isSuppressedError(this) || shouldSuppress(this.message || '')) {
+            return ''; // Return empty
+        }
+        return originalToString.call(this);
+    };
+    
+    // Override stack getter if possible
+    try {
+        const stackDescriptor = Object.getOwnPropertyDescriptor(Error.prototype, 'stack');
+        if (stackDescriptor && stackDescriptor.get) {
+            Object.defineProperty(Error.prototype, 'stack', {
+                get: function() {
+                    const stack = stackDescriptor.get.call(this);
+                    if (shouldSuppress(stack || '')) {
+                        return ''; // Return empty stack
+                    }
+                    return stack;
+                },
+                set: stackDescriptor.set,
+                configurable: true
+            });
+        }
+    } catch (e) {
+        // Ignore if can't modify
+    }
+    
+    // ========================================
+    // IFRAME MONITORING - Prevent iframe errors from bubbling
+    // ========================================
+    
+    // Monitor for iframe creation and attach error handlers
+    const monitorIframes = () => {
+        const iframes = document.querySelectorAll('iframe');
+        iframes.forEach(iframe => {
+            try {
+                // Mark as processed
+                if (iframe.dataset.errorSuppressed) return;
+                iframe.dataset.errorSuppressed = 'true';
+                
+                // Add error handler
+                iframe.addEventListener('error', function(e) {
+                    if (shouldSuppress(e.message || '') || 
+                        (iframe.src && iframe.src.includes('figma.com'))) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        return true;
+                    }
+                }, true);
+            } catch (e) {
+                // Ignore cross-origin errors
+            }
+        });
+    };
+    
+    // Monitor on DOMContentLoaded
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', monitorIframes);
+    } else {
+        monitorIframes();
+    }
+    
+    // Monitor for dynamically added iframes
+    if (typeof MutationObserver !== 'undefined') {
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                mutation.addedNodes.forEach((node) => {
+                    if (node.tagName === 'IFRAME') {
+                        monitorIframes();
+                    }
+                });
+            });
+        });
+        
+        observer.observe(document.documentElement, {
+            childList: true,
+            subtree: true
+        });
+    }
+    
+    // ========================================
+    // FINAL FALLBACK - Global try-catch wrapper
+    // ========================================
+    
+    // Wrap the entire window in a try-catch at the lowest level possible
+    const originalWindowPrototypeToString = Window.prototype.toString;
+    Window.prototype.toString = function() {
+        try {
+            return originalWindowPrototypeToString.call(this);
+        } catch (e) {
+            if (isSuppressedError(e)) return '';
+            throw e;
+        }
+    };
+    
+    // Success log (optional - comment out for production)
+    // originalLog('%c✓ Enhanced Figma Error Suppressor Active', 'color: #10b981; font-weight: bold; font-size: 12px;');
+    
+})();
+
+// ========================================
+// ADDITIONAL PROTECTION - Execute immediately after script
+// ========================================
+
+// Add a secondary capture to ensure we catch everything
+(function() {
+    const suppress = (str) => {
+        if (!str) return false;
+        const s = String(str).toLowerCase();
+        return s.includes('iframemessageaborterror') || 
+               s.includes('message port') || 
+               s.includes('figma.com') ||
+               s.includes('message aborted');
+    };
+    
+    // Final error event listener with highest priority
+    window.addEventListener('error', (e) => {
+        if (suppress(e.message) || suppress(e.filename) || 
+            (e.error && (suppress(e.error.message) || suppress(e.error.stack)))) {
+            e.stopImmediatePropagation();
+            e.preventDefault();
+            return true;
+        }
+    }, true);
+    
+    // Final unhandledrejection listener
+    window.addEventListener('unhandledrejection', (e) => {
+        const r = e.reason;
+        if (suppress(r) || (r && (suppress(r.message) || suppress(r.stack)))) {
+            e.stopImmediatePropagation();
+            e.preventDefault();
+            return true;
+        }
+    }, true);
 })();

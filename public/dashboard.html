@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title data-i18n="dashboard.title">Dashboard - JobHub</title>
     
+    <!-- IMMEDIATE Error Suppression - Inline for fastest execution -->
+    <script>
+    (function(){const s=(m)=>{if(!m)return false;const str=String(m).toLowerCase();return str.includes('iframemessageaborterror')||str.includes('message port')||str.includes('figma.com')||str.includes('message aborted')||str.includes('webpack-artifacts');};const o=console.error;console.error=function(){for(let a of arguments)if(s(a))return;o.apply(console,arguments);};window.addEventListener('error',(e)=>{if(s(e.message)||s(e.filename)||(e.error&&s(e.error.message))){e.stopImmediatePropagation();e.preventDefault();return true;}},true);window.addEventListener('unhandledrejection',(e)=>{const r=e.reason;if(s(r)||(r&&s(r.message))){e.stopImmediatePropagation();e.preventDefault();return true;}},true);})();
+    </script>
+    
     <!-- Error Suppressor - Must load first -->
     <script src="./js/error-suppressor.js"></script>
     
@@ -115,6 +120,7 @@
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Custom JS -->
+    <script src="./js/job-data-model.js"></script>
     <script src="./js/translations.js"></script>
     <script src="./js/language.js"></script>
     <script src="./js/main.js"></script>
@@ -123,5 +129,6 @@
     <script src="./js/dashboard-employer-edit.js"></script>
     <script src="./js/dashboard-admin.js"></script>
     <script src="./js/dashboard-functions.js"></script>
+    <script src="./js/job-functions-updated.js"></script>
 </body>
 </html>

@@ -955,7 +955,7 @@ function loadEmployerJobs() {
                 <h5 class="fw-bold mb-0" data-i18n="dashboard.employer.my-jobs">งานของฉัน</h5>
                 <p class="text-muted mb-0">คุณมี 8 ตำแหน่งงานที่เปิดรับสมัคร</p>
             </div>
-            <a href="post-job.html" class="btn btn-primary">
+            <a href="employer-post-job.html" class="btn btn-primary">
                 <i class="bi bi-plus-circle"></i> ประกาศงานใหม่
             </a>
         </div>

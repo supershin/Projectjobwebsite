@@ -3,30 +3,13 @@
 // ========================================
 
 function editJob(id) {
-    // Mock data for pre-filling - in real app, fetch from API
-    const jobData = {
-        id: id,
-        jobPattern: 'remote',
-        jobPosition: 'developer',
-        jobTitle: 'Senior Frontend Developer - React.js Expert',
-        limitDuration: 'no',
-        specialPosition: true,
-        jobType: 'fulltime',
-        quantity: '2',
-        gender: 'any',
-        age: '25-35',
-        salaryType: 'negotiable',
-        education: 'bachelor',
-        experience: '5',
-        currentEmployment: 'any',
-        multiplePositions: 'any',
-        jobDescription: 'เรากำลังมองหา Senior Frontend Developer ที่มีประสบการณ์ในการพัฒนา Web Application ด้วย React.js และ TypeScript มีความเข้าใจในการออกแบบ UI/UX ที่ดี และสามารถทำงานร่วมกับทีมได้อย่างมีประสิทธิภาพ',
-        qualification: '- ปริญญาตรี สาขาวิทยาการคอมพิวเตอร์ หรือสาขาที่เกี่ยวข้อง\n- มีประสบการณ์ 5 ปีขึ้นไป ในการพัฒนา Frontend\n- มีความชำนาญใน React.js, TypeScript, HTML5, CSS3\n- มีความรู้เรื่อง State Management (Redux, MobX)\n- สามารถใช้ Git ได้เป็นอย่างดี',
-        welfare: '- เงินเดือนและโบนัสตามผลงาน\n- ประกันสังคมและประกันสุขภาพ\n- ทำงาน 5 วันต่อสัปดาห์\n- วันหยุดพักผ่อนประจำปี 10 วัน\n- ค่าอาหารกลางวัน\n- เงินช่วยเหลือค่าเดินทาง',
-        salary: '50000+',
-        country: 'thailand',
-        location: 'bangkok'
-    };
+    // Get job data from MOCK_JOBS
+    const jobData = getJobById(id);
+    
+    if (!jobData) {
+        showNotification('ไม่พบข้อมูลงาน', 'error');
+        return;
+    }
     
     const modalHtml = `
         <div class="modal fade" id="editJobModal" tabindex="-1">
@@ -412,4 +395,36 @@ function updateJob() {
     setTimeout(() => {
         loadEmployerJobs();
     }, 1000);
+}
+
+// Mock function to get job data by ID
+function getJobById(id) {
+    const MOCK_JOBS = [
+        {
+            id: 1,
+            jobPattern: 'remote',
+            jobPosition: 'developer',
+            jobTitle: 'Senior Frontend Developer - React.js Expert',
+            limitDuration: 'no',
+            specialPosition: true,
+            jobType: 'fulltime',
+            quantity: '2',
+            gender: 'any',
+            age: '25-35',
+            salaryType: 'negotiable',
+            education: 'bachelor',
+            experience: '5',
+            currentEmployment: 'any',
+            multiplePositions: 'any',
+            jobDescription: 'เรากำลังมองหา Senior Frontend Developer ที่มีประสบการณ์ในการพัฒนา Web Application ด้วย React.js และ TypeScript มีความเข้าใจในการออกแบบ UI/UX ที่ดี และสามารถทำงานร่วมกับทีมได้อย่างมีประสิทธิภาพ',
+            qualification: '- ปริญญาตรี สาขาวิทยาการคอมพิวเตอร์ หรือสาขาที่เกี่ยวข้อง\n- มีประสบการณ์ 5 ปีขึ้นไป ในการพัฒนา Frontend\n- มีความชำนาญใน React.js, TypeScript, HTML5, CSS3\n- มีความรู้เรื่อง State Management (Redux, MobX)\n- สามารถใช้ Git ได้เป็นอย่างดี',
+            welfare: '- เงินเดือนและโบนัสตามผลงาน\n- ประกันสังคมและประกันสุขภาพ\n- ทำงาน 5 วันต่อสัปดาห์\n- วันหยุดพักผ่อนประจำปี 10 วัน\n- ค่าอาหารกลางวัน\n- เงินช่วยเหลือค่าเดินทาง',
+            salary: '50000+',
+            country: 'thailand',
+            location: 'bangkok'
+        },
+        // Add more mock jobs here if needed
+    ];
+
+    return MOCK_JOBS.find(job => job.id === id);
 }
