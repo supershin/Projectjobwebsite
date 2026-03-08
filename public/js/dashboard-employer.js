@@ -28,6 +28,11 @@ function loadEmployerDashboard() {
             </a>
         </li>
         <li class="nav-item">
+            <a class="nav-link ${currentView === 'resume-history' ? 'active' : ''}" href="dashboard.html?view=resume-history">
+                <i class="bi bi-clock-history"></i> <span data-i18n="dashboard.employer.resume-history">รายงานการเปิด Resume</span>
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link ${currentView === 'announcements' ? 'active' : ''}" href="dashboard.html?view=announcements">
                 <i class="bi bi-megaphone"></i> <span>ข่าวสาร</span>
             </a>
@@ -69,6 +74,9 @@ function loadEmployerDashboard() {
             break;
         case 'search-resume':
             loadEmployerSearchResume();
+            break;
+        case 'resume-history':
+            loadEmployerResumeHistory();
             break;
         case 'announcements':
             loadEmployerAnnouncements();
@@ -638,6 +646,247 @@ function searchResumes() {
     setTimeout(() => {
         $('#searchResults').html(generateSearchResults());
     }, 1000);
+}
+
+// EMPLOYER: Resume History (รายงานการเปิด Resume)
+function loadEmployerResumeHistory() {
+    $('#dashboardContent').html(`
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-white py-3 border-bottom">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <h5 class="mb-0 fw-bold">
+                            <i class="bi bi-clock-history me-2 text-primary"></i>รายงานการเปิด Resume
+                        </h5>
+                        <small class="text-muted">ประวัติการเปิดดู Resume ของผู้สมัครทั้งหมด</small>
+                    </div>
+                    <div class="col-auto">
+                        <button class="btn btn-sm btn-outline-primary" onclick="exportResumeHistory()">
+                            <i class="bi bi-download me-1"></i>ส่งออก Excel
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <!-- Filter Section -->
+                <div class="row g-3 mb-4">
+                    <div class="col-md-3">
+                        <label class="form-label small">ช่วงเวลา</label>
+                        <select class="form-select form-select-sm" id="timeRange" onchange="filterResumeHistory()">
+                            <option value="all">ทั้งหมด</option>
+                            <option value="today" selected>วันนี้</option>
+                            <option value="week">7 วันที่แล้ว</option>
+                            <option value="month">30 วันที่แล้ว</option>
+                            <option value="custom">กำหนดเอง</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label small">ตำแหน่งงาน</label>
+                        <select class="form-select form-select-sm" id="jobFilter" onchange="filterResumeHistory()">
+                            <option value="all">ทุกตำแหน่ง</option>
+                            <option value="1">Senior Frontend Developer</option>
+                            <option value="2">UX/UI Designer</option>
+                            <option value="3">Marketing Manager</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label small">ค้นหาชื่อ</label>
+                        <input type="text" class="form-control form-control-sm" id="searchName" placeholder="ค้นหาชื่อผู้สมัคร..." onkeyup="filterResumeHistory()">
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label small">&nbsp;</label>
+                        <button class="btn btn-sm btn-secondary w-100" onclick="resetResumeFilters()">
+                            <i class="bi bi-arrow-clockwise me-1"></i>รีเซ็ต
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="row g-3 mb-4">
+                    <div class="col-md-4">
+                        <div class="card bg-primary bg-opacity-10 border-0">
+                            <div class="card-body p-3">
+                                <div class="d-flex align-items-center">
+                                    <div class="bg-primary bg-opacity-25 rounded-circle p-3 me-3">
+                                        <i class="bi bi-eye fs-4 text-primary"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="mb-0 fw-bold text-primary">42</h4>
+                                        <small class="text-muted">Resume ที่เปิดวันนี้</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card bg-success bg-opacity-10 border-0">
+                            <div class="card-body p-3">
+                                <div class="d-flex align-items-center">
+                                    <div class="bg-success bg-opacity-25 rounded-circle p-3 me-3">
+                                        <i class="bi bi-people fs-4 text-success"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="mb-0 fw-bold text-success">127</h4>
+                                        <small class="text-muted">Resume ทั้งหมด (30 วัน)</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card bg-info bg-opacity-10 border-0">
+                            <div class="card-body p-3">
+                                <div class="d-flex align-items-center">
+                                    <div class="bg-info bg-opacity-25 rounded-circle p-3 me-3">
+                                        <i class="bi bi-clock-history fs-4 text-info"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="mb-0 fw-bold text-info">23</h4>
+                                        <small class="text-muted">Resume เปิดซ้ำ</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Resume History Table -->
+                <div class="table-responsive">
+                    ${generateResumeHistoryTable()}
+                </div>
+            </div>
+        </div>
+    `);
+    
+    translatePage();
+}
+
+function generateResumeHistoryTable() {
+    const history = [
+        { id: 1, candidateName: 'สมชาย ใจดี', candidatePhoto: 'https://ui-avatars.com/api/?name=สมชาย&background=6366f1&color=fff', position: 'Senior Frontend Developer', jobId: 1, viewedDate: '8 มีนาคม 2026', viewedTime: '14:32', viewCount: 3, lastAction: 'ดาวน์โหลด Resume', actionTime: '14:45' },
+        { id: 2, candidateName: 'สมหญิง รักดี', candidatePhoto: 'https://ui-avatars.com/api/?name=สมหญิง&background=10b981&color=fff', position: 'UX/UI Designer', jobId: 2, viewedDate: '8 มีนาคม 2026', viewedTime: '13:15', viewCount: 1, lastAction: 'ดูโปรไฟล์', actionTime: '13:20' },
+        { id: 3, candidateName: 'ธนา ทำดี', candidatePhoto: 'https://ui-avatars.com/api/?name=ธนา&background=f59e0b&color=fff', position: 'Marketing Manager', jobId: 3, viewedDate: '8 มีนาคม 2026', viewedTime: '12:48', viewCount: 2, lastAction: 'ติดต่อผู้สมัคร', actionTime: '13:10' },
+        { id: 4, candidateName: 'วิชัย สู้ดี', candidatePhoto: 'https://ui-avatars.com/api/?name=วิชัย&background=ef4444&color=fff', position: 'Senior Frontend Developer', jobId: 1, viewedDate: '8 มีนาคม 2026', viewedTime: '11:22', viewCount: 4, lastAction: 'ดาวน์โหลด Resume', actionTime: '11:30' },
+        { id: 5, candidateName: 'มาลี ใจงาม', candidatePhoto: 'https://ui-avatars.com/api/?name=มาลี&background=8b5cf6&color=fff', position: 'UX/UI Designer', jobId: 2, viewedDate: '8 มีนาคม 2026', viewedTime: '10:15', viewCount: 1, lastAction: 'ดูโปรไฟล์', actionTime: '10:25' },
+        { id: 6, candidateName: 'จิราพร สวยงาม', candidatePhoto: 'https://ui-avatars.com/api/?name=จิราพร&background=ec4899&color=fff', position: 'Backend Developer', jobId: 4, viewedDate: '7 มีนาคม 2026', viewedTime: '16:45', viewCount: 5, lastAction: 'ดาวน์โหลด Resume', actionTime: '17:00' },
+        { id: 7, candidateName: 'นภัสวรรณ รักเรียน', candidatePhoto: 'https://ui-avatars.com/api/?name=นภัสวรรณ&background=8b5cf6&color=fff', position: 'HR Manager', jobId: 5, viewedDate: '7 มีนาคม 2026', viewedTime: '15:30', viewCount: 2, lastAction: 'ติดต่อผู้สมัคร', actionTime: '15:55' },
+        { id: 8, candidateName: 'สุรชัย แข็งแรง', candidatePhoto: 'https://ui-avatars.com/api/?name=สุรชัย&background=ef4444&color=fff', position: 'DevOps Engineer', jobId: 6, viewedDate: '7 มีนาคม 2026', viewedTime: '14:20', viewCount: 1, lastAction: 'ดูโปรไฟล์', actionTime: '14:30' },
+        { id: 9, candidateName: 'ปิยะนุช ใจเย็น', candidatePhoto: 'https://ui-avatars.com/api/?name=ปิยะนุช&background=f97316&color=fff', position: 'Content Writer', jobId: 7, viewedDate: '7 มีนาคม 2026', viewedTime: '13:10', viewCount: 3, lastAction: 'ดาวน์โหลด Resume', actionTime: '13:35' },
+        { id: 10, candidateName: 'ธีรพงษ์ เจริญ', candidatePhoto: 'https://ui-avatars.com/api/?name=ธีรพงษ์&background=14b8a6&color=fff', position: 'Mobile Developer', jobId: 8, viewedDate: '7 มีนาคม 2026', viewedTime: '11:45', viewCount: 2, lastAction: 'ติดต่อผู้สมัคร', actionTime: '12:15' },
+        { id: 11, candidateName: 'อรุณี สดใส', candidatePhoto: 'https://ui-avatars.com/api/?name=อรุณี&background=06b6d4&color=fff', position: 'Data Analyst', jobId: 9, viewedDate: '6 มีนาคม 2026', viewedTime: '16:00', viewCount: 1, lastAction: 'ดูโปรไฟล์', actionTime: '16:15' },
+        { id: 12, candidateName: 'พิชัย กล้าหาญ', candidatePhoto: 'https://ui-avatars.com/api/?name=พิชัย&background=f59e0b&color=fff', position: 'Product Manager', jobId: 10, viewedDate: '6 มีนาคม 2026', viewedTime: '14:30', viewCount: 4, lastAction: 'ดาวน์โหลด Resume', actionTime: '15:00' },
+    ];
+    
+    return `
+        <table class="table table-hover align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th style="width: 5%;">#</th>
+                    <th style="width: 25%;">ผู้สมัคร</th>
+                    <th style="width: 20%;">ตำแหน่งที่สมัคร</th>
+                    <th style="width: 15%;">วันที่เปิดดู</th>
+                    <th style="width: 10%;" class="text-center">จำนวนครั้ง</th>
+                    <th style="width: 15%;">การกระทำล่าสุด</th>
+                    <th style="width: 10%;" class="text-end">จัดการ</th>
+                </tr>
+            </thead>
+            <tbody>
+                ${history.map((item, index) => `
+                    <tr>
+                        <td>${index + 1}</td>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <img src="${item.candidatePhoto}" alt="${item.candidateName}" class="rounded-circle me-2" width="40" height="40">
+                                <div>
+                                    <div class="fw-semibold">${item.candidateName}</div>
+                                    <small class="text-muted">ID: ${item.id}</small>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="fw-medium">${item.position}</div>
+                            <small class="text-muted">Job #${item.jobId}</small>
+                        </td>
+                        <td>
+                            <div>${item.viewedDate}</div>
+                            <small class="text-muted">${item.viewedTime} น.</small>
+                        </td>
+                        <td class="text-center">
+                            <span class="badge ${item.viewCount > 2 ? 'bg-warning' : 'bg-info'} px-3 py-2">
+                                ${item.viewCount} ครั้ง
+                            </span>
+                        </td>
+                        <td>
+                            <div class="small">
+                                <i class="bi ${
+                                    item.lastAction.includes('ดาวน์โหลด') ? 'bi-download text-primary' :
+                                    item.lastAction.includes('ติดต่อ') ? 'bi-telephone text-success' :
+                                    'bi-eye text-info'
+                                } me-1"></i>
+                                ${item.lastAction}
+                            </div>
+                            <small class="text-muted">${item.actionTime} น.</small>
+                        </td>
+                        <td class="text-end">
+                            <div class="btn-group btn-group-sm">
+                                <button class="btn btn-outline-primary" onclick="window.location.href='resume-detail.html?id=${item.id}'" title="ดู Resume">
+                                    <i class="bi bi-eye"></i>
+                                </button>
+                                <button class="btn btn-outline-success" onclick="contactCandidate(${item.id})" title="ติดต่อ">
+                                    <i class="bi bi-chat-dots"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                `).join('')}
+            </tbody>
+        </table>
+        
+        <!-- Pagination -->
+        <nav aria-label="Resume history pagination" class="mt-3">
+            <ul class="pagination justify-content-center mb-0">
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1">
+                        <i class="bi bi-chevron-left"></i>
+                    </a>
+                </li>
+                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#">
+                        <i class="bi bi-chevron-right"></i>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    `;
+}
+
+// Helper functions for Resume History
+function filterResumeHistory() {
+    showNotification('กำลังกรองข้อมูล...', 'info');
+    setTimeout(() => {
+        showNotification('กรองข้อมูลสำเร็จ', 'success');
+    }, 500);
+}
+
+function resetResumeFilters() {
+    $('#timeRange').val('today');
+    $('#jobFilter').val('all');
+    $('#searchName').val('');
+    filterResumeHistory();
+}
+
+function exportResumeHistory() {
+    showNotification('กำลังส่งออกไฟล์ Excel...', 'info');
+    setTimeout(() => {
+        showNotification('ส่งออกไฟล์สำเร็จ! (Demo)', 'success');
+    }, 1500);
+}
+
+function contactCandidate(id) {
+    showNotification(`กำลังเปิดหน้าต่างติดต่อผู้สมัคร ID: ${id}`, 'info');
 }
 
 // EMPLOYER: Payments
