@@ -735,24 +735,71 @@ function generateSkillBadges() {
 // Generate experience list
 function generateExperienceList() {
     const experiences = [
-        { id: 1, position: 'Frontend Developer', company: 'Tech Company Ltd.', period: 'มกราคม 2023 - ปัจจุบัน' },
-        { id: 2, position: 'Junior Developer', company: 'Startup Hub', period: 'มิถุนายน 2021 - ธันวาคม 2022' }
+        { 
+            id: 1, 
+            position: 'Frontend Developer', 
+            company: 'Tech Company Ltd.', 
+            period: 'มกราคม 2023 - ปัจจุบัน',
+            description: [
+                'พัฒนาและดูแล Web Application ด้วย React.js และ TypeScript',
+                'ทำงานร่วมกับ UX/UI Designer เพื่อนำ Design มาพัฒนาเป็น Component',
+                'Implement Responsive Design และ Optimize Performance',
+                'Code Review และ Mentoring สำหรับ Junior Developer'
+            ]
+        },
+        { 
+            id: 2, 
+            position: 'Junior Developer', 
+            company: 'Startup Hub', 
+            period: 'มิถุนายน 2021 - ธันวาคม 2022',
+            description: [
+                'พัฒนา Frontend ด้วย Vue.js และ JavaScript',
+                'ทำงานในทีม Agile และเข้าร่วม Daily Standup',
+                'Fix Bug และ Implement Features ตาม Requirements',
+                'เรียนรู้และนำ Best Practices มาใช้ในโปรเจค'
+            ]
+        }
     ];
     
-    return experiences.map(exp => `
-        <div class="experience-item mb-3 pb-3 border-bottom" id="exp-${exp.id}">
-            <div class="d-flex justify-content-between">
-                <div>
-                    <h6 class="fw-bold mb-1">${exp.position}</h6>
-                    <p class="text-muted mb-1">${exp.company}</p>
-                    <small class="text-muted">${exp.period}</small>
+    return experiences.map(exp => {
+        let descriptionHtml = '';
+        if (exp.description && exp.description.length > 0) {
+            const bulletPoints = exp.description.map(item => `<li>${item}</li>`).join('');
+            descriptionHtml = `
+                <div class="experience-details mt-2">
+                    <p class="text-muted mb-1 small">
+                        <strong>รายละเอียดงาน:</strong>
+                    </p>
+                    <ul class="small text-muted mb-0 ps-3">
+                        ${bulletPoints}
+                    </ul>
                 </div>
-                <button class="btn btn-sm btn-outline-danger" onclick="removeExperience(${exp.id})">
-                    <i class="bi bi-trash"></i>
-                </button>
+            `;
+        }
+        
+        return `
+            <div class="experience-item mb-3 pb-3 border-bottom" id="exp-${exp.id}">
+                <div class="d-flex justify-content-between">
+                    <div class="flex-grow-1">
+                        <h6 class="fw-bold mb-1">${exp.position}</h6>
+                        <p class="text-muted mb-1">
+                            <i class="bi bi-building me-1"></i>${exp.company}
+                        </p>
+                        <p class="text-muted mb-2">
+                            <i class="bi bi-calendar-event me-1"></i>
+                            <small>${exp.period}</small>
+                        </p>
+                        ${descriptionHtml}
+                    </div>
+                    <div class="ms-2">
+                        <button class="btn btn-sm btn-outline-danger" onclick="removeExperience(${exp.id})" title="ลบ">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </div>
+                </div>
             </div>
-        </div>
-    `).join('');
+        `;
+    }).join('');
 }
 
 // Show add skill modal
@@ -818,30 +865,58 @@ function showAddExperienceModal() {
     const modalHtml = `
         <div class="modal fade" id="addExperienceModal" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title fw-bold">เพิ่มประสบการณ์ทำงาน</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                <div class="modal-content border-0 shadow-lg">
+                    <div class="modal-header bg-gradient border-0 text-white">
+                        <h5 class="modal-title fw-bold">
+                            <i class="bi bi-briefcase me-2"></i>เพิ่มประสบการณ์ทำงาน
+                        </h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body p-4">
                         <div class="row g-3">
                             <div class="col-md-6">
-                                <label class="form-label">ตำแหน่ง</label>
-                                <input type="text" class="form-control" id="newExpPosition" placeholder="เช่น Senior Developer">
+                                <label class="form-label fw-semibold">
+                                    ตำแหน่งงาน <span class="text-danger">*</span>
+                                </label>
+                                <input type="text" class="form-control" id="newExpPosition" 
+                                       placeholder="เช่น Frontend Developer, Project Manager" required>
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label">บริษัท</label>
-                                <input type="text" class="form-control" id="newExpCompany" placeholder="เช่น ABC Company">
+                                <label class="form-label fw-semibold">
+                                    บริษัท <span class="text-danger">*</span>
+                                </label>
+                                <input type="text" class="form-control" id="newExpCompany" 
+                                       placeholder="เช่น Tech Company Ltd." required>
                             </div>
                             <div class="col-12">
-                                <label class="form-label">ช่วงเวลา</label>
-                                <input type="text" class="form-control" id="newExpPeriod" placeholder="เช่น มกราคม 2020 - ธันวาคม 2022">
+                                <label class="form-label fw-semibold">
+                                    ช่วงเวลา <span class="text-danger">*</span>
+                                </label>
+                                <input type="text" class="form-control" id="newExpPeriod" 
+                                       placeholder="เช่น มกราคม 2023 - ปัจจุบัน" required>
+                            </div>
+                            <!-- รายละเอียดงาน -->
+                            <div class="col-12">
+                                <label class="form-label fw-semibold">
+                                    รายละเอียดงาน
+                                    <small class="text-muted">(แนะนำ)</small>
+                                </label>
+                                <textarea class="form-control" id="newExpDescription" rows="8" 
+                                          placeholder="เช่น:&#10;• พัฒนาและดูแล Web Application&#10;• ทำงานร่วมกับทีม UX/UI&#10;• Code Review และ Mentoring&#10;• จัดการโปรเจคด้วย Agile Methodology"></textarea>
+                                <div class="form-text">
+                                    <i class="bi bi-lightbulb text-warning me-1"></i>
+                                    <strong>เคล็ดลับ:</strong> ใช้จุด • หรือ - เพื่อแสดงรายละเอียดเป็นข้อๆ แต่ละบรรทัด
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก</button>
-                        <button type="button" class="btn btn-primary" onclick="addNewExperience()">เพิ่ม</button>
+                    <div class="modal-footer border-0">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            <i class="bi bi-x-circle me-1"></i>ยกเลิก
+                        </button>
+                        <button type="button" class="btn btn-primary" onclick="addNewExperience()">
+                            <i class="bi bi-check-circle me-1"></i>เพิ่มประสบการณ์
+                        </button>
                     </div>
                 </div>
             </div>
@@ -858,6 +933,7 @@ function addNewExperience() {
     const position = $('#newExpPosition').val().trim();
     const company = $('#newExpCompany').val().trim();
     const period = $('#newExpPeriod').val().trim();
+    const description = $('#newExpDescription').val().trim();
     
     if (!position || !company || !period) {
         showNotification('กรุณากรอกข้อมูลให้ครบถ้วน', 'warning');
@@ -865,17 +941,49 @@ function addNewExperience() {
     }
     
     const newId = Date.now();
+    
+    // Convert description to bullet points
+    let descriptionHtml = '';
+    if (description) {
+        const lines = description.split('\n').filter(line => line.trim());
+        const bulletPoints = lines.map(line => {
+            const trimmed = line.trim();
+            // Remove existing bullets if any
+            const cleanLine = trimmed.replace(/^[•\-\*]\s*/, '');
+            return `<li>${cleanLine}</li>`;
+        }).join('');
+        
+        descriptionHtml = `
+            <div class="experience-details mt-2">
+                <p class="text-muted mb-1 small">
+                    <strong>รายละเอียดงาน:</strong>
+                </p>
+                <ul class="small text-muted mb-0 ps-3">
+                    ${bulletPoints}
+                </ul>
+            </div>
+        `;
+    }
+    
     const newExp = `
         <div class="experience-item mb-3 pb-3 border-bottom" id="exp-${newId}">
             <div class="d-flex justify-content-between">
-                <div>
+                <div class="flex-grow-1">
                     <h6 class="fw-bold mb-1">${position}</h6>
-                    <p class="text-muted mb-1">${company}</p>
-                    <small class="text-muted">${period}</small>
+                    <p class="text-muted mb-1">
+                        <i class="bi bi-building me-1"></i>${company}
+                    </p>
+                    <p class="text-muted mb-2">
+                        <i class="bi bi-calendar-event me-1"></i>
+                        <small>${period}</small>
+                    </p>
+                    ${descriptionHtml}
                 </div>
-                <button class="btn btn-sm btn-outline-danger" onclick="removeExperience(${newId})">
-                    <i class="bi bi-trash"></i>
-                </button>
+                <div class="ms-2">
+                    <button class="btn btn-sm btn-outline-danger" onclick="removeExperience(${newId})" title="ลบ">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                </div>
             </div>
         </div>
     `;

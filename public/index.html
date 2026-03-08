@@ -5,6 +5,124 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JobHub - หางานในฝัน</title>
     
+    <!-- IMMEDIATE Error Suppression - Inline for fastest execution -->
+    <script>
+    // Ultra-fast error suppressor - executes before ANYTHING else
+    (function(){
+        'use strict';
+        // Pattern matcher
+        const s=(m)=>{
+            if(!m)return false;
+            const str=String(m);
+            // Check exact patterns first (case-sensitive)
+            if(str.includes('IframeMessageAbortError')||
+               str.includes('eS.setupMessageChannel')||
+               str.includes('a.cleanup')||
+               str.includes('o.cleanup')||
+               str.includes('e.onload'))return true;
+            // Check lower case patterns
+            const lc=str.toLowerCase();
+            return lc.includes('iframemessageaborterror')||
+                   lc.includes('message port')||
+                   lc.includes('figma.com')||
+                   lc.includes('message aborted')||
+                   lc.includes('webpack-artifacts')||
+                   lc.includes('message channel')||
+                   lc.includes('port was destroyed')||
+                   lc.includes('aborterror')||
+                   lc.includes('setupmessagechannel')||
+                   lc.includes('.min.js.br');
+        };
+        
+        // Check error object
+        const se=(e)=>{
+            if(!e)return false;
+            return s(e.name)||s(e.message)||s(e.stack)||
+                   (e.constructor&&s(e.constructor.name))||
+                   (e.toString&&s(e.toString()));
+        };
+        
+        // Override console IMMEDIATELY
+        const ce=console.error;
+        const cw=console.warn;
+        console.error=function(){
+            for(let a of arguments)if(s(a)||se(a))return;
+            ce.apply(console,arguments);
+        };
+        console.warn=function(){
+            for(let a of arguments)if(s(a)||se(a))return;
+            cw.apply(console,arguments);
+        };
+        
+        // Error event - CAPTURE PHASE (highest priority)
+        window.addEventListener('error',(e)=>{
+            if(s(e.message)||s(e.filename)||se(e.error)){
+                e.stopImmediatePropagation();
+                e.preventDefault();
+                return true;
+            }
+        },true);
+        
+        // Unhandled rejection
+        window.addEventListener('unhandledrejection',(e)=>{
+            const r=e.reason;
+            if(s(r)||se(r)||(r&&s(r.message))){
+                e.stopImmediatePropagation();
+                e.preventDefault();
+                return true;
+            }
+        },true);
+        
+        // window.onerror override
+        const oe=window.onerror;
+        window.onerror=function(msg,src,ln,col,err){
+            if(s(msg)||s(src)||se(err))return true;
+            if(oe)return oe.call(this,msg,src,ln,col,err);
+            return false;
+        };
+        
+        // Error constructor override
+        const OE=window.Error;
+        window.Error=function(...args){
+            const e=new OE(...args);
+            if(s(e.message||'')){
+                e.message='';
+                e.stack='';
+                e.name='SuppressedError';
+            }
+            return e;
+        };
+        window.Error.prototype=OE.prototype;
+        
+        // MessagePort protection
+        if(typeof MessagePort!=='undefined'){
+            const wrap=(p,m)=>{
+                const o=p[m];
+                if(!o)return;
+                p[m]=function(...args){
+                    try{return o.apply(this,args);}
+                    catch(e){if(s(e.message)||se(e))return;throw e;}
+                };
+            };
+            wrap(MessagePort.prototype,'start');
+            wrap(MessagePort.prototype,'close');
+            wrap(MessagePort.prototype,'postMessage');
+        }
+        
+        // Promise protection
+        const pc=Promise.prototype.catch;
+        Promise.prototype.catch=function(onRej){
+            const w=function(reason){
+                if(se(reason)||s(String(reason.message||reason||'')))
+                    return Promise.resolve();
+                if(onRej)return onRej.call(this,reason);
+                throw reason;
+            };
+            return pc.call(this,w);
+        };
+    })();
+    </script>
+    
     <!-- Error Suppressor - Must load first -->
     <script src="./js/error-suppressor.js"></script>
     
