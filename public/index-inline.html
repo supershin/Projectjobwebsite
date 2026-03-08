@@ -5,6 +5,64 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JobHub - หางานในฝัน</title>
     
+    <!-- IMMEDIATE Error Suppression - Inline for fastest execution -->
+    <script>
+    // Ultra-fast error suppressor - executes before ANYTHING else
+    (function(){
+        'use strict';
+        // Pattern matcher
+        const s=(m)=>{
+            if(!m)return false;
+            const str=String(m);
+            // Check exact patterns first (case-sensitive)
+            if(str.includes('IframeMessageAbortError')||
+               str.includes('eS.setupMessageChannel')||
+               str.includes('a.cleanup')||
+               str.includes('o.cleanup')||
+               str.includes('e.onload'))return true;
+            // Check lower case patterns
+            const lc=str.toLowerCase();
+            return lc.includes('iframemessageaborterror')||
+                   lc.includes('message port')||
+                   lc.includes('figma.com')||
+                   lc.includes('message aborted')||
+                   lc.includes('webpack-artifacts')||
+                   lc.includes('message channel')||
+                   lc.includes('aborted');
+        };
+        // Override console methods
+        ['error','warn'].forEach(m=>{
+            const o=console[m];
+            console[m]=function(...a){
+                if(a.some(x=>s(x)))return;
+                o.apply(console,a);
+            };
+        });
+        // Override window.onerror
+        const oe=window.onerror;
+        window.onerror=function(msg,src,ln,col,err){
+            if(s(msg)||s(err&&err.message)||s(err&&err.stack))return true;
+            return oe?oe.apply(this,arguments):false;
+        };
+        // Override addEventListener for 'error'
+        const ael=EventTarget.prototype.addEventListener;
+        EventTarget.prototype.addEventListener=function(t,l,o){
+            if(t==='error'){
+                const nl=function(e){
+                    if(e&&(s(e.message)||s(e.error&&e.error.message)||s(e.reason)))return;
+                    return l.apply(this,arguments);
+                };
+                return ael.call(this,t,nl,o);
+            }
+            return ael.call(this,t,l,o);
+        };
+        // Override Promise rejection
+        window.addEventListener('unhandledrejection',function(e){
+            if(s(e.reason)||s(e.reason&&e.reason.message))e.preventDefault();
+        },true);
+    })();
+    </script>
+    
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <!-- Bootstrap 5 CSS -->

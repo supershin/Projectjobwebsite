@@ -983,11 +983,6 @@ function addNewExperience() {
         : `${formatDate(startDate)} - ${formatDate(endDate)}`;
     
     const newId = Date.now();
-        showNotification('กรุณากรอกข้อมูลให้ครบถ้วน', 'warning');
-        return;
-    }
-    
-    const newId = Date.now();
     
     // Convert description to bullet points
     let descriptionHtml = '';
