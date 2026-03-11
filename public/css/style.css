@@ -112,38 +112,43 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .text-gradient-enhanced {
-    background: linear-gradient(135deg, #ff5722 0%, #ff9800 50%, #ff6b35 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    font-size: 1.3em;
+    /* ใช้สีส้มเข้มจริงๆ แทน transparent */
+    color: #ff5722;
+    font-size: 1.4em;
     font-weight: 900;
-    text-shadow: 0 4px 20px rgba(255, 107, 53, 0.4);
     letter-spacing: -0.02em;
     display: inline-block;
     position: relative;
+    text-shadow: 
+        2px 2px 4px rgba(255, 87, 34, 0.3),
+        0 0 20px rgba(255, 152, 0, 0.4),
+        0 0 40px rgba(255, 107, 53, 0.2);
     animation: pulseGlow 2s ease-in-out infinite;
 }
 
-.text-gradient-enhanced::after {
+.text-gradient-enhanced::before {
     content: attr(data-i18n);
     position: absolute;
     left: 0;
     top: 0;
     z-index: -1;
-    filter: blur(20px);
-    opacity: 0.5;
-    background: linear-gradient(135deg, #ff5722 0%, #ff9800 50%, #ff6b35 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: #ff9800;
+    filter: blur(8px);
+    opacity: 0.6;
 }
 
 @keyframes pulseGlow {
     0%, 100% {
-        filter: drop-shadow(0 0 8px rgba(255, 107, 53, 0.6));
+        text-shadow: 
+            2px 2px 4px rgba(255, 87, 34, 0.3),
+            0 0 20px rgba(255, 152, 0, 0.5),
+            0 0 40px rgba(255, 107, 53, 0.3);
     }
     50% {
-        filter: drop-shadow(0 0 20px rgba(255, 152, 0, 0.8));
+        text-shadow: 
+            2px 2px 6px rgba(255, 87, 34, 0.4),
+            0 0 30px rgba(255, 152, 0, 0.7),
+            0 0 60px rgba(255, 107, 53, 0.4);
     }
 }
 
@@ -178,15 +183,19 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .navbar-brand i {
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    filter: drop-shadow(0 0 10px rgba(255, 107, 53, 0.3));
+    /* ใช้สีส้มจริงๆ แทน transparent */
+    color: #ff6b35;
+    filter: drop-shadow(0 2px 4px rgba(255, 107, 53, 0.3));
 }
 
 .navbar-brand:hover {
     transform: scale(1.05);
+    color: #ff5722 !important;
+}
+
+.navbar-brand:hover i {
+    color: #ff5722;
+    filter: drop-shadow(0 3px 8px rgba(255, 87, 34, 0.5));
 }
 
 .nav-link {
