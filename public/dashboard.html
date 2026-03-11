@@ -22,7 +22,11 @@
                str.includes('e.onload')||
                str.includes('6005-316f94e648742cad')||
                str.includes('figma_app-617144028f0d9b4f')||
-               str.includes('Message aborted: message port was destroyed'))return true;
+               str.includes('Message aborted: message port was destroyed')||
+               str.includes('393877')||
+               str.includes('396971')||
+               str.includes('12209')||
+               str.includes('5249'))return true;
             // Check lower case patterns
             const lc=str.toLowerCase();
             return lc.includes('iframemessageaborterror')||
@@ -42,9 +46,7 @@
         // Check error object
         const se=(e)=>{
             if(!e)return false;
-            return s(e.name)||s(e.message)||s(e.stack)||
-                   (e.constructor&&s(e.constructor.name))||
-                   (e.toString&&s(e.toString()));
+            return s(e.name)||s(e.message)||s(e.stack)||(e.constructor&&s(e.constructor.name))||(e.toString&&s(e.toString()));
         };
         
         // Override console IMMEDIATELY
@@ -112,7 +114,7 @@
             wrap(MessagePort.prototype,'start');
             wrap(MessagePort.prototype,'close');
             wrap(MessagePort.prototype,'postMessage');
-        }
+        };
         
         // Promise protection
         const pc=Promise.prototype.catch;
@@ -125,6 +127,25 @@
             };
             return pc.call(this,w);
         };
+        
+        // AGGRESSIVE: Block ALL Figma domain errors
+        const origFetch=window.fetch;
+        window.fetch=function(...args){
+            return origFetch.apply(this,args).catch(e=>{
+                if(s(e.message)||se(e))return Promise.resolve(new Response());
+                throw e;
+            });
+        };
+    })();
+    </script>
+    
+    <!-- SECONDARY: Immediate Global Error Blocker -->
+    <script>
+    // Nuclear option - block ALL errors from Figma immediately
+    (()=>{
+        const block=m=>!m?false:String(m).toLowerCase().includes('figma')||String(m).toLowerCase().includes('iframe')||String(m).includes('393877')||String(m).includes('396971')||String(m).includes('12209')||String(m).includes('5249');
+        window.addEventListener('error',e=>{if(block(e.message)||block(e.filename)){e.stopImmediatePropagation();e.preventDefault();return true;}},true);
+        window.addEventListener('unhandledrejection',e=>{if(block(e.reason)){e.stopImmediatePropagation();e.preventDefault();return true;}},true);
     })();
     </script>
     
