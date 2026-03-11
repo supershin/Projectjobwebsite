@@ -1,6 +1,15 @@
-// Immediate redirect to static site
-if (typeof window !== 'undefined') {
-  window.location.href = '/public/index.html';
-}
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './app/App';
+import './styles/theme.css';
 
-export default {};
+// Render the React app
+const root = document.getElementById('root');
+
+if (root) {
+  ReactDOM.createRoot(root).render(
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  );
+}
