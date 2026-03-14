@@ -463,6 +463,7 @@ function getJobPatternDisplay(jobPattern) {
 
 function getJobPositionDisplay(jobPosition) {
     const mapping = {
+        // Original positions
         'developer': 'นักพัฒนาซอฟต์แวร์',
         'designer': 'นักออกแบบ',
         'marketing': 'นักการตลาด',
@@ -470,7 +471,19 @@ function getJobPositionDisplay(jobPosition) {
         'engineer': 'วิศวกร',
         'accountant': 'นักบัญชี',
         'hr': 'ฝ่ายทรัพยากรบุคคล',
-        'other': 'อื่นๆ'
+        'other': 'อื่นๆ',
+        
+        // Hotel Department Positions
+        'front-office': 'งานแผนกต้อนรับ (Front Office)',
+        'housekeeping': 'งานแผนกแม่บ้าน (Housekeeping)',
+        'engineering': 'งานแผนกวิศวกรรม (Engineering)',
+        'food-beverage': 'งานแผนกอาหารและเครื่องดื่ม (Food & Beverage)',
+        'culinary': 'งานแผนกครัว (Culinary/Kitchen)',
+        'human-resources': 'งานแผนกทรัพยากรบุคคล (Human Resources)',
+        'sales-marketing': 'งานแผนกขายและการตลาด (Sales & Marketing)',
+        'revenue-reservation': 'งานแผนกรายได้และรับจองห้องพัก (Revenue & Reservation)',
+        'finance-accounting': 'งานแผนกบัญชีและการเงิน (Finance & Accounting)',
+        'hotel-management': 'งานระดับผู้จัดการและผู้บริหาร (Hotel Management)'
     };
     return mapping[jobPosition] || jobPosition;
 }
