@@ -42,7 +42,7 @@ export default function App() {
           marginBottom: '16px',
           letterSpacing: '-0.02em'
         }}>
-          JobHub
+          JobCrew
         </h1>
         
         <p style={{ 
@@ -97,7 +97,7 @@ export default function App() {
               e.currentTarget.style.background = 'rgba(255, 255, 255, 0.2)';
             }}
           >
-            คลิกที่นี่เพื่อเข้าสู่ JobHub →
+            คลิกที่นี่เพื่อเข้าสู่ JobCrew →
           </a>
         </div>
       </div>
