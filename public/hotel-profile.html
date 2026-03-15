@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Profile - JobCrew</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="./css/style.css">
+    
+    <style>
+        body {
+            background: #f8f9fa;
+        }
+        
+        /* Hero Section */
+        .hotel-hero {
+            position: relative;
+            height: 400px;
+            background-size: cover;
+            background-position: center;
+            overflow: hidden;
+        }
+        
+        .hotel-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.7) 100%);
+        }
+        
+        .hotel-hero-content {
+            position: relative;
+            z-index: 2;
+            color: white;
+            padding-top: 120px;
+        }
+        
+        .hotel-logo-large {
+            width: 120px;
+            height: 120px;
+            background: white;
+            border-radius: 20px;
+            padding: 16px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+            margin-bottom: 20px;
+        }
+        
+        .hotel-logo-large img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        
+        .hotel-hero h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+            margin-bottom: 12px;
+        }
+        
+        .hotel-tagline-hero {
+            font-size: 1.25rem;
+            font-style: italic;
+            opacity: 0.95;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        
+        .hotel-meta-hero {
+            display: flex;
+            gap: 24px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .hotel-meta-item-hero {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            padding: 10px 16px;
+            border-radius: 30px;
+            font-weight: 500;
+        }
+        
+        /* Navigation Tabs */
+        .profile-nav {
+            background: white;
+            border-bottom: 1px solid var(--gray-200);
+            position: sticky;
+            top: 70px;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .profile-nav .nav-link {
+            color: var(--gray-700);
+            font-weight: 600;
+            padding: 16px 24px;
+            border: none;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .profile-nav .nav-link:hover {
+            color: var(--primary-color);
+        }
+        
+        .profile-nav .nav-link.active {
+            color: var(--primary-color);
+            border-bottom-color: var(--primary-color);
+        }
+        
+        /* Content Sections */
+        .profile-section {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+        }
+        
+        .section-title {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--gray-900);
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .section-title i {
+            color: var(--primary-color);
+        }
+        
+        /* About Section */
+        .brand-values {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-top: 24px;
+        }
+        
+        .value-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .value-card:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(255, 107, 53, 0.15);
+        }
+        
+        .value-icon {
+            font-size: 2rem;
+            margin-bottom: 12px;
+        }
+        
+        /* Culture Section */
+        .culture-highlights {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 24px;
+        }
+        
+        .culture-card {
+            background: white;
+            border: 2px solid var(--gray-200);
+            border-radius: 12px;
+            padding: 24px;
+            transition: all 0.3s ease;
+        }
+        
+        .culture-card:hover {
+            border-color: var(--primary-color);
+            box-shadow: 0 8px 20px rgba(255, 107, 53, 0.1);
+        }
+        
+        .culture-card i {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 12px;
+        }
+        
+        /* Testimonial Card */
+        .testimonial-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 20px;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+        
+        .testimonial-photo {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 3px solid white;
+        }
+        
+        .testimonial-quote {
+            font-size: 1.1rem;
+            font-style: italic;
+            line-height: 1.7;
+            margin: 20px 0;
+        }
+        
+        .rating-stars {
+            color: #fbbf24;
+        }
+        
+        /* Benefits Grid */
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 24px;
+        }
+        
+        .benefit-card {
+            background: white;
+            border: 2px solid var(--gray-200);
+            border-radius: 12px;
+            padding: 24px;
+            transition: all 0.3s ease;
+        }
+        
+        .benefit-card:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(255, 107, 53, 0.15);
+        }
+        
+        .benefit-icon {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+        }
+        
+        .benefit-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 8px;
+        }
+        
+        .benefit-desc {
+            color: var(--gray-600);
+            font-size: 0.9rem;
+        }
+        
+        /* Job Card */
+        .job-card-mini {
+            background: white;
+            border: 2px solid var(--gray-200);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .job-card-mini:hover {
+            border-color: var(--primary-color);
+            transform: translateX(8px);
+        }
+        
+        .job-title-mini {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 8px;
+        }
+        
+        .job-meta-mini {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            font-size: 0.875rem;
+            color: var(--gray-600);
+        }
+        
+        /* Gallery */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 16px;
+            margin-top: 24px;
+        }
+        
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            cursor: pointer;
+            aspect-ratio: 4/3;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.8) 100%);
+            color: white;
+            padding: 12px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        /* Video Card */
+        .video-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+        
+        .video-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+        }
+        
+        .video-thumbnail {
+            position: relative;
+            aspect-ratio: 16/9;
+            overflow: hidden;
+        }
+        
+        .video-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 107, 53, 0.95);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        .video-info {
+            padding: 16px;
+        }
+        
+        .video-title {
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 8px;
+        }
+        
+        /* Awards */
+        .awards-list {
+            margin-top: 24px;
+        }
+        
+        .award-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+        }
+        
+        .award-icon {
+            font-size: 2.5rem;
+        }
+        
+        .award-info h5 {
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 4px;
+        }
+        
+        .award-info p {
+            color: var(--gray-600);
+            margin: 0;
+            font-size: 0.9rem;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 16px;
+            padding: 40px;
+            text-align: center;
+            margin-top: 40px;
+        }
+        
+        .cta-section h3 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+        
+        .cta-btn {
+            background: white;
+            color: var(--primary-color);
+            border: none;
+            padding: 14px 32px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .cta-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 24px rgba(255,255,255,0.3);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">
+                <img src="https://supershin.github.io/Project.Job/logo/logo.jpg" alt="JobCrew Logo" class="navbar-brand-logo"> 
+                <span style="color: var(--primary-color);">JobCrew</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">หน้าแรก</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="jobs.html">งานทั้งหมด</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="hotel-partners.html">โรงแรมพันธมิตร</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hotel Hero -->
+    <div class="hotel-hero" id="heroSection">
+        <div class="container hotel-hero-content">
+            <div class="hotel-logo-large">
+                <img id="heroLogo" src="" alt="Hotel Logo">
+            </div>
+            <h1 id="heroName">Loading...</h1>
+            <p class="hotel-tagline-hero" id="heroTagline"></p>
+            <div class="hotel-meta-hero">
+                <div class="hotel-meta-item-hero">
+                    <i class="bi bi-geo-alt-fill"></i>
+                    <span id="heroLocation"></span>
+                </div>
+                <div class="hotel-meta-item-hero">
+                    <i class="bi bi-building"></i>
+                    <span id="heroType"></span>
+                </div>
+                <div class="hotel-meta-item-hero">
+                    <i class="bi bi-people-fill"></i>
+                    <span id="heroSize"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <div class="profile-nav">
+        <div class="container">
+            <ul class="nav nav-tabs border-0">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#about">About the Brand</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#culture">Work Culture</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#opportunities">Current Opportunities</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#benefits">Benefits & Perks</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#gallery">Photos & Videos</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container py-5">
+        <!-- About the Brand -->
+        <section id="about" class="profile-section">
+            <h2 class="section-title">
+                <i class="bi bi-building"></i>
+                About the Brand
+            </h2>
+            <div id="aboutContent">
+                <p class="lead" id="aboutText"></p>
+                <p id="brandStory"></p>
+                
+                <h4 class="mt-4 mb-3">Our Values</h4>
+                <div class="brand-values" id="brandValues">
+                    <!-- Values will be inserted here -->
+                </div>
+                
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                        <p><strong>Year Established:</strong> <span id="yearEstablished"></span></p>
+                        <p><strong>Properties Worldwide:</strong> <span id="numProperties"></span></p>
+                    </div>
+                    <div class="col-md-6">
+                        <p><strong>Hotel Type:</strong> <span id="hotelType"></span></p>
+                        <p><strong>Company Size:</strong> <span id="companySize"></span></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Work Culture -->
+        <section id="culture" class="profile-section">
+            <h2 class="section-title">
+                <i class="bi bi-heart"></i>
+                Work Culture
+            </h2>
+            <p class="lead" id="cultureText"></p>
+            
+            <h4 class="mt-4 mb-3">Culture Highlights</h4>
+            <div class="culture-highlights" id="cultureHighlights">
+                <!-- Highlights will be inserted here -->
+            </div>
+            
+            <h4 class="mt-5 mb-3">What Our Employees Say</h4>
+            <div id="testimonials">
+                <!-- Testimonials will be inserted here -->
+            </div>
+            
+            <h4 class="mt-5 mb-3">Awards & Recognition</h4>
+            <div class="awards-list" id="awards">
+                <!-- Awards will be inserted here -->
+            </div>
+        </section>
+
+        <!-- Current Opportunities -->
+        <section id="opportunities" class="profile-section">
+            <h2 class="section-title">
+                <i class="bi bi-briefcase"></i>
+                Current Opportunities
+            </h2>
+            <p class="mb-4">We have <strong class="text-primary" id="openPositionsCount"></strong> open positions waiting for talented individuals like you!</p>
+            <div id="jobsList">
+                <!-- Jobs will be inserted here -->
+            </div>
+        </section>
+
+        <!-- Benefits & Perks -->
+        <section id="benefits" class="profile-section">
+            <h2 class="section-title">
+                <i class="bi bi-gift"></i>
+                Benefits & Perks
+            </h2>
+            <div class="benefits-grid" id="benefitsGrid">
+                <!-- Benefits will be inserted here -->
+            </div>
+            
+            <h4 class="mt-5 mb-3">Additional Perks</h4>
+            <div class="row">
+                <div class="col-md-6">
+                    <ul id="perksList1" class="list-unstyled">
+                        <!-- First half of perks -->
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <ul id="perksList2" class="list-unstyled">
+                        <!-- Second half of perks -->
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Photos & Videos -->
+        <section id="gallery" class="profile-section">
+            <h2 class="section-title">
+                <i class="bi bi-images"></i>
+                Photos & Videos
+            </h2>
+            
+            <h4 class="mb-3">Videos</h4>
+            <div class="row g-4 mb-5" id="videosGrid">
+                <!-- Videos will be inserted here -->
+            </div>
+            
+            <h4 class="mb-3">Photo Gallery</h4>
+            <div class="gallery-grid" id="photosGrid">
+                <!-- Photos will be inserted here -->
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <div class="cta-section">
+            <h3>Ready to Join Our Team?</h3>
+            <p class="mb-4">Explore our current opportunities and start your journey with us today!</p>
+            <a href="#opportunities" class="btn cta-btn">
+                <i class="bi bi-briefcase me-2"></i>View All Positions
+            </a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer py-5" style="background: #2d3748; color: white;">
+        <div class="container">
+            <div class="text-center">
+                <p>&copy; 2026 JobCrew. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+    // Sample Full Hotel Data (นี่คือ data ตัวอย่าง - ในอนาคตจะดึงจาก API)
+    const SAMPLE_HOTEL_DATA = {
+        "hotelId": "hotel001",
+        "brandName": "Grand Hyatt",
+        "hotelName": "Grand Hyatt Erawan Bangkok",
+        "logo": "https://ui-avatars.com/api/?name=Grand+Hyatt&background=0D4C92&color=fff&size=200",
+        "coverImage": "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1920&q=80",
+        "tagline": "Where Luxury Meets Exceptional Hospitality",
+        "location": "Bangkok",
+        "hotelType": "5-Star Luxury Hotel",
+        "companySize": "500+ employees",
+        "yearEstablished": 1980,
+        "numberOfProperties": 50,
+        
+        "about": "Grand Hyatt Erawan Bangkok is a premier luxury hotel located in the heart of Bangkok's business and shopping district. With over 40 years of excellence, we provide world-class service and unforgettable experiences to our guests from around the globe.",
+        
+        "brandStory": "Founded in 1980, Grand Hyatt has been a symbol of luxury hospitality in Thailand. Our commitment to excellence and our people-first culture has made us one of the most sought-after employers in the hospitality industry.",
+        
+        "brandValues": [
+            "Excellence in Service",
+            "Respect & Integrity",
+            "Innovation & Creativity",
+            "Teamwork & Collaboration"
+        ],
+        
+        "workCulture": "At Grand Hyatt, we believe in nurturing talent and fostering a culture of continuous learning. Our team members are our greatest asset, and we invest in their development through comprehensive training programs, mentorship, and career advancement opportunities.",
+        
+        "cultureHighlights": [
+            {icon: "bi-clock", title: "Work-Life Balance"},
+            {icon: "bi-graph-up", title: "Career Growth"},
+            {icon: "bi-people", title: "Diversity & Inclusion"},
+            {icon: "bi-trophy", title: "Recognition Programs"},
+            {icon: "bi-globe", title: "Global Opportunities"},
+            {icon: "bi-lightbulb", title: "Innovation Culture"}
+        ],
+        
+        "employeeTestimonials": [
+            {
+                "name": "สมชาย ใจดี",
+                "position": "Front Office Manager",
+                "tenure": "5 years",
+                "photo": "https://ui-avatars.com/api/?name=Somchai&background=4f46e5&color=fff&size=120",
+                "quote": "Grand Hyatt ไม่ใช่แค่ที่ทำงาน แต่เป็นครอบครัวที่สอง ฉันได้เติบโตทั้งในด้านอาชีพและบุคลิกภาพที่นี่",
+                "rating": 5
+            },
+            {
+                "name": "วิภา สวยงาม",
+                "position": "Executive Chef",
+                "tenure": "8 years",
+                "photo": "https://ui-avatars.com/api/?name=Wipa&background=ec4899&color=fff&size=120",
+                "quote": "โอกาสในการพัฒนาทักษะและความคิดสร้างสรรค์ไม่มีที่สิ้นสุด ผู้บริหารให้การสนับสนุนและส่งเสริมอย่างเต็มที่",
+                "rating": 5
+            }
+        ],
+        
+        "awards": [
+            {title: "Best Employer of the Year 2025", issuer: "Thailand HR Awards", year: 2025, icon: "🏆"},
+            {title: "Top 10 Hotels in Asia", issuer: "Travel + Leisure", year: 2024, icon: "⭐"},
+            {title: "Excellence in Hospitality", issuer: "Asian Hospitality Awards", year: 2024, icon: "🎖️"}
+        ],
+        
+        "openPositions": 12,
+        
+        "benefits": [
+            {icon: "💰", title: "Competitive Salary", description: "เงินเดือนที่แข่งขันได้พร้อมโบนัสประจำปี"},
+            {icon: "🏥", title: "Health Insurance", description: "ประกันสุขภาพและประกันชีวิตสำหรับพนักงานและครอบครัว"},
+            {icon: "🎓", title: "Training & Development", description: "โปรแกรมอบรมและพัฒนาทักษะอย่างต่อเนื่อง"},
+            {icon: "🌴", title: "Vacation Days", description: "วันหยุดพักผ่อนประจำปี 15-20 วัน"},
+            {icon: "🍽️", title: "Free Meals", description: "อาหารฟรี 3 มื้อสำหรับพนักงานทุกคน"},
+            {icon: "🏨", title: "Hotel Discounts", description: "ส่วนลดห้องพักโรงแรมในเครือทั่วโลก 50-70%"},
+            {icon: "💪", title: "Fitness Center", description: "ฟรีสมาชิกฟิตเนสและสปา"},
+            {icon: "🚌", title: "Transportation", description: "รถรับส่งพนักงานฟรี"}
+        ],
+        
+        "perks": [
+            "Uniform & Laundry Service",
+            "Birthday Leave",
+            "Performance Bonuses",
+            "Service Charge",
+            "Provident Fund",
+            "Social Security",
+            "Annual Health Check-up",
+            "Employee Recognition Awards",
+            "Team Building Activities",
+            "Global Career Opportunities"
+        ],
+        
+        "gallery": {
+            "videos": [
+                {
+                    id: "1",
+                    title: "A Day in the Life at Grand Hyatt",
+                    thumbnail: "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=800&q=80",
+                    duration: "3:45"
+                },
+                {
+                    id: "2",
+                    title: "Career Opportunities at Grand Hyatt",
+                    thumbnail: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&q=80",
+                    duration: "5:20"
+                }
+            ],
+            "photos": [
+                {url: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=80", caption: "Hotel Exterior"},
+                {url: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800&q=80", caption: "Luxury Lobby"},
+                {url: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800&q=80", caption: "Fine Dining"},
+                {url: "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=800&q=80", caption: "Our Team"},
+                {url: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=800&q=80", caption: "Training"},
+                {url: "https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=800&q=80", caption: "Guest Services"}
+            ]
+        }
+    };
+    
+    $(document).ready(function() {
+        const hotel = SAMPLE_HOTEL_DATA;
+        
+        // Populate hero section
+        $('#heroSection').css('background-image', `url(${hotel.coverImage})`);
+        $('#heroLogo').attr('src', hotel.logo);
+        $('#heroName').text(hotel.hotelName);
+        $('#heroTagline').text(hotel.tagline);
+        $('#heroLocation').text(hotel.location);
+        $('#heroType').text(hotel.hotelType);
+        $('#heroSize').text(hotel.companySize);
+        
+        // About section
+        $('#aboutText').text(hotel.about);
+        $('#brandStory').text(hotel.brandStory);
+        $('#yearEstablished').text(hotel.yearEstablished);
+        $('#numProperties').text(hotel.numberOfProperties + ' properties');
+        $('#hotelType').text(hotel.hotelType);
+        $('#companySize').text(hotel.companySize);
+        
+        // Brand values
+        hotel.brandValues.forEach(value => {
+            $('#brandValues').append(`
+                <div class="value-card">
+                    <div class="value-icon">✓</div>
+                    <strong>${value}</strong>
+                </div>
+            `);
+        });
+        
+        // Culture section
+        $('#cultureText').text(hotel.workCulture);
+        
+        hotel.cultureHighlights.forEach(highlight => {
+            $('#cultureHighlights').append(`
+                <div class="culture-card">
+                    <i class="bi ${highlight.icon}"></i>
+                    <h5>${highlight.title}</h5>
+                </div>
+            `);
+        });
+        
+        // Testimonials
+        hotel.employeeTestimonials.forEach(testimonial => {
+            const stars = '★'.repeat(testimonial.rating);
+            $('#testimonials').append(`
+                <div class="testimonial-card">
+                    <div class="testimonial-author">
+                        <img src="${testimonial.photo}" alt="${testimonial.name}" class="testimonial-photo">
+                        <div>
+                            <h5 class="mb-1">${testimonial.name}</h5>
+                            <p class="mb-0">${testimonial.position} • ${testimonial.tenure}</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-quote">"${testimonial.quote}"</div>
+                    <div class="rating-stars">${stars}</div>
+                </div>
+            `);
+        });
+        
+        // Awards
+        hotel.awards.forEach(award => {
+            $('#awards').append(`
+                <div class="award-item">
+                    <div class="award-icon">${award.icon}</div>
+                    <div class="award-info">
+                        <h5>${award.title}</h5>
+                        <p>${award.issuer} • ${award.year}</p>
+                    </div>
+                </div>
+            `);
+        });
+        
+        // Opportunities
+        $('#openPositionsCount').text(hotel.openPositions);
+        
+        // Load actual jobs from this hotel
+        $.getJSON('./data/jobs.json', function(jobs) {
+            const hotelJobs = jobs.filter(job => job.employerId === hotel.hotelId).slice(0, 10);
+            
+            if (hotelJobs.length > 0) {
+                hotelJobs.forEach(job => {
+                    $('#jobsList').append(`
+                        <div class="job-card-mini">
+                            <h5 class="job-title-mini">${job.title}</h5>
+                            <div class="job-meta-mini">
+                                <span><i class="bi bi-building me-1"></i>${job.department}</span>
+                                <span><i class="bi bi-clock me-1"></i>${job.type}</span>
+                                <span><i class="bi bi-cash me-1"></i>${job.salary}</span>
+                                <span><i class="bi bi-people me-1"></i>${job.applicantsCount} applicants</span>
+                            </div>
+                            <a href="jobs.html?id=${job.id}" class="btn btn-sm btn-outline-primary mt-3">View Details</a>
+                        </div>
+                    `);
+                });
+            } else {
+                $('#jobsList').html('<p class="text-muted">ไม่มีตำแหน่งเปิดรับในขณะนี้</p>');
+            }
+        });
+        
+        // Benefits
+        hotel.benefits.forEach(benefit => {
+            $('#benefitsGrid').append(`
+                <div class="benefit-card">
+                    <div class="benefit-icon">${benefit.icon}</div>
+                    <div class="benefit-title">${benefit.title}</div>
+                    <div class="benefit-desc">${benefit.description}</div>
+                </div>
+            `);
+        });
+        
+        // Perks
+        const mid = Math.ceil(hotel.perks.length / 2);
+        hotel.perks.slice(0, mid).forEach(perk => {
+            $('#perksList1').append(`<li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>${perk}</li>`);
+        });
+        hotel.perks.slice(mid).forEach(perk => {
+            $('#perksList2').append(`<li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>${perk}</li>`);
+        });
+        
+        // Gallery - Videos
+        hotel.gallery.videos.forEach(video => {
+            $('#videosGrid').append(`
+                <div class="col-md-6">
+                    <div class="video-card">
+                        <div class="video-thumbnail">
+                            <img src="${video.thumbnail}" alt="${video.title}">
+                            <div class="play-button">
+                                <i class="bi bi-play-fill"></i>
+                            </div>
+                        </div>
+                        <div class="video-info">
+                            <h6 class="video-title">${video.title}</h6>
+                            <small class="text-muted"><i class="bi bi-clock me-1"></i>${video.duration}</small>
+                        </div>
+                    </div>
+                </div>
+            `);
+        });
+        
+        // Gallery - Photos
+        hotel.gallery.photos.forEach(photo => {
+            $('#photosGrid').append(`
+                <div class="gallery-item">
+                    <img src="${photo.url}" alt="${photo.caption}">
+                    <div class="gallery-caption">${photo.caption}</div>
+                </div>
+            `);
+        });
+        
+        // Smooth scroll for navigation
+        $('.profile-nav .nav-link').on('click', function(e) {
+            e.preventDefault();
+            const target = $(this).attr('href');
+            $('.profile-nav .nav-link').removeClass('active');
+            $(this).addClass('active');
+            
+            $('html, body').animate({
+                scrollTop: $(target).offset().top - 150
+            }, 500);
+        });
+        
+        // Update active nav on scroll
+        $(window).on('scroll', function() {
+            let current = '';
+            $('section').each(function() {
+                const sectionTop = $(this).offset().top;
+                if ($(window).scrollTop() >= sectionTop - 200) {
+                    current = $(this).attr('id');
+                }
+            });
+            
+            $('.profile-nav .nav-link').removeClass('active');
+            $('.profile-nav .nav-link[href="#' + current + '"]').addClass('active');
+        });
+    });
+    </script>
+</body>
+</html>
