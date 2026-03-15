@@ -184,10 +184,29 @@
     </nav>
 
     <!-- Page Header -->
-    <section class="page-header">
-        <div class="container">
-            <h1 class="display-4 fw-bold mb-3" data-i18n="jobs.page.title">ค้นหางาน</h1>
-            <p class="lead" data-i18n="jobs.page.subtitle">ค้นพบตำแหน่งงานที่เหมาะกับคุณจาก 1000+ ตำแหน่ง</p>
+    <section class="page-header page-header-image" style="background-image: url('https://supershin.github.io/Project.Job/logo/job_banner.jpg');">
+        <div class="page-header-overlay"></div>
+        <div class="container position-relative">
+            <div class="row align-items-center" style="min-height: 300px;">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h1 class="display-4 fw-bold mb-3 text-white" data-i18n="jobs.page.title" style="text-shadow: 2px 4px 8px rgba(0,0,0,0.3);">ค้นหางาน</h1>
+                    <p class="lead text-white mb-4" data-i18n="jobs.page.subtitle" style="text-shadow: 1px 2px 4px rgba(0,0,0,0.3);">ค้นพบตำแหน่งงานที่เหมาะกับคุณจาก 1000+ ตำแหน่ง</p>
+                    <div class="d-flex flex-wrap justify-content-center gap-3">
+                        <div class="stat-badge">
+                            <i class="bi bi-briefcase-fill me-2"></i>
+                            <span><strong>1,000+</strong> ตำแหน่งงาน</span>
+                        </div>
+                        <div class="stat-badge">
+                            <i class="bi bi-building me-2"></i>
+                            <span><strong>500+</strong> โรงแรม</span>
+                        </div>
+                        <div class="stat-badge">
+                            <i class="bi bi-people-fill me-2"></i>
+                            <span><strong>50,000+</strong> ผู้สมัคร</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -206,39 +225,86 @@
                             <input type="text" class="form-control" id="filterSearch" data-i18n-placeholder="jobs.search.keyword.placeholder" placeholder="ชื่อตำแหน่ง, บริษัท...">
                         </div>
 
-                        <!-- Category Filter -->
+                        <!-- Quick Filter: ตำแหน่งงานทั้งหมด -->
                         <div class="mb-4">
-                            <label class="form-label fw-semibold" data-i18n="jobs.search.category">หมวดหมู่</label>
-                            <select class="form-select" id="filterCategory">
+                            <label class="form-label fw-semibold mb-3">
+                                <i class="bi bi-lightning-charge-fill text-warning me-2"></i>ตำแหน่งงานทั้งหมด
+                            </label>
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-quick-filter active" data-filter-type="all">
+                                    <i class="bi bi-briefcase-fill me-2"></i>
+                                    <span>ตำแหน่งงานทั้งหมด</span>
+                                    <span class="badge bg-light text-dark ms-auto">1,000+</span>
+                                </button>
+                                <button class="btn btn-quick-filter" data-filter-type="latest">
+                                    <i class="bi bi-clock-history me-2"></i>
+                                    <span>งานใหม่ล่าสุด</span>
+                                    <span class="badge bg-primary ms-auto">245</span>
+                                </button>
+                                <button class="btn btn-quick-filter" data-filter-type="urgent">
+                                    <i class="bi bi-exclamation-circle-fill me-2"></i>
+                                    <span>ตำแหน่งที่ต้องการด่วน</span>
+                                    <span class="badge bg-danger ms-auto">87</span>
+                                </button>
+                                <button class="btn btn-quick-filter" data-filter-type="recommended">
+                                    <i class="bi bi-star-fill me-2"></i>
+                                    <span>ตำแหน่งแนะนำ</span>
+                                    <span class="badge bg-warning text-dark ms-auto">156</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Divider -->
+                        <hr class="my-4">
+
+                        <!-- Department Filter -->
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold">
+                                <i class="bi bi-building me-2"></i>แผนก
+                            </label>
+                            <select class="form-select" id="filterDepartment">
                                 <option value="" data-i18n="common.all">ทั้งหมด</option>
-                                <option value="Technology" data-i18n="categories.technology">เทคโนโลยี</option>
-                                <option value="Design" data-i18n="categories.design">ดีไซน์</option>
-                                <option value="Marketing" data-i18n="categories.marketing">การตลาด</option>
-                                <option value="Sales" data-i18n="categories.sales">ขาย</option>
-                                <option value="Customer Service" data-i18n="categories.customer-service">บริการลูกค้า</option>
-                                <option value="Finance" data-i18n="categories.finance">การเงิน</option>
-                                <option value="HR" data-i18n="categories.hr">ทรัพยากรบุคคล</option>
-                                <option value="Operations" data-i18n="categories.operations">ปฏิบัติการ</option>
+                                <option value="Front Office">Front Office (แผนกต้อนรับ)</option>
+                                <option value="Housekeeping">Housekeeping (แผนกแม่บ้าน)</option>
+                                <option value="Engineering">Engineering (แผนกวิศวกรรม)</option>
+                                <option value="Food & Beverage">Food & Beverage (อาหารและเครื่องดื่ม)</option>
+                                <option value="Culinary">Culinary (ครัว)</option>
+                                <option value="Human Resources">Human Resources (ทรัพยากรบุคคล)</option>
+                                <option value="Sales & Marketing">Sales & Marketing (ขายและการตลาด)</option>
+                                <option value="Revenue & Reservation">Revenue & Reservation (รายได้และจอง)</option>
+                                <option value="Finance & Accounting">Finance & Accounting (การเงินและบัญชี)</option>
+                                <option value="Hotel Management">Hotel Management (บริหารโรงแรม)</option>
                             </select>
                         </div>
 
                         <!-- Job Type Filter -->
                         <div class="mb-4">
-                            <label class="form-label fw-semibold" data-i18n="jobs.filters.job-type">ประเภทงาน</label>
+                            <label class="form-label fw-semibold">
+                                <i class="bi bi-briefcase me-2"></i>ประเภทงาน
+                            </label>
                             <select class="form-select" id="filterType">
-                                <option value="" data-i18n="common.all">ทั้งหมด</option>
-                                <option value="full-time" data-i18n="jobs.full-time">งานประจำ</option>
-                                <option value="part-time" data-i18n="jobs.part-time">งานพาร์ทไทม์</option>
-                                <option value="contract" data-i18n="jobs.contract">สัญญาจ้าง</option>
-                                <option value="freelance" data-i18n="jobs.freelance">ฟรีแลนซ์</option>
-                                <option value="internship" data-i18n="jobs.internship">ฝึกงาน</option>
+                                <option value="">ทั้งหมด</option>
+                                <option value="full-time">Full-Time – งานประจำ</option>
+                                <option value="part-time">Part-Time – งานพาร์ทไทม์</option>
+                                <option value="internship">Internship – ฝึกงาน</option>
                             </select>
                         </div>
 
                         <!-- Location Filter -->
                         <div class="mb-4">
-                            <label class="form-label fw-semibold" data-i18n="jobs.search.location">สถานที่</label>
-                            <input type="text" class="form-control" id="filterLocation" data-i18n-placeholder="jobs.search.location.placeholder" placeholder="กรุงเทพ, เชียงใหม่...">
+                            <label class="form-label fw-semibold">
+                                <i class="bi bi-geo-alt me-2"></i>สถานที่
+                            </label>
+                            <select class="form-select" id="filterLocation">
+                                <option value="">ทั้งหมด</option>
+                                <option value="Bangkok">Bangkok – กรุงเทพฯ</option>
+                                <option value="Phuket">Phuket – ภูเก็ต</option>
+                                <option value="Chiang Mai">Chiang Mai – เชียงใหม่</option>
+                                <option value="Pattaya">Pattaya – พัทยา</option>
+                                <option value="Samui">Samui – สมุย</option>
+                                <option value="Hua Hin">Hua Hin – หัวหิน</option>
+                                <option value="International">International – ต่างประเทศ</option>
+                            </select>
                         </div>
 
                         <!-- Salary Range -->

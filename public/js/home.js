@@ -82,8 +82,8 @@ function createJobCard(job) {
 // Setup category handlers
 function setupCategoryHandlers() {
     $('.category-card').on('click', function() {
-        const category = $(this).data('category');
-        window.location.href = `jobs.html?category=${encodeURIComponent(category)}`;
+        const department = $(this).data('category'); // Still using data-category attribute
+        window.location.href = `jobs.html?department=${encodeURIComponent(department)}`;
     });
 }
 

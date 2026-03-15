@@ -52,7 +52,7 @@ function displayJobDetail(job) {
     $('#companyName').text(job.company);
     $('#jobLocation').text(job.location);
     $('#jobType').text(formatJobType(job.type));
-    $('#jobCategory').text(job.category);
+    $('#jobDepartment').text(job.department || job.category); // Support both department and legacy category
     $('#jobSalary').text(job.salary);
     
     // Job description

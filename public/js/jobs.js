@@ -6,11 +6,13 @@ let allJobs = [];
 let filteredJobs = [];
 let currentPage = 1;
 const jobsPerPage = 9;
+let activeQuickFilter = 'all'; // Track active quick filter
 
 $(document).ready(function() {
     loadJobs();
     setupFilterHandlers();
     setupSortHandler();
+    setupQuickFilters(); // Add quick filter handler
     
     // Load filters from URL parameters
     loadFiltersFromURL();
@@ -35,8 +37,12 @@ async function loadJobs() {
 function loadFiltersFromURL() {
     const urlParams = new URLSearchParams(window.location.search);
     
+    if (urlParams.has('department')) {
+        $('#filterDepartment').val(urlParams.get('department'));
+    }
+    // Legacy support for 'category' parameter
     if (urlParams.has('category')) {
-        $('#filterCategory').val(urlParams.get('category'));
+        $('#filterDepartment').val(urlParams.get('category'));
     }
     if (urlParams.has('type')) {
         $('#filterType').val(urlParams.get('type'));
@@ -52,9 +58,9 @@ function loadFiltersFromURL() {
 // Apply filters
 function applyFilters() {
     const searchTerm = $('#filterSearch').val().toLowerCase();
-    const category = $('#filterCategory').val();
+    const department = $('#filterDepartment').val();
     const type = $('#filterType').val();
-    const location = $('#filterLocation').val().toLowerCase();
+    const location = $('#filterLocation').val(); // Now using exact match instead of contains
     const salary = $('#filterSalary').val();
     
     filteredJobs = allJobs.filter(job => {
@@ -64,8 +70,8 @@ function applyFilters() {
             return false;
         }
         
-        // Category filter
-        if (category && job.category !== category) {
+        // Department filter
+        if (department && job.department !== department) {
             return false;
         }
         
@@ -74,8 +80,8 @@ function applyFilters() {
             return false;
         }
         
-        // Location filter
-        if (location && !job.location.toLowerCase().includes(location)) {
+        // Location filter - exact match
+        if (location && job.location !== location) {
             return false;
         }
         
@@ -151,7 +157,7 @@ function createJobListItem(job) {
                                         <i class="bi bi-briefcase"></i> ${formatJobType(job.type)}
                                     </span>
                                     <span class="job-badge job-badge-warning">
-                                        <i class="bi bi-tag"></i> ${job.category}
+                                        <i class="bi bi-tag"></i> ${job.department}
                                     </span>
                                 </div>
                             </div>
@@ -221,7 +227,7 @@ function setupFilterHandlers() {
     
     $('#clearFilters').on('click', function() {
         $('#filterSearch').val('');
-        $('#filterCategory').val('');
+        $('#filterDepartment').val('');
         $('#filterType').val('');
         $('#filterLocation').val('');
         $('#filterSalary').val('');
@@ -270,6 +276,67 @@ function setupSortHandler() {
         }
         
         displayJobs();
+    });
+}
+
+// Setup quick filters
+function setupQuickFilters() {
+    $('.btn-quick-filter').on('click', function() {
+        const filterType = $(this).data('filter-type');
+        activeQuickFilter = filterType;
+        
+        // Remove active class from all buttons
+        $('.btn-quick-filter').removeClass('active');
+        // Add active class to clicked button
+        $(this).addClass('active');
+        
+        // Apply quick filter based on type
+        const today = new Date();
+        const sevenDaysAgo = new Date(today);
+        sevenDaysAgo.setDate(today.getDate() - 7);
+        
+        switch(filterType) {
+            case 'all':
+                filteredJobs = [...allJobs];
+                break;
+            
+            case 'latest':
+                // Filter jobs posted within last 7 days
+                filteredJobs = allJobs.filter(job => {
+                    const postedDate = new Date(job.postedDate);
+                    return postedDate >= sevenDaysAgo;
+                });
+                // Sort by newest first
+                filteredJobs.sort((a, b) => new Date(b.postedDate) - new Date(a.postedDate));
+                break;
+            
+            case 'urgent':
+                // Filter urgent positions (could be flagged in job data)
+                // For now, filter by recent jobs with "ด่วน" or high priority
+                filteredJobs = allJobs.filter(job => {
+                    return job.urgent === true || 
+                           job.priority === 'high' || 
+                           job.title.includes('ด่วน') ||
+                           job.title.includes('Urgent');
+                });
+                break;
+            
+            case 'recommended':
+                // Filter recommended positions (featured or popular)
+                filteredJobs = allJobs.filter(job => {
+                    return job.featured === true || 
+                           job.recommended === true ||
+                           job.popular === true;
+                });
+                break;
+                
+            default:
+                filteredJobs = [...allJobs];
+        }
+        
+        currentPage = 1;
+        displayJobs();
+        updateJobsCount();
     });
 }
 
