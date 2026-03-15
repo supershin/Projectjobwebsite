@@ -218,6 +218,30 @@ GET    /api/jobs/filter       - Filter jobs by department, location, type
 
 ---
 
+## 📚 **Related Documentation**
+
+สำหรับข้อมูล Data Model อื่นๆ โปรดดูที่:
+
+1. **[USER_MODELS.md](./USER_MODELS.md)** 
+   - User Data Model (ผู้ใช้ทั่วไป / ผู้หางาน)
+   - Employer Data Model (นายจ้าง / ผู้โพสต์งาน)
+   - Admin Data Model (ผู้ดูแลระบบ)
+   - Job Application Data Model
+
+2. **[PAYMENT_SUBSCRIPTION.md](./PAYMENT_SUBSCRIPTION.md)**
+   - Subscription Plans (แพ็กเกจสมาชิก 4 แบบ)
+   - Payment Data Model
+   - Invoice Data Model
+   - Credit System
+   - Promotions & Discounts
+
+3. **[jobs.json](./jobs.json)**
+   - ข้อมูลตัวอย่างงาน 34 ตำแหน่ง
+   - ครอบคลุมทุกแผนกและประเภทงาน
+   - พร้อมสำหรับ Development
+
+---
+
 **Version**: 1.0.0  
 **Last Updated**: March 15, 2026  
 **Total Jobs**: 34 jobs (30 Full-Time, 1 Part-Time, 4 Internships)
