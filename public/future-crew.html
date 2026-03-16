@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Future Crew - JobCrew</title>
+    
+    <!-- Error Suppressor -->
+    <script>
+    (function(){
+        'use strict';
+        const s=(m)=>{
+            if(!m||typeof m!=='string')return!1;
+            const e=/figma/i,u=/UserStore/i,a=/account-management/i,p=/premium|trial/i,g=/global-search/i,
+            f=/FocusManager|KeyboardEventManager/i,n=/notifications?/i,r=/react|redux/i,c=/component|mount/i;
+            return e.test(m)||u.test(m)||a.test(m)||p.test(m)||g.test(m)||f.test(m)||n.test(m)||(r.test(m)&&c.test(m));
+        };
+        const og=console.error,ow=console.warn;
+        console.error=function(...a){const m=a.join(' ');if(!s(m))og.apply(console,a);};
+        console.warn=function(...a){const m=a.join(' ');if(!s(m))ow.apply(console,a);};
+        window.addEventListener('error',e=>{if(s(e.message||''))e.stopImmediatePropagation();},!0);
+        window.addEventListener('unhandledrejection',e=>{
+            const m=e.reason?.message||e.reason||'';
+            if(s(String(m)))e.stopImmediatePropagation();
+        },!0);
+    })();
+    </script>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="./css/style.css">
+    
+    <style>
+        /* Hero Section */
+        .future-crew-hero {
+            position: relative;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 140px 0 100px;
+            overflow: hidden;
+        }
+        
+        .future-crew-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255, 107, 53, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(102, 126, 234, 0.15) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        
+        .future-crew-hero h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: white;
+            text-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        
+        .future-crew-hero p.lead {
+            font-size: 1.4rem;
+            color: rgba(255,255,255,0.95);
+            margin-bottom: 40px;
+        }
+        
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+        
+        .hero-stat-item {
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            padding: 24px 32px;
+            border-radius: 16px;
+            text-align: center;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+        
+        .hero-stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 8px;
+        }
+        
+        .hero-stat-label {
+            font-size: 1rem;
+            color: rgba(255,255,255,0.9);
+        }
+        
+        /* Section Tabs */
+        .section-tabs {
+            background: white;
+            border-radius: 16px;
+            padding: 8px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        
+        .section-tabs .nav-link {
+            color: var(--gray-700);
+            font-weight: 600;
+            padding: 16px 32px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            border: none;
+        }
+        
+        .section-tabs .nav-link:hover {
+            background: rgba(255, 107, 53, 0.1);
+            color: var(--primary-color);
+        }
+        
+        .section-tabs .nav-link.active {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #f7931e 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+        }
+        
+        /* Internship Card */
+        .internship-card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+            border: 2px solid var(--gray-200);
+            transition: all 0.3s ease;
+        }
+        
+        .internship-card:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(255, 107, 53, 0.15);
+        }
+        
+        .internship-header {
+            display: flex;
+            align-items: start;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+        
+        .internship-logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 12px;
+            border: 1px solid var(--gray-200);
+            padding: 8px;
+            background: white;
+        }
+        
+        .internship-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        
+        .internship-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 6px;
+        }
+        
+        .internship-company {
+            font-size: 1rem;
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .internship-meta {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            font-size: 0.9rem;
+            color: var(--gray-600);
+        }
+        
+        .internship-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .type-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        .type-badge.hotel {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .type-badge.trainee {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+        
+        .featured-badge {
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        /* School Card */
+        .school-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 2px solid var(--gray-200);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+        
+        .school-card:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(255, 107, 53, 0.15);
+        }
+        
+        .school-cover {
+            height: 180px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .school-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .school-card:hover .school-cover img {
+            transform: scale(1.1);
+        }
+        
+        .school-logo-wrapper {
+            position: absolute;
+            bottom: -40px;
+            left: 20px;
+            width: 80px;
+            height: 80px;
+            background: white;
+            border-radius: 12px;
+            padding: 8px;
+            border: 4px solid white;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        .school-logo-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        
+        .school-body {
+            padding: 50px 20px 20px;
+        }
+        
+        .school-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 8px;
+        }
+        
+        .school-type {
+            font-size: 0.875rem;
+            color: var(--gray-600);
+            margin-bottom: 12px;
+        }
+        
+        .school-programs {
+            margin: 16px 0;
+        }
+        
+        .program-item {
+            background: #f8f9fa;
+            padding: 10px 12px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            font-size: 0.875rem;
+        }
+        
+        .school-partnerships {
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid var(--gray-200);
+        }
+        
+        .partnership-badge {
+            display: inline-block;
+            background: rgba(255, 107, 53, 0.1);
+            color: var(--primary-color);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin: 4px;
+        }
+        
+        /* Filter Section */
+        .filter-section {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        
+        /* CTA Section */
+        .cta-banner {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 24px;
+            padding: 60px 40px;
+            text-align: center;
+            color: white;
+            margin: 60px 0 40px;
+        }
+        
+        .cta-banner h3 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+        
+        .cta-banner p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.95;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .cta-btn {
+            padding: 14px 32px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border: none;
+        }
+        
+        .cta-btn-primary {
+            background: white;
+            color: var(--primary-color);
+        }
+        
+        .cta-btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 24px rgba(255,255,255,0.3);
+            color: var(--primary-color);
+        }
+        
+        .cta-btn-outline {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .cta-btn-outline:hover {
+            background: white;
+            color: var(--primary-color);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-gradient fixed-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">
+                <img src="https://supershin.github.io/Project.Job/logo/logo.jpg" alt="JobCrew Logo" class="navbar-brand-logo"> JobCrew
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">หน้าแรก</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="jobs.html">งานทั้งหมด</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="hotel-partners.html">โรงแรมพันธมิตร</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="future-crew.html">Future Crew</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-globe2"></i> <span id="currentLang">TH</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="#" data-lang="th">ไทย (TH)</a></li>
+                            <li><a class="dropdown-item" href="#" data-lang="en">English (EN)</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="future-crew-hero">
+        <div class="container text-center position-relative">
+            <h1>🎓 Future Crew</h1>
+            <p class="lead">สร้างอนาคตของคุณกับเรา | นักศึกษาฝึกงานและบัณฑิตจบใหม่</p>
+            
+            <div class="hero-stats">
+                <div class="hero-stat-item">
+                    <div class="hero-stat-number" id="totalInternships">8+</div>
+                    <div class="hero-stat-label">Internship Opportunities</div>
+                </div>
+                <div class="hero-stat-item">
+                    <div class="hero-stat-number">6</div>
+                    <div class="hero-stat-label">Partner Schools</div>
+                </div>
+                <div class="hero-stat-item">
+                    <div class="hero-stat-number">500+</div>
+                    <div class="hero-stat-label">Students Hired</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="py-5" style="background: #f8f9fa;">
+        <div class="container">
+            <!-- Section Tabs -->
+            <ul class="nav nav-pills section-tabs" id="sectionTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="internships-tab" data-bs-toggle="pill" data-bs-target="#internships" type="button">
+                        <i class="bi bi-briefcase me-2"></i>Internship Opportunities
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="fresh-grads-tab" data-bs-toggle="pill" data-bs-target="#fresh-grads" type="button">
+                        <i class="bi bi-mortarboard me-2"></i>Fresh Graduate Jobs
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="schools-tab" data-bs-toggle="pill" data-bs-target="#schools" type="button">
+                        <i class="bi bi-building me-2"></i>Hospitality Schools
+                    </button>
+                </li>
+            </ul>
+
+            <!-- Tab Content -->
+            <div class="tab-content" id="sectionTabsContent">
+                <!-- Tab 1: Internships -->
+                <div class="tab-pane fade show active" id="internships" role="tabpanel">
+                    <!-- Sub Tabs -->
+                    <ul class="nav nav-pills mb-4" id="internshipTypeTabs">
+                        <li class="nav-item">
+                            <button class="nav-link active" data-type="all">ทั้งหมด</button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link" data-type="Hotel Internship">Hotel Internship</button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link" data-type="Management Trainee">Management Trainee</button>
+                        </li>
+                    </ul>
+
+                    <!-- Filters -->
+                    <div class="filter-section">
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" id="internshipSearch" placeholder="ค้นหาตำแหน่ง, บริษัท...">
+                            </div>
+                            <div class="col-md-3">
+                                <select class="form-select" id="internshipLocation">
+                                    <option value="">ทุกสถานที่</option>
+                                    <option value="Bangkok">Bangkok</option>
+                                    <option value="Phuket">Phuket</option>
+                                    <option value="Chiang Mai">Chiang Mai</option>
+                                    <option value="Pattaya">Pattaya</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <select class="form-select" id="internshipDepartment">
+                                    <option value="">ทุกแผนก</option>
+                                    <option value="Front Office">Front Office</option>
+                                    <option value="Culinary">Culinary</option>
+                                    <option value="Food & Beverage">Food & Beverage</option>
+                                    <option value="Housekeeping">Housekeeping</option>
+                                    <option value="Sales & Marketing">Sales & Marketing</option>
+                                    <option value="Human Resources">Human Resources</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <button class="btn btn-outline-secondary w-100" onclick="clearInternshipFilters()">
+                                    <i class="bi bi-arrow-clockwise"></i> รีเซ็ต
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Results Count -->
+                    <div class="mb-3">
+                        <h5>พบ <span id="internshipCount" class="text-primary">0</span> ตำแหน่ง</h5>
+                    </div>
+
+                    <!-- Internships List -->
+                    <div id="internshipsList">
+                        <div class="text-center py-5">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab 2: Fresh Graduate Jobs -->
+                <div class="tab-pane fade" id="fresh-grads" role="tabpanel">
+                    <div class="alert alert-info">
+                        <i class="bi bi-info-circle me-2"></i>
+                        <strong>Fresh Graduate Jobs:</strong> งานสำหรับบัณฑิตจบใหม่ที่มีประสบการณ์ 0-2 ปี
+                    </div>
+                    
+                    <div id="freshGradJobsList">
+                        <div class="text-center py-5">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab 3: Hospitality Schools -->
+                <div class="tab-pane fade" id="schools" role="tabpanel">
+                    <div class="alert alert-success">
+                        <i class="bi bi-mortarboard me-2"></i>
+                        <strong>Partner Schools:</strong> สถาบันการศึกษาพันธมิตรที่มีความร่วมมือกับโรงแรมชั้นนำ
+                    </div>
+                    
+                    <div class="row g-4" id="schoolsList">
+                        <div class="col-12 text-center py-5">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA Banner -->
+            <div class="cta-banner">
+                <h3>พร้อมเริ่มต้นอาชีพในวงการโรงแรมแล้วหรือยัง?</h3>
+                <p>เข้าร่วมกับเราวันนี้และสร้างอนาคตที่สดใสในอุตสาหกรรมการโรงแรม</p>
+                <div class="cta-buttons">
+                    <a href="register.html" class="btn cta-btn cta-btn-primary">
+                        <i class="bi bi-person-plus me-2"></i>สมัครสมาชิกฟรี
+                    </a>
+                    <a href="jobs.html" class="btn cta-btn cta-btn-outline">
+                        <i class="bi bi-search me-2"></i>ดูงานทั้งหมด
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer py-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <h5 class="fw-bold mb-3"><img src="https://supershin.github.io/Project.Job/logo/logo.jpg" alt="JobCrew Logo" class="footer-logo"> JobCrew</h5>
+                    <p class="text-muted">แพลตฟอร์มหางานออนไลน์สำหรับอุตสาหกรรมโรงแรม</p>
+                </div>
+                <div class="col-md-2">
+                    <h6 class="fw-bold mb-3">สำหรับผู้หางาน</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="jobs.html" class="text-muted">ค้นหางาน</a></li>
+                        <li><a href="future-crew.html" class="text-muted">Future Crew</a></li>
+                        <li><a href="hotel-partners.html" class="text-muted">โรงแรมพันธมิตร</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2">
+                    <h6 class="fw-bold mb-3">สำหรับนายจ้าง</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-muted">ประกาศงาน</a></li>
+                        <li><a href="#" class="text-muted">ค้นหาผู้สมัคร</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2">
+                    <h6 class="fw-bold mb-3">เกี่ยวกับเรา</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-muted">เกี่ยวกับ JobCrew</a></li>
+                        <li><a href="#" class="text-muted">ติดต่อเรา</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2">
+                    <h6 class="fw-bold mb-3">ช่วยเหลือ</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-muted">คำถามที่พบบ่อย</a></li>
+                        <li><a href="#" class="text-muted">นโยบาย</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="text-center text-muted">
+                <small>&copy; 2026 JobCrew. All rights reserved.</small>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Navbar Scroll Effect -->
+    <script>
+    $(document).ready(function() {
+        const navbar = $('.navbar');
+        
+        function updateNavbar() {
+            if ($(window).scrollTop() > 50) {
+                navbar.addClass('scrolled');
+                navbar.css('background', 'rgba(255, 255, 255, 0.98)');
+            } else {
+                navbar.removeClass('scrolled');
+                navbar.css('background', 'transparent');
+            }
+        }
+        
+        updateNavbar();
+        $(window).scroll(function() {
+            updateNavbar();
+        });
+    });
+    </script>
+    
+    <!-- Future Crew JS -->
+    <script src="./js/future-crew.js"></script>
+</body>
+</html>

@@ -1,0 +1,199 @@
+[
+  {
+    "schoolId": "school001",
+    "schoolName": "Swiss Hotel Management School Thailand",
+    "shortName": "SHMS Thailand",
+    "logo": "https://ui-avatars.com/api/?name=SHMS&background=c41e3a&color=fff&size=200",
+    "coverImage": "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1920&q=80",
+    "type": "University",
+    "location": "Bangkok",
+    "address": "999 Rama 4 Road, Silom, Bangkok 10500",
+    "description": "สถาบันการศึกษาด้านการโรงแรมและการจัดการระดับนานาชาติ มีหลักสูตรที่ได้รับการรับรองจากสวิตเซอร์แลนด์",
+    "programs": [
+      {
+        "name": "Bachelor of Arts in Hospitality Management",
+        "duration": "4 years",
+        "degree": "Bachelor"
+      },
+      {
+        "name": "Diploma in Hotel & Restaurant Management",
+        "duration": "2 years",
+        "degree": "Diploma"
+      }
+    ],
+    "accreditations": ["MOE", "UNWTO TedQual", "Swiss Education Group"],
+    "partnerships": ["Marriott", "Hyatt", "Accor", "Minor Hotels"],
+    "website": "https://www.shms.ac.th",
+    "contactEmail": "info@shms.ac.th",
+    "contactPhone": "02-123-4567",
+    "tuitionFee": "350,000-450,000 บาท/ปี",
+    "jobPlacementRate": "95%",
+    "featured": true,
+    "verified": true
+  },
+  {
+    "schoolId": "school002",
+    "schoolName": "Dusit Thani College",
+    "shortName": "DTC",
+    "logo": "https://ui-avatars.com/api/?name=DTC&background=4B0082&color=fff&size=200",
+    "coverImage": "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1920&q=80",
+    "type": "College",
+    "location": "Bangkok",
+    "address": "1700/2 Pattanakarn Road, Bangkok 10250",
+    "description": "วิทยาลัยชั้นนำด้านการโรงแรมของไทย ในเครือ Dusit International มีประสบการณ์การผลิตบุคลากรมากกว่า 70 ปี",
+    "programs": [
+      {
+        "name": "Bachelor of Arts in Culinary Arts",
+        "duration": "4 years",
+        "degree": "Bachelor"
+      },
+      {
+        "name": "Bachelor in Hotel Management",
+        "duration": "4 years",
+        "degree": "Bachelor"
+      },
+      {
+        "name": "Diploma in Pastry Arts",
+        "duration": "2 years",
+        "degree": "Diploma"
+      }
+    ],
+    "accreditations": ["MOE", "OHEC", "ACICS"],
+    "partnerships": ["Dusit International", "Le Cordon Bleu", "Centara Hotels"],
+    "website": "https://www.dtc.ac.th",
+    "contactEmail": "admission@dtc.ac.th",
+    "contactPhone": "02-256-8800",
+    "tuitionFee": "180,000-280,000 บาท/ปี",
+    "jobPlacementRate": "92%",
+    "featured": true,
+    "verified": true
+  },
+  {
+    "schoolId": "school003",
+    "schoolName": "Bangkok University International College",
+    "shortName": "BU International",
+    "logo": "https://ui-avatars.com/api/?name=BU&background=FF6600&color=fff&size=200",
+    "coverImage": "https://images.unsplash.com/photo-1562774053-701939374585?w=1920&q=80",
+    "type": "University",
+    "location": "Bangkok",
+    "address": "Rama IV Road, Khlong Toei, Bangkok 10110",
+    "description": "มหาวิทยาลัยกรุงเทพ วิทยาเขตนานาชาติ มีหลักสูตรการโรงแรมและการท่องเที่ยวที่ทันสมัย",
+    "programs": [
+      {
+        "name": "BBA in Hotel and Tourism Management",
+        "duration": "4 years",
+        "degree": "Bachelor"
+      },
+      {
+        "name": "MBA in Hospitality Management",
+        "duration": "2 years",
+        "degree": "Master"
+      }
+    ],
+    "accreditations": ["MOE", "OHEC", "AACSB"],
+    "partnerships": ["Marriott", "Hilton", "IHG"],
+    "website": "https://www.bu.ac.th/international",
+    "contactEmail": "intl@bu.ac.th",
+    "contactPhone": "02-350-3500",
+    "tuitionFee": "250,000-350,000 บาท/ปี",
+    "jobPlacementRate": "88%",
+    "featured": true,
+    "verified": true
+  },
+  {
+    "schoolId": "school004",
+    "schoolName": "Phuket Hotel & Tourism College",
+    "shortName": "PHTC",
+    "logo": "https://ui-avatars.com/api/?name=PHTC&background=00BFFF&color=fff&size=200",
+    "coverImage": "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=1920&q=80",
+    "type": "College",
+    "location": "Phuket",
+    "address": "555 Kathu, Phuket 83120",
+    "description": "วิทยาลัยการโรงแรมและการท่องเที่ยวภูเก็ต ตั้งอยู่ในแหล่งท่องเที่ยวชั้นนำของประเทศ",
+    "programs": [
+      {
+        "name": "Diploma in Hotel Management",
+        "duration": "2 years",
+        "degree": "Diploma"
+      },
+      {
+        "name": "Certificate in Front Office Operations",
+        "duration": "1 year",
+        "degree": "Certificate"
+      }
+    ],
+    "accreditations": ["MOE", "Tourism Authority of Thailand"],
+    "partnerships": ["Laguna Phuket", "Banyan Tree", "Angsana"],
+    "website": "https://www.phtc.ac.th",
+    "contactEmail": "info@phtc.ac.th",
+    "contactPhone": "076-321-123",
+    "tuitionFee": "120,000-180,000 บาท/ปี",
+    "jobPlacementRate": "90%",
+    "featured": false,
+    "verified": true
+  },
+  {
+    "schoolId": "school005",
+    "schoolName": "Chiang Mai Hospitality Academy",
+    "shortName": "CMHA",
+    "logo": "https://ui-avatars.com/api/?name=CMHA&background=8B4513&color=fff&size=200",
+    "coverImage": "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=1920&q=80",
+    "type": "Training Center",
+    "location": "Chiang Mai",
+    "address": "123 Nimmanhaemin Road, Chiang Mai 50200",
+    "description": "สถาบันฝึกอบรมด้านการโรงแรมและบริการ เน้นการฝึกปฏิบัติจริง",
+    "programs": [
+      {
+        "name": "Professional Chef Certificate",
+        "duration": "6 months",
+        "degree": "Certificate"
+      },
+      {
+        "name": "Barista & Bartender Course",
+        "duration": "3 months",
+        "degree": "Certificate"
+      }
+    ],
+    "accreditations": ["Department of Skill Development"],
+    "partnerships": ["137 Pillars", "Dhara Dhevi", "Four Seasons"],
+    "website": "https://www.cmha.ac.th",
+    "contactEmail": "training@cmha.ac.th",
+    "contactPhone": "053-123-456",
+    "tuitionFee": "50,000-100,000 บาท/หลักสูตร",
+    "jobPlacementRate": "85%",
+    "featured": false,
+    "verified": true
+  },
+  {
+    "schoolId": "school006",
+    "schoolName": "Assumption University - Hospitality",
+    "shortName": "ABAC Hospitality",
+    "logo": "https://ui-avatars.com/api/?name=ABAC&background=003366&color=fff&size=200",
+    "coverImage": "https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?w=1920&q=80",
+    "type": "University",
+    "location": "Bangkok",
+    "address": "Hua Mak Campus, Bangkok 10240",
+    "description": "มหาวิทยาลัยอัสสัมชัญ คณะการจัดการการโรงแรมและท่องเที่ยว หลักสูตรนานาชาติ",
+    "programs": [
+      {
+        "name": "BBA in Hotel & Tourism Management",
+        "duration": "4 years",
+        "degree": "Bachelor"
+      },
+      {
+        "name": "MBA in Hotel Management",
+        "duration": "2 years",
+        "degree": "Master"
+      }
+    ],
+    "accreditations": ["MOE", "AACSB", "UNWTO TedQual"],
+    "partnerships": ["Rosewood", "Peninsula", "Shangri-La"],
+    "website": "https://www.au.edu",
+    "contactEmail": "hospitality@au.edu",
+    "contactPhone": "02-719-1111",
+    "tuitionFee": "300,000-400,000 บาท/ปี",
+    "jobPlacementRate": "93%",
+    "featured": true,
+    "verified": true
+  }
+]

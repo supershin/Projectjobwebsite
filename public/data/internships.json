@@ -1,0 +1,255 @@
+[
+  {
+    "internshipId": "int001",
+    "title": "Front Office Internship",
+    "type": "Hotel Internship",
+    "employerId": "emp001",
+    "companyName": "Grand Hyatt Erawan Bangkok",
+    "companyLogo": "https://ui-avatars.com/api/?name=Grand+Hyatt&background=0D4C92&color=fff&size=200",
+    "location": "Bangkok",
+    "department": "Front Office",
+    "duration": "6 months",
+    "startDate": "2026-06-01",
+    "allowance": "8,000-10,000 บาท/เดือน",
+    "requirements": [
+      "กำลังศึกษาระดับปริญญาตรี ปี 3-4",
+      "สาขาการโรงแรมและการท่องเที่ยว หรือสาขาที่เกี่ยวข้อง",
+      "TOEIC 500+ หรือเทียบเท่า",
+      "มีทักษะการสื่อสารที่ดี",
+      "บุคลิกภาพดี มีมนุษยสัมพันธ์"
+    ],
+    "benefits": [
+      "Free meals (3 มื้อ)",
+      "Uniform provided",
+      "Internship certificate",
+      "Hands-on training",
+      "Career opportunities"
+    ],
+    "description": "ฝึกงานด้าน Front Office ในโรงแรม 5 ดาวชั้นนำ เรียนรู้การให้บริการแขก check-in/check-out และระบบการจองห้องพัก",
+    "applicationDeadline": "2026-05-15",
+    "postedDate": "2026-03-01",
+    "featured": true,
+    "verified": true
+  },
+  {
+    "internshipId": "int002",
+    "title": "Culinary Arts Internship",
+    "type": "Hotel Internship",
+    "employerId": "emp003",
+    "companyName": "Banyan Tree Phuket",
+    "companyLogo": "https://ui-avatars.com/api/?name=Banyan+Tree&background=228B22&color=fff&size=200",
+    "location": "Phuket",
+    "department": "Culinary",
+    "duration": "3-6 months",
+    "startDate": "2026-06-15",
+    "allowance": "6,000-8,000 บาท/เดือน",
+    "requirements": [
+      "กำลังศึกษาสาขาศิลปะการประกอบอาหาร หรือสาขาที่เกี่ยวข้อง",
+      "มีความสนใจในการทำอาหาร",
+      "สามารถทำงานเป็นทีมได้",
+      "มีความรับผิดชอบสูง"
+    ],
+    "benefits": [
+      "ที่พักฟรีพร้อมอาหาร",
+      "เครื่องแบบ",
+      "ฝึกงานกับ Executive Chef",
+      "ประกาศนียบัตร",
+      "โอกาสทำงานหลังจบ"
+    ],
+    "description": "ฝึกงานในครัวระดับ 5 ดาว เรียนรู้เทคนิคการทำอาหาร การจัดจาน และมาตรฐานความปลอดภัยด้านอาหาร",
+    "applicationDeadline": "2026-05-20",
+    "postedDate": "2026-03-05",
+    "featured": true,
+    "verified": true
+  },
+  {
+    "internshipId": "int003",
+    "title": "Food & Beverage Service Internship",
+    "type": "Hotel Internship",
+    "employerId": "emp004",
+    "companyName": "Four Seasons Hotel Bangkok",
+    "companyLogo": "https://ui-avatars.com/api/?name=Four+Seasons&background=DAA520&color=fff&size=200",
+    "location": "Bangkok",
+    "department": "Food & Beverage",
+    "duration": "4 months",
+    "startDate": "2026-07-01",
+    "allowance": "7,000-9,000 บาท/เดือน",
+    "requirements": [
+      "กำลังศึกษาระดับปริญญาตรี ปี 2-4",
+      "สาขาการโรงแรม การท่องเที่ยว หรือบริหารธุรกิจ",
+      "มีทักษะภาษาอังกฤษดี",
+      "มีบุคลิกภาพดี service mind สูง"
+    ],
+    "benefits": [
+      "อาหารฟรี 3 มื้อ",
+      "เครื่องแบบและซักรีด",
+      "ประกาศนียบัตร",
+      "พี่เลี้ยงที่ปรึกษา",
+      "Networking opportunities"
+    ],
+    "description": "ฝึกงานด้านการบริการอาหารและเครื่องดื่มในร้านอาหารระดับ Fine Dining เรียนรู้ Wine Service และ Table Management",
+    "applicationDeadline": "2026-05-30",
+    "postedDate": "2026-03-08",
+    "featured": false,
+    "verified": true
+  },
+  {
+    "internshipId": "int004",
+    "title": "Housekeeping Internship",
+    "type": "Hotel Internship",
+    "employerId": "emp005",
+    "companyName": "Centara Grand Beach Resort Phuket",
+    "companyLogo": "https://ui-avatars.com/api/?name=Centara&background=FF1493&color=fff&size=200",
+    "location": "Phuket",
+    "department": "Housekeeping",
+    "duration": "3 months",
+    "startDate": "2026-06-10",
+    "allowance": "6,500-8,000 บาท/เดือน",
+    "requirements": [
+      "กำลังศึกษาระดับปริญญาตรี หรือ ปวส.",
+      "มีความรับผิดชอบสูง",
+      "มีความละเอียดรอบคอบ",
+      "สามารถทำงานเป็นทีมได้"
+    ],
+    "benefits": [
+      "ที่พักฟรี",
+      "อาหาร 3 มื้อ",
+      "เครื่องแบบ",
+      "ประกาศนียบัตร",
+      "ส่วนลดโรงแรมในเครือ"
+    ],
+    "description": "ฝึกงานด้าน Housekeeping เรียนรู้มาตรฐานการทำความสะอาดห้องพัก การจัดเตรียมห้องพัก และการบริหารจัดการแผนก",
+    "applicationDeadline": "2026-05-25",
+    "postedDate": "2026-03-10",
+    "featured": false,
+    "verified": true
+  },
+  {
+    "internshipId": "int005",
+    "title": "Management Trainee Program - Hotel Operations",
+    "type": "Management Trainee",
+    "employerId": "emp010",
+    "companyName": "Rosewood Bangkok",
+    "companyLogo": "https://ui-avatars.com/api/?name=Rosewood&background=800000&color=fff&size=200",
+    "location": "Bangkok",
+    "department": "Hotel Management",
+    "duration": "12 months",
+    "startDate": "2026-07-01",
+    "allowance": "12,000-15,000 บาท/เดือน",
+    "requirements": [
+      "จบปริญญาตรีใหม่ (ไม่เกิน 2 ปี) สาขาการโรงแรม บริหารธุรกิจ หรือสาขาที่เกี่ยวข้อง",
+      "GPA 3.0 ขึ้นไป",
+      "TOEIC 700+ หรือเทียบเท่า",
+      "มีภาวะผู้นำและทักษะการแก้ปัญหา",
+      "มีความทะเยอทะยานในการเป็นผู้บริหาร"
+    ],
+    "benefits": [
+      "เงินเดือนและโบนัส",
+      "อาหารฟรี 3 มื้อ",
+      "ประกันสุขภาพ",
+      "โครงการฝึกอบรมผู้บริหาร",
+      "Rotation ทุกแผนก",
+      "โอกาสเติบโตสู่ตำแหน่ง Management"
+    ],
+    "description": "โปรแกรมพัฒนาผู้บริหารรุ่นใหม่ที่ครบวงจร ผ่านการ Rotation ทุกแผนกในโรงแรม พร้อมโครงการอบรมและพัฒนาทักษะภาวะผู้นำ",
+    "applicationDeadline": "2026-06-01",
+    "postedDate": "2026-03-01",
+    "featured": true,
+    "verified": true
+  },
+  {
+    "internshipId": "int006",
+    "title": "Management Trainee - F&B Operations",
+    "type": "Management Trainee",
+    "employerId": "emp011",
+    "companyName": "Mandarin Oriental Bangkok",
+    "companyLogo": "https://ui-avatars.com/api/?name=MO&background=FFD700&color=000&size=200",
+    "location": "Bangkok",
+    "department": "Food & Beverage",
+    "duration": "12 months",
+    "startDate": "2026-08-01",
+    "allowance": "13,000-16,000 บาท/เดือน",
+    "requirements": [
+      "จบปริญญาตรีสาขาการโรงแรม บริหารธุรกิจ หรือสาขาที่เกี่ยวข้อง",
+      "ประสบการณ์ฝึกงานด้าน F&B จะได้รับการพิจารณาเป็นพิเศษ",
+      "TOEIC 750+ หรือภาษาจีนเป็นข้อได้เปรียบ",
+      "มีความกระตือรือร้นและพร้อมเรียนรู้",
+      "Service-minded และ detail-oriented"
+    ],
+    "benefits": [
+      "เงินเดือนและโบนัสตามผลงาน",
+      "อาหารและเครื่องดื่มฟรี",
+      "ประกันสุขภาพและประกันชีวิต",
+      "โครงการอบรมผู้บริหาร F&B",
+      "Rotation ในร้านอาหารทุกสาขา",
+      "โอกาสเติบโตสู่ F&B Manager"
+    ],
+    "description": "โปรแกรมพัฒนาผู้บริหารด้าน F&B Operations เรียนรู้การบริหารจัดการร้านอาหาร Bar และ Banquet พร้อมฝึกงานกับทีม Management",
+    "applicationDeadline": "2026-06-15",
+    "postedDate": "2026-03-05",
+    "featured": true,
+    "verified": true
+  },
+  {
+    "internshipId": "int007",
+    "title": "Sales & Marketing Internship",
+    "type": "Hotel Internship",
+    "employerId": "emp002",
+    "companyName": "Anantara Siam Bangkok",
+    "companyLogo": "https://ui-avatars.com/api/?name=Anantara&background=8B4513&color=fff&size=200",
+    "location": "Bangkok",
+    "department": "Sales & Marketing",
+    "duration": "4 months",
+    "startDate": "2026-07-15",
+    "allowance": "8,000-10,000 บาท/เดือน",
+    "requirements": [
+      "กำลังศึกษาระดับปริญญาตรี ปี 3-4 สาขาการตลาด บริหารธุรกิจ หรือการโรงแรม",
+      "มีทักษะการสื่อสารและการนำเสนอที่ดี",
+      "สามารถใช้ MS Office ได้ดี",
+      "มีความคิดสร้างสรรค์"
+    ],
+    "benefits": [
+      "อาหารฟรี",
+      "เครื่องแบบ",
+      "ประกาศนียบัตร",
+      "เรียนรู้ Digital Marketing",
+      "Portfolio building"
+    ],
+    "description": "ฝึกงานด้าน Sales & Marketing เรียนรู้การทำ Social Media Marketing, Event Planning และ Sales Promotion",
+    "applicationDeadline": "2026-06-10",
+    "postedDate": "2026-03-12",
+    "featured": false,
+    "verified": true
+  },
+  {
+    "internshipId": "int008",
+    "title": "Human Resources Internship",
+    "type": "Hotel Internship",
+    "employerId": "emp012",
+    "companyName": "The Peninsula Bangkok",
+    "companyLogo": "https://ui-avatars.com/api/?name=Peninsula&background=1C1C1C&color=fff&size=200",
+    "location": "Bangkok",
+    "department": "Human Resources",
+    "duration": "3 months",
+    "startDate": "2026-06-20",
+    "allowance": "7,500-9,000 บาท/เดือน",
+    "requirements": [
+      "กำลังศึกษาสาขา HR, จิตวิทยา, บริหารธุรกิจ หรือสาขาที่เกี่ยวข้อง",
+      "มีทักษะ MS Office โดยเฉพาะ Excel",
+      "มีความละเอียดรอบคอบ",
+      "สามารถเก็บความลับได้"
+    ],
+    "benefits": [
+      "อาหารฟรี",
+      "เครื่องแบบ",
+      "ประกาศนียบัตร",
+      "เรียนรู้ HR System",
+      "Networking"
+    ],
+    "description": "ฝึกงานด้าน HR เรียนรู้การสรรหาและคัดเลือกพนักงาน การฝึกอบรม และ Employee Relations",
+    "applicationDeadline": "2026-05-28",
+    "postedDate": "2026-03-14",
+    "featured": false,
+    "verified": true
+  }
+]
