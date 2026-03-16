@@ -33,6 +33,11 @@ function loadAdminDashboard() {
             </a>
         </li>
         <li class="nav-item">
+            <a class="nav-link ${currentView === 'schools' ? 'active' : ''}" href="dashboard.html?view=schools">
+                <i class="bi bi-mortarboard-fill"></i> <span>จัดการสถาบันการศึกษา</span>
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link ${currentView === 'admins' ? 'active' : ''}" href="dashboard.html?view=admins">
                 <i class="bi bi-shield-check"></i> <span data-i18n="dashboard.admin.admins">จัดการผู้ดูแลระบบ</span>
             </a>
@@ -77,6 +82,9 @@ function loadAdminDashboard() {
             break;
         case 'hotels':
             loadAdminHotels();
+            break;
+        case 'schools':
+            loadAdminSchools();
             break;
         case 'admins':
             loadAdminManagement();
