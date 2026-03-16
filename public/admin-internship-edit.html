@@ -7,149 +7,142 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./css/style.css">
-    <link rel="stylesheet" href="./css/dashboard.css">
+    <link href="./css/style.css" rel="stylesheet">
+    <link href="./css/dashboard.css" rel="stylesheet">
 </head>
 <body>
-    <div class="container-fluid py-4">
-        <div class="d-flex align-items-center justify-content-between mb-4">
-            <a href="dashboard.html?mode=admin&view=internships" class="btn btn-outline-secondary">
-                <i class="bi bi-arrow-left me-2"></i>กลับ
-            </a>
-            <h3 class="mb-0 fw-bold"><i class="bi bi-pencil me-2"></i>แก้ไขตำแหน่งฝึกงาน</h3>
-            <div style="width: 100px;"></div>
-        </div>
-
-        <div id="loadingContainer" class="text-center py-5">
-            <div class="spinner-border text-primary" role="status"></div>
-            <p class="mt-3">กำลังโหลดข้อมูล...</p>
-        </div>
-
-        <form id="editInternshipForm" style="display: none;">
-            <input type="hidden" name="internshipId">
-            
-            <div class="card shadow-sm mb-4">
-                <div class="card-header bg-white">
-                    <h6 class="mb-0 fw-bold"><i class="bi bi-info-circle me-2"></i>ข้อมูลพื้นฐาน</h6>
-                </div>
-                <div class="card-body">
-                    <div class="row g-3">
-                        <div class="col-md-6">
-                            <label class="form-label fw-semibold">Internship ID</label>
-                            <input type="text" class="form-control" name="internshipIdDisplay" disabled>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label fw-semibold">Position Title <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" name="positionTitle" required>
-                        </div>
-                        <div class="col-12">
-                            <label class="form-label fw-semibold">Description <span class="text-danger">*</span></label>
-                            <textarea class="form-control" name="description" rows="3" required></textarea>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label fw-semibold">Department <span class="text-danger">*</span></label>
-                            <select class="form-select" name="department" required>
-                                <option value="">-- เลือกแผนก --</option>
-                                <option value="Front Office">Front Office</option>
-                                <option value="Food & Beverage">Food & Beverage</option>
-                                <option value="Housekeeping">Housekeeping</option>
-                                <option value="Kitchen">Kitchen</option>
-                                <option value="Sales & Marketing">Sales & Marketing</option>
-                                <option value="Human Resources">Human Resources</option>
-                            </select>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label fw-semibold">Location <span class="text-danger">*</span></label>
-                            <select class="form-select" name="location" required>
-                                <option value="">-- เลือกสถานที่ --</option>
-                                <option value="Bangkok">Bangkok</option>
-                                <option value="Phuket">Phuket</option>
-                                <option value="Chiang Mai">Chiang Mai</option>
-                                <option value="Pattaya">Pattaya</option>
-                                <option value="Samui">Samui</option>
-                                <option value="Hua Hin">Hua Hin</option>
-                            </select>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label fw-semibold">Duration <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" name="duration" required>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label fw-semibold">Available Spots</label>
-                            <input type="number" class="form-control" name="availableSpots">
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label fw-semibold">Start Date</label>
-                            <input type="date" class="form-control" name="startDate">
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label fw-semibold">Application Deadline</label>
-                            <input type="date" class="form-control" name="applicationDeadline">
-                        </div>
-                    </div>
-                </div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-gradient fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold" href="index.html"><img src="https://supershin.github.io/Project.Job/logo/logo.jpg" alt="JobCrew Logo" class="navbar-brand-logo"> JobCrew</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown">
+                            <img src="https://ui-avatars.com/api/?name=Admin&background=0D4C92&color=fff" alt="Admin" class="rounded-circle me-2" width="32" height="32"><span>Admin</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="dashboard.html?mode=admin"><i class="bi bi-speedometer2"></i> Dashboard</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="index.html"><i class="bi bi-box-arrow-right"></i> ออกจากระบบ</a></li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
+        </div>
+    </nav>
 
-            <div class="card shadow-sm mb-4">
-                <div class="card-header bg-white">
-                    <h6 class="mb-0 fw-bold"><i class="bi bi-credit-card me-2"></i>ค่าตอบแทน</h6>
-                </div>
-                <div class="card-body">
-                    <div class="row g-3">
-                        <div class="col-md-6">
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" name="isPaid" id="isPaidCheck">
-                                <label class="form-check-label fw-semibold" for="isPaidCheck">มีค่าตอบแทน</label>
+    <div class="dashboard-container">
+        <div class="container-fluid">
+            <div class="row">
+                <nav class="col-md-3 col-lg-2 d-md-block sidebar">
+                    <div class="position-sticky pt-3">
+                        <ul class="nav flex-column">
+                            <li class="nav-item"><a class="nav-link" href="dashboard.html?mode=admin&view=overview"><i class="bi bi-speedometer2"></i> ภาพรวม</a></li>
+                            <li class="nav-item"><a class="nav-link" href="dashboard.html?mode=admin&view=users"><i class="bi bi-people"></i> จัดการผู้ใช้</a></li>
+                            <li class="nav-item"><a class="nav-link" href="dashboard.html?mode=admin&view=jobs"><i class="bi bi-briefcase"></i> จัดการงาน</a></li>
+                            <li class="nav-item"><a class="nav-link" href="dashboard.html?mode=admin&view=hotels"><i class="bi bi-building-fill-add"></i> จัดการโรงแรม</a></li>
+                            <li class="nav-item"><a class="nav-link" href="dashboard.html?mode=admin&view=schools"><i class="bi bi-mortarboard-fill"></i> จัดการสถาบัน</a></li>
+                            <li class="nav-item"><a class="nav-link active" href="dashboard.html?mode=admin&view=internships"><i class="bi bi-briefcase"></i> จัดการฝึกงาน</a></li>
+                            <li class="nav-item"><a class="nav-link" href="dashboard.html?mode=admin&view=articles"><i class="bi bi-newspaper"></i> จัดการบทความ</a></li>
+                        </ul>
+                    </div>
+                </nav>
+
+                <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                    <div class="d-flex align-items-center justify-content-between mb-4 pt-4">
+                        <a href="dashboard.html?mode=admin&view=internships" class="btn btn-outline-secondary"><i class="bi bi-arrow-left me-2"></i>กลับ</a>
+                        <h3 class="mb-0 fw-bold"><i class="bi bi-pencil me-2"></i>แก้ไขตำแหน่งฝึกงาน</h3>
+                        <div style="width: 100px;"></div>
+                    </div>
+
+                    <div id="loadingContainer" class="text-center py-5">
+                        <div class="spinner-border text-primary"></div>
+                        <p class="mt-3">กำลังโหลดข้อมูล...</p>
+                    </div>
+
+                    <form id="editInternshipForm" style="display: none;">
+                        <input type="hidden" name="internshipId">
+                        
+                        <div class="card shadow-sm mb-4">
+                            <div class="card-header bg-white"><h6 class="mb-0 fw-bold">ข้อมูลพื้นฐาน</h6></div>
+                            <div class="card-body">
+                                <div class="row g-3">
+                                    <div class="col-md-6"><label class="form-label fw-semibold">Internship ID</label><input type="text" class="form-control" name="internshipIdDisplay" disabled></div>
+                                    <div class="col-md-6"><label class="form-label fw-semibold">Title *</label><input type="text" class="form-control" name="title" required></div>
+                                    <div class="col-12"><label class="form-label fw-semibold">Description *</label><textarea class="form-control" name="description" rows="3" required></textarea></div>
+                                    <div class="col-md-4"><label class="form-label fw-semibold">Department *</label><input type="text" class="form-control" name="department" required></div>
+                                    <div class="col-md-4"><label class="form-label fw-semibold">Location *</label>
+                                        <select class="form-select" name="location" required>
+                                            <option value="">-- เลือก --</option>
+                                            <option value="Bangkok">Bangkok</option>
+                                            <option value="Phuket">Phuket</option>
+                                            <option value="Chiang Mai">Chiang Mai</option>
+                                            <option value="Pattaya">Pattaya</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4"><label class="form-label fw-semibold">Duration *</label><input type="text" class="form-control" name="duration" required></div>
+                                    <div class="col-md-6"><label class="form-label fw-semibold">Positions *</label><input type="number" class="form-control" name="positions" required></div>
+                                    <div class="col-md-6"><label class="form-label fw-semibold">Start Date *</label><input type="date" class="form-control" name="startDate" required></div>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <label class="form-label fw-semibold">Stipend Amount</label>
-                            <input type="text" class="form-control" name="stipend">
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <div class="d-flex gap-3 mb-4">
-                <button type="submit" class="btn btn-success btn-lg px-5">
-                    <i class="bi bi-check-circle me-2"></i>บันทึกการแก้ไข
-                </button>
-                <a href="dashboard.html?mode=admin&view=internships" class="btn btn-outline-secondary btn-lg px-5">ยกเลิก</a>
+                        <div class="card shadow-sm mb-4">
+                            <div class="card-header bg-white"><h6 class="mb-0 fw-bold">Requirements</h6></div>
+                            <div class="card-body">
+                                <label class="form-label fw-semibold">Requirements (แยกแต่ละบรรทัด)</label>
+                                <textarea class="form-control" name="requirements" rows="5"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="card shadow-sm mb-4">
+                            <div class="card-header bg-white"><h6 class="mb-0 fw-bold">Benefits</h6></div>
+                            <div class="card-body">
+                                <label class="form-label fw-semibold">Benefits (แยกแต่ละบรรทัด)</label>
+                                <textarea class="form-control" name="benefits" rows="5"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="d-flex gap-3 mb-4">
+                            <button type="submit" class="btn btn-success btn-lg px-5"><i class="bi bi-check-circle me-2"></i>บันทึก</button>
+                            <a href="dashboard.html?mode=admin&view=internships" class="btn btn-outline-secondary btn-lg px-5">ยกเลิก</a>
+                        </div>
+                    </form>
+                </main>
             </div>
-        </form>
+        </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
     let currentInternship = null;
-    
-    $(document).ready(function() {
-        loadInternshipData();
-    });
+    $(document).ready(function() { loadInternshipData(); });
     
     async function loadInternshipData() {
         const urlParams = new URLSearchParams(window.location.search);
         const internshipId = urlParams.get('id');
-        
-        if (!internshipId) {
-            alert('ไม่พบ Internship ID');
-            window.location.href = 'dashboard.html?mode=admin&view=internships';
-            return;
-        }
+        if (!internshipId) { alert('ไม่พบ Internship ID'); window.location.href = 'dashboard.html?mode=admin&view=internships'; return; }
         
         try {
             const response = await fetch('./data/internships.json');
             const internships = await response.json();
             currentInternship = internships.find(i => i.internshipId === internshipId);
+            if (!currentInternship) { alert('ไม่พบข้อมูลตำแหน่งฝึกงาน'); window.location.href = 'dashboard.html?mode=admin&view=internships'; return; }
             
-            if (!currentInternship) {
-                alert('ไม่พบข้อมูลตำแหน่งฝึกงาน');
-                window.location.href = 'dashboard.html?mode=admin&view=internships';
-                return;
-            }
+            $('[name="internshipId"]').val(currentInternship.internshipId);
+            $('[name="internshipIdDisplay"]').val(currentInternship.internshipId);
+            $('[name="title"]').val(currentInternship.title);
+            $('[name="description"]').val(currentInternship.description);
+            $('[name="department"]').val(currentInternship.department);
+            $('[name="location"]').val(currentInternship.location);
+            $('[name="duration"]').val(currentInternship.duration);
+            $('[name="positions"]').val(currentInternship.positions);
+            $('[name="startDate"]').val(currentInternship.startDate);
+            $('[name="requirements"]').val(currentInternship.requirements ? currentInternship.requirements.join('\n') : '');
+            $('[name="benefits"]').val(currentInternship.benefits ? currentInternship.benefits.join('\n') : '');
             
-            populateForm();
             $('#loadingContainer').hide();
             $('#editInternshipForm').show();
         } catch (error) {
@@ -158,46 +151,22 @@
         }
     }
     
-    function populateForm() {
-        $('[name="internshipId"]').val(currentInternship.internshipId);
-        $('[name="internshipIdDisplay"]').val(currentInternship.internshipId);
-        $('[name="positionTitle"]').val(currentInternship.positionTitle);
-        $('[name="description"]').val(currentInternship.description);
-        $('[name="department"]').val(currentInternship.department);
-        $('[name="location"]').val(currentInternship.location);
-        $('[name="duration"]').val(currentInternship.duration);
-        $('[name="availableSpots"]').val(currentInternship.availableSpots || 1);
-        
-        if (currentInternship.startDate) {
-            $('[name="startDate"]').val(currentInternship.startDate.split('T')[0]);
-        }
-        if (currentInternship.applicationDeadline) {
-            $('[name="applicationDeadline"]').val(currentInternship.applicationDeadline.split('T')[0]);
-        }
-        
-        $('[name="isPaid"]').prop('checked', currentInternship.isPaid);
-        $('[name="stipend"]').val(currentInternship.stipend || '');
-    }
-    
     $('#editInternshipForm').on('submit', function(e) {
         e.preventDefault();
-        
         const updatedData = {
             internshipId: $('[name="internshipId"]').val(),
-            positionTitle: $('[name="positionTitle"]').val(),
+            title: $('[name="title"]').val(),
             description: $('[name="description"]').val(),
             department: $('[name="department"]').val(),
             location: $('[name="location"]').val(),
             duration: $('[name="duration"]').val(),
-            availableSpots: parseInt($('[name="availableSpots"]').val()) || 1,
-            startDate: $('[name="startDate"]').val() || null,
-            applicationDeadline: $('[name="applicationDeadline"]').val() || null,
-            isPaid: $('[name="isPaid"]').is(':checked'),
-            stipend: $('[name="stipend"]').val() || null
+            positions: parseInt($('[name="positions"]').val()),
+            startDate: $('[name="startDate"]').val(),
+            requirements: $('[name="requirements"]').val().split('\n').filter(r => r.trim()),
+            benefits: $('[name="benefits"]').val().split('\n').filter(b => b.trim())
         };
-        
-        console.log('Updated Internship Data:', updatedData);
-        alert('✅ บันทึกการแก้ไขสำเร็จ!\n\n(ในการใช้งานจริงจะส่งข้อมูลไป Backend API)');
+        console.log('Updated Internship:', updatedData);
+        alert('✅ บันทึกสำเร็จ!');
         window.location.href = 'dashboard.html?mode=admin&view=internships';
     });
     </script>

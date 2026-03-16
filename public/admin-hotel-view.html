@@ -4,57 +4,115 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ดูรายละเอียดโรงแรม - Admin - JobCrew</title>
-    
-    <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="./css/style.css">
-    <link rel="stylesheet" href="./css/dashboard.css">
+    <link href="./css/style.css" rel="stylesheet">
+    <link href="./css/dashboard.css" rel="stylesheet">
 </head>
 <body>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-12">
-                <div class="d-flex align-items-center justify-content-between mb-4 pt-4">
-                    <div>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-gradient fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold" href="index.html">
+                <img src="https://supershin.github.io/Project.Job/logo/logo.jpg" alt="JobCrew Logo" class="navbar-brand-logo"> JobCrew
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown">
+                            <img src="https://ui-avatars.com/api/?name=Admin&background=0D4C92&color=fff" alt="Admin" class="rounded-circle me-2" width="32" height="32">
+                            <span>Admin</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="dashboard.html?mode=admin"><i class="bi bi-speedometer2"></i> Dashboard</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="index.html"><i class="bi bi-box-arrow-right"></i> ออกจากระบบ</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="dashboard-container">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- Sidebar -->
+                <nav class="col-md-3 col-lg-2 d-md-block sidebar">
+                    <div class="position-sticky pt-3">
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link" href="dashboard.html?mode=admin&view=overview">
+                                    <i class="bi bi-speedometer2"></i> ภาพรวม
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="dashboard.html?mode=admin&view=users">
+                                    <i class="bi bi-people"></i> จัดการผู้ใช้
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="dashboard.html?mode=admin&view=jobs">
+                                    <i class="bi bi-briefcase"></i> จัดการงาน
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" href="dashboard.html?mode=admin&view=hotels">
+                                    <i class="bi bi-building-fill-add"></i> จัดการโรงแรม
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="dashboard.html?mode=admin&view=schools">
+                                    <i class="bi bi-mortarboard-fill"></i> จัดการสถาบัน
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="dashboard.html?mode=admin&view=internships">
+                                    <i class="bi bi-briefcase"></i> จัดการฝึกงาน
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="dashboard.html?mode=admin&view=articles">
+                                    <i class="bi bi-newspaper"></i> จัดการบทความ
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+
+                <!-- Main Content -->
+                <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                    <div class="d-flex align-items-center justify-content-between mb-4 pt-4">
                         <a href="dashboard.html?mode=admin&view=hotels" class="btn btn-outline-secondary">
                             <i class="bi bi-arrow-left me-2"></i>กลับ
                         </a>
-                    </div>
-                    <h3 class="mb-0 fw-bold">
-                        <i class="bi bi-building me-2"></i>
-                        รายละเอียดโรงแรม
-                    </h3>
-                    <div>
+                        <h3 class="mb-0 fw-bold"><i class="bi bi-building me-2"></i>รายละเอียดโรงแรม</h3>
                         <button class="btn btn-success" onclick="editHotel()">
                             <i class="bi bi-pencil me-2"></i>แก้ไข
                         </button>
                     </div>
-                </div>
 
-                <div class="card shadow-sm">
-                    <div class="card-body p-4">
-                        <div id="hotelDetailContent">
-                            <div class="text-center py-5">
-                                <div class="spinner-border text-primary" role="status"></div>
-                                <p class="mt-3">กำลังโหลดข้อมูล...</p>
+                    <div class="card shadow-sm">
+                        <div class="card-body p-4">
+                            <div id="hotelDetailContent">
+                                <div class="text-center py-5">
+                                    <div class="spinner-border text-primary" role="status"></div>
+                                    <p class="mt-3">กำลังโหลดข้อมูล...</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </main>
             </div>
         </div>
     </div>
 
-    <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
     <script>
     let currentHotel = null;
     
@@ -92,172 +150,50 @@
     
     function displayHotelDetail() {
         const html = `
-            <!-- Hero Image -->
             <div class="row mb-4">
                 <div class="col-12">
-                    <div style="height: 300px; border-radius: 12px; overflow: hidden; position: relative;">
-                        <img src="${currentHotel.heroImage}" alt="${currentHotel.hotelName}" style="width: 100%; height: 100%; object-fit: cover;">
-                        <div style="position: absolute; bottom: 30px; left: 30px;">
-                            <img src="${currentHotel.logo}" alt="${currentHotel.hotelName}" style="width: 120px; height: 120px; object-fit: contain; background: white; padding: 10px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
-                        </div>
-                        ${currentHotel.verified ? '<span class="badge bg-success position-absolute top-0 end-0 m-3" style="font-size: 1rem;"><i class="bi bi-patch-check-fill me-2"></i>Verified Partner</span>' : ''}
-                        ${currentHotel.featured ? '<span class="badge bg-primary position-absolute" style="top: 50px; right: 12px; font-size: 1rem;"><i class="bi bi-star-fill me-2"></i>Featured</span>' : ''}
-                    </div>
+                    <img src="${currentHotel.heroImage}" alt="${currentHotel.hotelName}" style="width: 100%; max-height: 400px; object-fit: cover; border-radius: 12px;">
                 </div>
             </div>
 
-            <!-- Basic Info -->
             <div class="row mb-4">
                 <div class="col-md-8">
                     <h2 class="fw-bold mb-2">${currentHotel.hotelName}</h2>
-                    <h5 class="text-muted mb-3">${currentHotel.brandName}</h5>
                     <p class="lead">${currentHotel.description}</p>
                     <div class="mb-3">
                         <span class="badge bg-primary me-2">${currentHotel.category}</span>
-                        <span class="badge bg-info">${currentHotel.starRating} ดาว</span>
+                        <span class="badge bg-info">${currentHotel.location}</span>
+                        ${currentHotel.verified ? '<span class="badge bg-success">Verified</span>' : ''}
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="card bg-light">
                         <div class="card-body">
-                            <h6 class="fw-bold mb-3"><i class="bi bi-info-circle me-2"></i>ข้อมูลพื้นฐาน</h6>
+                            <h6 class="fw-bold mb-3">ข้อมูลพื้นฐาน</h6>
                             <p class="mb-2"><strong>Hotel ID:</strong><br><code>${currentHotel.hotelId}</code></p>
-                            <p class="mb-2"><strong>Location:</strong><br><i class="bi bi-geo-alt-fill text-primary me-1"></i>${currentHotel.location}</p>
-                            <p class="mb-0"><strong>Total Rooms:</strong><br>${currentHotel.totalRooms} ห้อง</p>
+                            <p class="mb-2"><strong>Rating:</strong> ${currentHotel.rating}/5</p>
+                            <p class="mb-0"><strong>Employees:</strong> ${currentHotel.employees || '-'}</p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Contact Info -->
             <div class="card mb-4">
                 <div class="card-header bg-white">
-                    <h6 class="fw-bold mb-0"><i class="bi bi-geo-alt me-2"></i>ที่อยู่และการติดต่อ</h6>
+                    <h6 class="fw-bold mb-0">ติดต่อ</h6>
                 </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-6">
-                            <p class="mb-2"><strong>Address:</strong></p>
-                            <p>${currentHotel.address}</p>
-                            ${currentHotel.googleMapsUrl ? `<p><a href="${currentHotel.googleMapsUrl}" target="_blank"><i class="bi bi-map me-2"></i>ดูบน Google Maps</a></p>` : ''}
+                            <p><strong>Address:</strong><br>${currentHotel.address}</p>
                         </div>
                         <div class="col-md-6">
-                            <p class="mb-2"><strong>Contact:</strong></p>
-                            ${currentHotel.website ? `<p class="mb-1"><i class="bi bi-globe me-2"></i><a href="${currentHotel.website}" target="_blank">${currentHotel.website}</a></p>` : ''}
-                            ${currentHotel.email ? `<p class="mb-1"><i class="bi bi-envelope me-2"></i><a href="mailto:${currentHotel.email}">${currentHotel.email}</a></p>` : ''}
-                            ${currentHotel.phone ? `<p class="mb-1"><i class="bi bi-telephone me-2"></i>${currentHotel.phone}</p>` : ''}
-                            ${currentHotel.hrEmail ? `<p class="mb-0"><i class="bi bi-person-badge me-2"></i>HR: <a href="mailto:${currentHotel.hrEmail}">${currentHotel.hrEmail}</a></p>` : ''}
+                            <p><strong>Email:</strong> ${currentHotel.contactEmail}</p>
+                            <p><strong>Phone:</strong> ${currentHotel.contactPhone}</p>
+                            <p><strong>Website:</strong> <a href="${currentHotel.website}" target="_blank">${currentHotel.website}</a></p>
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <!-- Facilities -->
-            ${currentHotel.facilities && currentHotel.facilities.length > 0 ? `
-                <div class="card mb-4">
-                    <div class="card-header bg-white">
-                        <h6 class="fw-bold mb-0"><i class="bi bi-star me-2"></i>สิ่งอำนวยความสะดวก</h6>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            ${currentHotel.facilities.map(f => `
-                                <div class="col-md-3 mb-2">
-                                    <i class="bi bi-check-circle-fill text-success me-2"></i>${f}
-                                </div>
-                            `).join('')}
-                        </div>
-                    </div>
-                </div>
-            ` : ''}
-
-            <!-- Career Benefits -->
-            ${currentHotel.careerBenefits && currentHotel.careerBenefits.length > 0 ? `
-                <div class="card mb-4">
-                    <div class="card-header bg-white">
-                        <h6 class="fw-bold mb-0"><i class="bi bi-gift me-2"></i>สวัสดิการพนักงาน</h6>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            ${currentHotel.careerBenefits.map(b => `
-                                <div class="col-md-4 mb-2">
-                                    <i class="bi bi-check-circle-fill text-primary me-2"></i>${b}
-                                </div>
-                            `).join('')}
-                        </div>
-                    </div>
-                </div>
-            ` : ''}
-
-            <!-- Departments -->
-            ${currentHotel.departments && currentHotel.departments.length > 0 ? `
-                <div class="card mb-4">
-                    <div class="card-header bg-white">
-                        <h6 class="fw-bold mb-0"><i class="bi bi-diagram-3 me-2"></i>แผนกต่างๆ</h6>
-                    </div>
-                    <div class="card-body">
-                        ${currentHotel.departments.map(d => `
-                            <span class="badge bg-info me-2 mb-2" style="font-size: 0.9rem;">${d}</span>
-                        `).join('')}
-                    </div>
-                </div>
-            ` : ''}
-
-            <!-- Training Programs -->
-            ${currentHotel.trainingPrograms && currentHotel.trainingPrograms.length > 0 ? `
-                <div class="card mb-4">
-                    <div class="card-header bg-white">
-                        <h6 class="fw-bold mb-0"><i class="bi bi-mortarboard me-2"></i>โปรแกรมฝึกอบรม</h6>
-                    </div>
-                    <div class="card-body">
-                        ${currentHotel.trainingPrograms.map(t => `
-                            <span class="badge bg-success me-2 mb-2" style="font-size: 0.9rem;">${t}</span>
-                        `).join('')}
-                    </div>
-                </div>
-            ` : ''}
-
-            <!-- Stats -->
-            <div class="row">
-                ${currentHotel.employeeCount ? `
-                    <div class="col-md-3 mb-3">
-                        <div class="card bg-primary text-white h-100">
-                            <div class="card-body">
-                                <h6 class="fw-bold mb-2"><i class="bi bi-people me-2"></i>พนักงาน</h6>
-                                <h3 class="mb-0">${currentHotel.employeeCount}</h3>
-                            </div>
-                        </div>
-                    </div>
-                ` : ''}
-                ${currentHotel.activeJobs ? `
-                    <div class="col-md-3 mb-3">
-                        <div class="card bg-success text-white h-100">
-                            <div class="card-body">
-                                <h6 class="fw-bold mb-2"><i class="bi bi-briefcase me-2"></i>ตำแหน่งงานเปิด</h6>
-                                <h3 class="mb-0">${currentHotel.activeJobs}</h3>
-                            </div>
-                        </div>
-                    </div>
-                ` : ''}
-                ${currentHotel.averageRating ? `
-                    <div class="col-md-3 mb-3">
-                        <div class="card bg-warning text-white h-100">
-                            <div class="card-body">
-                                <h6 class="fw-bold mb-2"><i class="bi bi-star-fill me-2"></i>คะแนนรีวิว</h6>
-                                <h3 class="mb-0">${currentHotel.averageRating}/5</h3>
-                            </div>
-                        </div>
-                    </div>
-                ` : ''}
-                ${currentHotel.partnershipYear ? `
-                    <div class="col-md-3 mb-3">
-                        <div class="card bg-info text-white h-100">
-                            <div class="card-body">
-                                <h6 class="fw-bold mb-2"><i class="bi bi-calendar-check me-2"></i>เป็นพันธมิตรตั้งแต่</h6>
-                                <h3 class="mb-0">${currentHotel.partnershipYear}</h3>
-                            </div>
-                        </div>
-                    </div>
-                ` : ''}
             </div>
         `;
         

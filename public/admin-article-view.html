@@ -7,49 +7,66 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./css/style.css">
-    <link rel="stylesheet" href="./css/dashboard.css">
-    
-    <style>
-        .article-content {
-            font-size: 1.125rem;
-            line-height: 1.8;
-            color: var(--gray-700);
-        }
-        .article-content h2 {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-top: 2rem;
-            margin-bottom: 1rem;
-        }
-        .article-content h3 {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-top: 1.5rem;
-            margin-bottom: 0.75rem;
-        }
-    </style>
+    <link href="./css/style.css" rel="stylesheet">
+    <link href="./css/dashboard.css" rel="stylesheet">
 </head>
 <body>
-    <div class="container-fluid py-4">
-        <div class="d-flex align-items-center justify-content-between mb-4">
-            <a href="dashboard.html?mode=admin&view=articles" class="btn btn-outline-secondary">
-                <i class="bi bi-arrow-left me-2"></i>กลับ
-            </a>
-            <h3 class="mb-0 fw-bold"><i class="bi bi-newspaper me-2"></i>รายละเอียดบทความ</h3>
-            <button class="btn btn-success" onclick="editArticle()">
-                <i class="bi bi-pencil me-2"></i>แก้ไข
-            </button>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-gradient fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold" href="index.html"><img src="https://supershin.github.io/Project.Job/logo/logo.jpg" alt="JobCrew Logo" class="navbar-brand-logo"> JobCrew</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown">
+                            <img src="https://ui-avatars.com/api/?name=Admin&background=0D4C92&color=fff" alt="Admin" class="rounded-circle me-2" width="32" height="32"><span>Admin</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="dashboard.html?mode=admin"><i class="bi bi-speedometer2"></i> Dashboard</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="index.html"><i class="bi bi-box-arrow-right"></i> ออกจากระบบ</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
         </div>
+    </nav>
 
-        <div class="card shadow-sm">
-            <div class="card-body p-4">
-                <div id="articleDetailContent">
-                    <div class="text-center py-5">
-                        <div class="spinner-border text-primary" role="status"></div>
-                        <p class="mt-3">กำลังโหลดข้อมูล...</p>
+    <div class="dashboard-container">
+        <div class="container-fluid">
+            <div class="row">
+                <nav class="col-md-3 col-lg-2 d-md-block sidebar">
+                    <div class="position-sticky pt-3">
+                        <ul class="nav flex-column">
+                            <li class="nav-item"><a class="nav-link" href="dashboard.html?mode=admin&view=overview"><i class="bi bi-speedometer2"></i> ภาพรวม</a></li>
+                            <li class="nav-item"><a class="nav-link" href="dashboard.html?mode=admin&view=users"><i class="bi bi-people"></i> จัดการผู้ใช้</a></li>
+                            <li class="nav-item"><a class="nav-link" href="dashboard.html?mode=admin&view=jobs"><i class="bi bi-briefcase"></i> จัดการงาน</a></li>
+                            <li class="nav-item"><a class="nav-link" href="dashboard.html?mode=admin&view=hotels"><i class="bi bi-building-fill-add"></i> จัดการโรงแรม</a></li>
+                            <li class="nav-item"><a class="nav-link" href="dashboard.html?mode=admin&view=schools"><i class="bi bi-mortarboard-fill"></i> จัดการสถาบัน</a></li>
+                            <li class="nav-item"><a class="nav-link" href="dashboard.html?mode=admin&view=internships"><i class="bi bi-briefcase"></i> จัดการฝึกงาน</a></li>
+                            <li class="nav-item"><a class="nav-link active" href="dashboard.html?mode=admin&view=articles"><i class="bi bi-newspaper"></i> จัดการบทความ</a></li>
+                        </ul>
                     </div>
-                </div>
+                </nav>
+
+                <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                    <div class="d-flex align-items-center justify-content-between mb-4 pt-4">
+                        <a href="dashboard.html?mode=admin&view=articles" class="btn btn-outline-secondary"><i class="bi bi-arrow-left me-2"></i>กลับ</a>
+                        <h3 class="mb-0 fw-bold"><i class="bi bi-newspaper me-2"></i>รายละเอียดบทความ</h3>
+                        <button class="btn btn-success" onclick="editArticle()"><i class="bi bi-pencil me-2"></i>แก้ไข</button>
+                    </div>
+
+                    <div class="card shadow-sm">
+                        <div class="card-body p-4">
+                            <div id="articleDetailContent">
+                                <div class="text-center py-5">
+                                    <div class="spinner-border text-primary"></div>
+                                    <p class="mt-3">กำลังโหลดข้อมูล...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
             </div>
         </div>
     </div>
@@ -58,32 +75,18 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
     let currentArticle = null;
-    
-    $(document).ready(function() {
-        loadArticleDetail();
-    });
+    $(document).ready(function() { loadArticleDetail(); });
     
     async function loadArticleDetail() {
         const urlParams = new URLSearchParams(window.location.search);
         const articleId = urlParams.get('id');
-        
-        if (!articleId) {
-            alert('ไม่พบ Article ID');
-            window.location.href = 'dashboard.html?mode=admin&view=articles';
-            return;
-        }
+        if (!articleId) { alert('ไม่พบ Article ID'); window.location.href = 'dashboard.html?mode=admin&view=articles'; return; }
         
         try {
             const response = await fetch('./data/insights.json');
             const articles = await response.json();
             currentArticle = articles.find(a => a.articleId === articleId);
-            
-            if (!currentArticle) {
-                alert('ไม่พบข้อมูลบทความ');
-                window.location.href = 'dashboard.html?mode=admin&view=articles';
-                return;
-            }
-            
+            if (!currentArticle) { alert('ไม่พบข้อมูลบทความ'); window.location.href = 'dashboard.html?mode=admin&view=articles'; return; }
             displayArticleDetail();
         } catch (error) {
             console.error('Error:', error);
@@ -93,47 +96,36 @@
     
     function displayArticleDetail() {
         const categoryClass = getCategoryClass(currentArticle.category);
-        
         const html = `
-            <!-- Featured Image -->
             <div class="row mb-4">
                 <div class="col-12">
-                    <div style="position: relative;">
-                        <img src="${currentArticle.featuredImage}" alt="${currentArticle.title}" 
-                             style="width: 100%; max-height: 400px; object-fit: cover; border-radius: 12px;">
-                        ${currentArticle.featured ? '<span class="badge bg-warning position-absolute top-0 end-0 m-3" style="font-size: 1rem;"><i class="bi bi-star-fill me-2"></i>Featured Article</span>' : ''}
-                    </div>
+                    <img src="${currentArticle.featuredImage}" alt="${currentArticle.title}" style="width: 100%; max-height: 400px; object-fit: cover; border-radius: 12px;">
                 </div>
             </div>
 
-            <!-- Header -->
             <div class="row mb-4">
                 <div class="col-md-8">
-                    <span class="badge ${categoryClass} mb-2" style="font-size: 0.9rem;">${currentArticle.category}</span>
-                    <h1 class="fw-bold mb-3">${currentArticle.title}</h1>
+                    <span class="badge ${categoryClass} mb-2">${currentArticle.category}</span>
+                    <h2 class="fw-bold mb-3">${currentArticle.title}</h2>
                     <p class="lead text-muted">${currentArticle.excerpt}</p>
                 </div>
                 <div class="col-md-4">
                     <div class="card bg-light">
                         <div class="card-body">
-                            <h6 class="fw-bold mb-3"><i class="bi bi-info-circle me-2"></i>ข้อมูลบทความ</h6>
+                            <h6 class="fw-bold mb-3">ข้อมูลบทความ</h6>
                             <p class="mb-2"><strong>Article ID:</strong><br><code>${currentArticle.articleId}</code></p>
-                            <p class="mb-2"><strong>Slug:</strong><br><code>${currentArticle.slug}</code></p>
-                            <p class="mb-0"><strong>Read Time:</strong><br>${currentArticle.readTime} minutes</p>
+                            <p class="mb-2"><strong>Read Time:</strong> ${currentArticle.readTime} min</p>
+                            <p class="mb-0"><strong>Publish Date:</strong> ${formatDate(currentArticle.publishDate)}</p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Author -->
             <div class="card mb-4">
-                <div class="card-header bg-white">
-                    <h6 class="fw-bold mb-0"><i class="bi bi-person me-2"></i>ผู้เขียน</h6>
-                </div>
+                <div class="card-header bg-white"><h6 class="fw-bold mb-0">ผู้เขียน</h6></div>
                 <div class="card-body">
                     <div class="d-flex align-items-center gap-3">
-                        <img src="${currentArticle.author.avatar}" alt="${currentArticle.author.name}" 
-                             style="width: 80px; height: 80px; border-radius: 50%;">
+                        <img src="${currentArticle.author.avatar}" alt="${currentArticle.author.name}" style="width: 80px; height: 80px; border-radius: 50%;">
                         <div>
                             <h5 class="fw-bold mb-1">${currentArticle.author.name}</h5>
                             <p class="text-muted mb-1">${currentArticle.author.position}</p>
@@ -143,65 +135,43 @@
                 </div>
             </div>
 
-            <!-- Content -->
             <div class="card mb-4">
-                <div class="card-header bg-white">
-                    <h6 class="fw-bold mb-0"><i class="bi bi-file-text me-2"></i>เนื้อหาบทความ</h6>
-                </div>
+                <div class="card-header bg-white"><h6 class="fw-bold mb-0">เนื้อหาบทความ</h6></div>
                 <div class="card-body">
-                    <div class="article-content">
-                        ${currentArticle.content}
-                    </div>
+                    <div style="font-size: 1.125rem; line-height: 1.8;">${currentArticle.content}</div>
                 </div>
             </div>
 
-            <!-- Tags -->
             <div class="card mb-4">
-                <div class="card-header bg-white">
-                    <h6 class="fw-bold mb-0"><i class="bi bi-tags me-2"></i>Tags</h6>
-                </div>
+                <div class="card-header bg-white"><h6 class="fw-bold mb-0">Tags</h6></div>
                 <div class="card-body">
-                    ${currentArticle.tags.map(tag => `<span class="badge bg-secondary me-2 mb-2" style="font-size: 0.9rem;">${tag}</span>`).join('')}
+                    ${currentArticle.tags.map(tag => `<span class="badge bg-secondary me-2 mb-2">${tag}</span>`).join('')}
                 </div>
             </div>
 
-            <!-- Stats -->
             <div class="row">
                 <div class="col-md-3 mb-3">
                     <div class="card bg-primary text-white h-100">
-                        <div class="card-body">
-                            <h6 class="fw-bold mb-2"><i class="bi bi-eye me-2"></i>ยอดดู</h6>
-                            <h3 class="mb-0">${formatNumber(currentArticle.views)}</h3>
-                        </div>
+                        <div class="card-body"><h6 class="fw-bold mb-2"><i class="bi bi-eye me-2"></i>ยอดดู</h6><h3 class="mb-0">${formatNumber(currentArticle.views)}</h3></div>
                     </div>
                 </div>
                 <div class="col-md-3 mb-3">
                     <div class="card bg-danger text-white h-100">
-                        <div class="card-body">
-                            <h6 class="fw-bold mb-2"><i class="bi bi-heart-fill me-2"></i>ถูกใจ</h6>
-                            <h3 class="mb-0">${currentArticle.likes}</h3>
-                        </div>
+                        <div class="card-body"><h6 class="fw-bold mb-2"><i class="bi bi-heart-fill me-2"></i>ถูกใจ</h6><h3 class="mb-0">${currentArticle.likes}</h3></div>
                     </div>
                 </div>
                 <div class="col-md-3 mb-3">
                     <div class="card bg-success text-white h-100">
-                        <div class="card-body">
-                            <h6 class="fw-bold mb-2"><i class="bi bi-chat me-2"></i>ความคิดเห็น</h6>
-                            <h3 class="mb-0">${currentArticle.comments}</h3>
-                        </div>
+                        <div class="card-body"><h6 class="fw-bold mb-2"><i class="bi bi-chat me-2"></i>ความคิดเห็น</h6><h3 class="mb-0">${currentArticle.comments}</h3></div>
                     </div>
                 </div>
                 <div class="col-md-3 mb-3">
                     <div class="card bg-info text-white h-100">
-                        <div class="card-body">
-                            <h6 class="fw-bold mb-2"><i class="bi bi-calendar me-2"></i>เผยแพร่</h6>
-                            <p class="mb-0 small">${formatDate(currentArticle.publishDate)}</p>
-                        </div>
+                        <div class="card-body"><h6 class="fw-bold mb-2"><i class="bi bi-star-fill me-2"></i>Featured</h6><h3 class="mb-0">${currentArticle.featured ? 'Yes' : 'No'}</h3></div>
                     </div>
                 </div>
             </div>
         `;
-        
         $('#articleDetailContent').html(html);
     }
     
@@ -220,8 +190,7 @@
     
     function formatDate(dateString) {
         const date = new Date(dateString);
-        const months = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 
-                       'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'];
+        const months = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'];
         return `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear() + 543}`;
     }
     

@@ -7,29 +7,66 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./css/style.css">
-    <link rel="stylesheet" href="./css/dashboard.css">
+    <link href="./css/style.css" rel="stylesheet">
+    <link href="./css/dashboard.css" rel="stylesheet">
 </head>
 <body>
-    <div class="container-fluid py-4">
-        <div class="d-flex align-items-center justify-content-between mb-4">
-            <a href="dashboard.html?mode=admin&view=internships" class="btn btn-outline-secondary">
-                <i class="bi bi-arrow-left me-2"></i>กลับ
-            </a>
-            <h3 class="mb-0 fw-bold"><i class="bi bi-briefcase me-2"></i>รายละเอียดตำแหน่งฝึกงาน</h3>
-            <button class="btn btn-success" onclick="editInternship()">
-                <i class="bi bi-pencil me-2"></i>แก้ไข
-            </button>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-gradient fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold" href="index.html"><img src="https://supershin.github.io/Project.Job/logo/logo.jpg" alt="JobCrew Logo" class="navbar-brand-logo"> JobCrew</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown">
+                            <img src="https://ui-avatars.com/api/?name=Admin&background=0D4C92&color=fff" alt="Admin" class="rounded-circle me-2" width="32" height="32"><span>Admin</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="dashboard.html?mode=admin"><i class="bi bi-speedometer2"></i> Dashboard</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="index.html"><i class="bi bi-box-arrow-right"></i> ออกจากระบบ</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
         </div>
+    </nav>
 
-        <div class="card shadow-sm">
-            <div class="card-body p-4">
-                <div id="internshipDetailContent">
-                    <div class="text-center py-5">
-                        <div class="spinner-border text-primary" role="status"></div>
-                        <p class="mt-3">กำลังโหลดข้อมูล...</p>
+    <div class="dashboard-container">
+        <div class="container-fluid">
+            <div class="row">
+                <nav class="col-md-3 col-lg-2 d-md-block sidebar">
+                    <div class="position-sticky pt-3">
+                        <ul class="nav flex-column">
+                            <li class="nav-item"><a class="nav-link" href="dashboard.html?mode=admin&view=overview"><i class="bi bi-speedometer2"></i> ภาพรวม</a></li>
+                            <li class="nav-item"><a class="nav-link" href="dashboard.html?mode=admin&view=users"><i class="bi bi-people"></i> จัดการผู้ใช้</a></li>
+                            <li class="nav-item"><a class="nav-link" href="dashboard.html?mode=admin&view=jobs"><i class="bi bi-briefcase"></i> จัดการงาน</a></li>
+                            <li class="nav-item"><a class="nav-link" href="dashboard.html?mode=admin&view=hotels"><i class="bi bi-building-fill-add"></i> จัดการโรงแรม</a></li>
+                            <li class="nav-item"><a class="nav-link" href="dashboard.html?mode=admin&view=schools"><i class="bi bi-mortarboard-fill"></i> จัดการสถาบัน</a></li>
+                            <li class="nav-item"><a class="nav-link active" href="dashboard.html?mode=admin&view=internships"><i class="bi bi-briefcase"></i> จัดการฝึกงาน</a></li>
+                            <li class="nav-item"><a class="nav-link" href="dashboard.html?mode=admin&view=articles"><i class="bi bi-newspaper"></i> จัดการบทความ</a></li>
+                        </ul>
                     </div>
-                </div>
+                </nav>
+
+                <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                    <div class="d-flex align-items-center justify-content-between mb-4 pt-4">
+                        <a href="dashboard.html?mode=admin&view=internships" class="btn btn-outline-secondary"><i class="bi bi-arrow-left me-2"></i>กลับ</a>
+                        <h3 class="mb-0 fw-bold"><i class="bi bi-briefcase me-2"></i>รายละเอียดตำแหน่งฝึกงาน</h3>
+                        <button class="btn btn-success" onclick="editInternship()"><i class="bi bi-pencil me-2"></i>แก้ไข</button>
+                    </div>
+
+                    <div class="card shadow-sm">
+                        <div class="card-body p-4">
+                            <div id="internshipDetailContent">
+                                <div class="text-center py-5">
+                                    <div class="spinner-border text-primary"></div>
+                                    <p class="mt-3">กำลังโหลดข้อมูล...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
             </div>
         </div>
     </div>
@@ -38,166 +75,63 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
     let currentInternship = null;
-    
-    $(document).ready(function() {
-        loadInternshipDetail();
-    });
+    $(document).ready(function() { loadInternshipDetail(); });
     
     async function loadInternshipDetail() {
         const urlParams = new URLSearchParams(window.location.search);
         const internshipId = urlParams.get('id');
-        
-        if (!internshipId) {
-            alert('ไม่พบ Internship ID');
-            window.location.href = 'dashboard.html?mode=admin&view=internships';
-            return;
-        }
+        if (!internshipId) { alert('ไม่พบ Internship ID'); window.location.href = 'dashboard.html?mode=admin&view=internships'; return; }
         
         try {
             const response = await fetch('./data/internships.json');
             const internships = await response.json();
             currentInternship = internships.find(i => i.internshipId === internshipId);
+            if (!currentInternship) { alert('ไม่พบข้อมูลตำแหน่งฝึกงาน'); window.location.href = 'dashboard.html?mode=admin&view=internships'; return; }
             
-            if (!currentInternship) {
-                alert('ไม่พบข้อมูลตำแหน่งฝึกงาน');
-                window.location.href = 'dashboard.html?mode=admin&view=internships';
-                return;
-            }
-            
-            displayInternshipDetail();
+            const html = `
+                <div class="row mb-4">
+                    <div class="col-md-8">
+                        <h2 class="fw-bold mb-2">${currentInternship.title}</h2>
+                        <h5 class="text-muted mb-3">${currentInternship.department}</h5>
+                        <p class="lead">${currentInternship.description}</p>
+                        <div class="mb-3">
+                            <span class="badge bg-primary me-2">${currentInternship.location}</span>
+                            <span class="badge bg-info">${currentInternship.duration}</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                <h6 class="fw-bold mb-3">ข้อมูลพื้นฐาน</h6>
+                                <p class="mb-2"><strong>ID:</strong><br><code>${currentInternship.internshipId}</code></p>
+                                <p class="mb-2"><strong>Positions:</strong> ${currentInternship.positions}</p>
+                                <p class="mb-0"><strong>Start Date:</strong> ${currentInternship.startDate}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-header bg-white"><h6 class="fw-bold mb-0">Requirements</h6></div>
+                    <div class="card-body">
+                        <ul>${currentInternship.requirements.map(r => `<li>${r}</li>`).join('')}</ul>
+                    </div>
+                </div>
+
+                ${currentInternship.benefits ? `
+                <div class="card mb-4">
+                    <div class="card-header bg-white"><h6 class="fw-bold mb-0">Benefits</h6></div>
+                    <div class="card-body">
+                        <ul>${currentInternship.benefits.map(b => `<li>${b}</li>`).join('')}</ul>
+                    </div>
+                </div>
+                ` : ''}
+            `;
+            $('#internshipDetailContent').html(html);
         } catch (error) {
             console.error('Error:', error);
             alert('เกิดข้อผิดพลาด');
         }
-    }
-    
-    function displayInternshipDetail() {
-        const html = `
-            <div class="row mb-4">
-                <div class="col-md-8">
-                    <h2 class="fw-bold mb-3">${currentInternship.positionTitle}</h2>
-                    <div class="mb-3">
-                        <span class="badge bg-primary me-2">${currentInternship.department}</span>
-                        <span class="badge bg-info">${currentInternship.location}</span>
-                    </div>
-                    <p class="lead">${currentInternship.description}</p>
-                </div>
-                <div class="col-md-4">
-                    <div class="card bg-light">
-                        <div class="card-body">
-                            <h6 class="fw-bold mb-3"><i class="bi bi-info-circle me-2"></i>ข้อมูลพื้นฐาน</h6>
-                            <p class="mb-2"><strong>ID:</strong><br><code>${currentInternship.internshipId}</code></p>
-                            <p class="mb-2"><strong>Duration:</strong><br>${currentInternship.duration}</p>
-                            <p class="mb-0"><strong>Spots:</strong><br>${currentInternship.availableSpots} ตำแหน่ง</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            ${currentInternship.hotelInfo ? `
-                <div class="card mb-4">
-                    <div class="card-header bg-white">
-                        <h6 class="fw-bold mb-0"><i class="bi bi-building me-2"></i>ข้อมูลโรงแรม</h6>
-                    </div>
-                    <div class="card-body">
-                        <div class="d-flex align-items-center gap-3 mb-3">
-                            <img src="${currentInternship.hotelInfo.logo}" alt="${currentInternship.hotelInfo.name}" style="width: 80px; height: 80px; object-fit: contain; border-radius: 8px;">
-                            <div>
-                                <h5 class="fw-bold mb-1">${currentInternship.hotelInfo.name}</h5>
-                                <p class="text-muted mb-0"><i class="bi bi-geo-alt-fill me-1"></i>${currentInternship.hotelInfo.location}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            ` : ''}
-
-            ${currentInternship.responsibilities && currentInternship.responsibilities.length > 0 ? `
-                <div class="card mb-4">
-                    <div class="card-header bg-white">
-                        <h6 class="fw-bold mb-0"><i class="bi bi-list-check me-2"></i>หน้าที่ความรับผิดชอบ</h6>
-                    </div>
-                    <div class="card-body">
-                        <ul class="mb-0">
-                            ${currentInternship.responsibilities.map(r => `<li>${r}</li>`).join('')}
-                        </ul>
-                    </div>
-                </div>
-            ` : ''}
-
-            ${currentInternship.requirements && currentInternship.requirements.length > 0 ? `
-                <div class="card mb-4">
-                    <div class="card-header bg-white">
-                        <h6 class="fw-bold mb-0"><i class="bi bi-check-square me-2"></i>คุณสมบัติ</h6>
-                    </div>
-                    <div class="card-body">
-                        <ul class="mb-0">
-                            ${currentInternship.requirements.map(r => `<li>${r}</li>`).join('')}
-                        </ul>
-                    </div>
-                </div>
-            ` : ''}
-
-            ${currentInternship.benefits && currentInternship.benefits.length > 0 ? `
-                <div class="card mb-4">
-                    <div class="card-header bg-white">
-                        <h6 class="fw-bold mb-0"><i class="bi bi-gift me-2"></i>สิทธิประโยชน์</h6>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            ${currentInternship.benefits.map(b => `
-                                <div class="col-md-6 mb-2">
-                                    <i class="bi bi-check-circle-fill text-success me-2"></i>${b}
-                                </div>
-                            `).join('')}
-                        </div>
-                    </div>
-                </div>
-            ` : ''}
-
-            <div class="row">
-                <div class="col-md-3 mb-3">
-                    <div class="card ${currentInternship.isPaid ? 'bg-success' : 'bg-secondary'} text-white h-100">
-                        <div class="card-body">
-                            <h6 class="fw-bold mb-2"><i class="bi bi-credit-card me-2"></i>ค่าตอบแทน</h6>
-                            <p class="mb-0">${currentInternship.isPaid ? 'มีค่าตอบแทน' : 'ไม่มีค่าตอบแทน'}</p>
-                            ${currentInternship.stipend ? `<h5 class="mb-0 mt-2">${currentInternship.stipend}</h5>` : ''}
-                        </div>
-                    </div>
-                </div>
-                ${currentInternship.applicationDeadline ? `
-                    <div class="col-md-3 mb-3">
-                        <div class="card bg-warning text-white h-100">
-                            <div class="card-body">
-                                <h6 class="fw-bold mb-2"><i class="bi bi-calendar-x me-2"></i>ปิดรับสมัคร</h6>
-                                <p class="mb-0">${new Date(currentInternship.applicationDeadline).toLocaleDateString('th-TH')}</p>
-                            </div>
-                        </div>
-                    </div>
-                ` : ''}
-                ${currentInternship.startDate ? `
-                    <div class="col-md-3 mb-3">
-                        <div class="card bg-info text-white h-100">
-                            <div class="card-body">
-                                <h6 class="fw-bold mb-2"><i class="bi bi-calendar-check me-2"></i>เริ่มฝึกงาน</h6>
-                                <p class="mb-0">${new Date(currentInternship.startDate).toLocaleDateString('th-TH')}</p>
-                            </div>
-                        </div>
-                    </div>
-                ` : ''}
-                ${currentInternship.applicantsCount !== undefined ? `
-                    <div class="col-md-3 mb-3">
-                        <div class="card bg-primary text-white h-100">
-                            <div class="card-body">
-                                <h6 class="fw-bold mb-2"><i class="bi bi-people me-2"></i>ผู้สมัคร</h6>
-                                <h3 class="mb-0">${currentInternship.applicantsCount}</h3>
-                            </div>
-                        </div>
-                    </div>
-                ` : ''}
-            </div>
-        `;
-        
-        $('#internshipDetailContent').html(html);
     }
     
     function editInternship() {
