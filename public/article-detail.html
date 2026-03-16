@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="pageTitle">Article - Hotel Insights - JobCrew</title>
+    
+    <!-- Error Suppressor -->
+    <script>
+    (function(){
+        'use strict';
+        const s=(m)=>{
+            if(!m||typeof m!=='string')return!1;
+            const e=/figma/i,u=/UserStore/i,a=/account-management/i,p=/premium|trial/i,g=/global-search/i,
+            f=/FocusManager|KeyboardEventManager/i,n=/notifications?/i,r=/react|redux/i,c=/component|mount/i;
+            return e.test(m)||u.test(m)||a.test(m)||p.test(m)||g.test(m)||f.test(m)||n.test(m)||(r.test(m)&&c.test(m));
+        };
+        const og=console.error,ow=console.warn;
+        console.error=function(...a){const m=a.join(' ');if(!s(m))og.apply(console,a);};
+        console.warn=function(...a){const m=a.join(' ');if(!s(m))ow.apply(console,a);};
+        window.addEventListener('error',e=>{if(s(e.message||''))e.stopImmediatePropagation();},!0);
+        window.addEventListener('unhandledrejection',e=>{
+            const m=e.reason?.message||e.reason||'';
+            if(s(String(m)))e.stopImmediatePropagation();
+        },!0);
+    })();
+    </script>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="./css/style.css">
+    
+    <style>
+        /* Article Content Styles */
+        .article-header {
+            padding: 140px 0 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .article-content {
+            font-size: 1.125rem;
+            line-height: 1.8;
+            color: var(--gray-700);
+        }
+        
+        .article-content h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            color: var(--gray-900);
+        }
+        
+        .article-content h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: var(--gray-800);
+        }
+        
+        .article-content p {
+            margin-bottom: 1.5rem;
+        }
+        
+        .article-content ul, .article-content ol {
+            margin-bottom: 1.5rem;
+            padding-left: 2rem;
+        }
+        
+        .article-content li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .category-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        
+        .category-badge.career {
+            background: rgba(59, 130, 246, 0.15);
+            color: #3B82F6;
+        }
+        
+        .category-badge.trends {
+            background: rgba(16, 185, 129, 0.15);
+            color: #10B981;
+        }
+        
+        .category-badge.leadership {
+            background: rgba(139, 92, 246, 0.15);
+            color: #8B5CF6;
+        }
+        
+        .tag {
+            display: inline-block;
+            padding: 6px 14px;
+            background: rgba(255, 107, 53, 0.1);
+            color: var(--primary-color);
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin: 4px;
+        }
+        
+        .share-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--gray-300);
+            background: white;
+            transition: all 0.3s ease;
+        }
+        
+        .share-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        .related-article-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        
+        .related-article-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+            text-decoration: none;
+        }
+        
+        .related-article-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+        
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.2);
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50px;
+            color: white;
+            font-weight: 600;
+            text-decoration: none;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        
+        .back-button:hover {
+            background: rgba(255,255,255,0.3);
+            border-color: rgba(255,255,255,0.5);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-gradient fixed-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">
+                <img src="https://supershin.github.io/Project.Job/logo/logo.jpg" alt="JobCrew Logo" class="navbar-brand-logo"> JobCrew
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">หน้าแรก</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="jobs.html">งานทั้งหมด</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="hotel-partners.html">โรงแรมพันธมิตร</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="future-crew.html">Future Crew</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="hotel-insights.html">Hotel Insights</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-globe2"></i> <span id="currentLang">TH</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="#" data-lang="th">ไทย (TH)</a></li>
+                            <li><a class="dropdown-item" href="#" data-lang="en">English (EN)</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Article Header -->
+    <section class="article-header">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <a href="hotel-insights.html" class="back-button mb-4">
+                        <i class="bi bi-arrow-left"></i>
+                        กลับไปยังบทความทั้งหมด
+                    </a>
+                    
+                    <span class="category-badge" id="articleCategory"></span>
+                    <h1 class="display-4 fw-bold mb-4" id="articleTitle">Loading...</h1>
+                    
+                    <div class="d-flex flex-wrap align-items-center gap-4 mb-3">
+                        <div class="d-flex align-items-center gap-3">
+                            <img id="authorAvatar" src="" alt="Author" style="width: 50px; height: 50px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.5);">
+                            <div>
+                                <div class="fw-bold" id="authorName"></div>
+                                <small id="authorPosition" style="opacity: 0.9;"></small>
+                            </div>
+                        </div>
+                        <div class="d-flex gap-3" style="opacity: 0.95;">
+                            <span><i class="bi bi-calendar me-2"></i><span id="publishDate"></span></span>
+                            <span>•</span>
+                            <span><i class="bi bi-clock me-2"></i><span id="readTime"></span> min read</span>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex gap-4" style="opacity: 0.9;">
+                        <span><i class="bi bi-eye me-2"></i><span id="viewCount"></span> views</span>
+                        <span><i class="bi bi-heart me-2"></i><span id="likeCount"></span> likes</span>
+                        <span><i class="bi bi-chat me-2"></i><span id="commentCount"></span> comments</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Article Content -->
+    <section class="py-5" style="background: #f8f9fa;">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <!-- Featured Image -->
+                    <div class="mb-5">
+                        <img id="featuredImage" src="" alt="" style="width: 100%; max-height: 500px; object-fit: cover; border-radius: 16px;">
+                    </div>
+                    
+                    <!-- Excerpt -->
+                    <div class="bg-white p-4 rounded-3 border-start border-5 border-primary mb-5">
+                        <p class="lead mb-0 fw-semibold" id="articleExcerpt"></p>
+                    </div>
+                    
+                    <!-- Content -->
+                    <div class="bg-white p-5 rounded-3 shadow-sm mb-5">
+                        <div class="article-content" id="articleContent">
+                            <div class="text-center py-5">
+                                <div class="spinner-border text-primary" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Tags -->
+                    <div class="bg-white p-4 rounded-3 shadow-sm mb-5">
+                        <h6 class="fw-bold mb-3"><i class="bi bi-tags me-2"></i>Tags:</h6>
+                        <div id="articleTags"></div>
+                    </div>
+                    
+                    <!-- Share -->
+                    <div class="bg-white p-4 rounded-3 shadow-sm mb-5">
+                        <h6 class="fw-bold mb-3"><i class="bi bi-share me-2"></i>แชร์บทความนี้:</h6>
+                        <div class="d-flex gap-3">
+                            <button class="share-btn btn" onclick="shareArticle('facebook')" title="Share on Facebook">
+                                <i class="bi bi-facebook text-primary"></i>
+                            </button>
+                            <button class="share-btn btn" onclick="shareArticle('twitter')" title="Share on Twitter">
+                                <i class="bi bi-twitter text-info"></i>
+                            </button>
+                            <button class="share-btn btn" onclick="shareArticle('line')" title="Share on LINE">
+                                <i class="bi bi-line text-success"></i>
+                            </button>
+                            <button class="share-btn btn" onclick="copyLink()" title="Copy Link">
+                                <i class="bi bi-link-45deg"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Related Articles -->
+                    <div class="mb-5">
+                        <h4 class="fw-bold mb-4"><i class="bi bi-newspaper me-2"></i>บทความที่เกี่ยวข้อง</h4>
+                        <div class="row g-4" id="relatedArticles">
+                            <!-- Related articles will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer py-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <h5 class="fw-bold mb-3"><img src="https://supershin.github.io/Project.Job/logo/logo.jpg" alt="JobCrew Logo" class="footer-logo"> JobCrew</h5>
+                    <p class="text-muted">แพลตฟอร์มหางานออนไลน์สำหรับอุตสาหกรรมโรงแรม</p>
+                </div>
+                <div class="col-md-2">
+                    <h6 class="fw-bold mb-3">สำหรับผู้หางาน</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="jobs.html" class="text-muted">ค้นหางาน</a></li>
+                        <li><a href="future-crew.html" class="text-muted">Future Crew</a></li>
+                        <li><a href="hotel-partners.html" class="text-muted">โรงแรมพันธมิตร</a></li>
+                        <li><a href="hotel-insights.html" class="text-muted">Hotel Insights</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2">
+                    <h6 class="fw-bold mb-3">สำหรับนายจ้าง</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-muted">ประกาศงาน</a></li>
+                        <li><a href="#" class="text-muted">ค้นหาผู้สมัคร</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2">
+                    <h6 class="fw-bold mb-3">เกี่ยวกับเรา</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-muted">เกี่ยวกับ JobCrew</a></li>
+                        <li><a href="#" class="text-muted">ติดต่อเรา</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2">
+                    <h6 class="fw-bold mb-3">ช่วยเหลือ</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-muted">คำถามที่พบบ่อย</a></li>
+                        <li><a href="#" class="text-muted">นโยบาย</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="text-center text-muted">
+                <small>&copy; 2026 JobCrew. All rights reserved.</small>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Article Detail JS -->
+    <script>
+    let currentArticle = null;
+    let allArticles = [];
+    
+    $(document).ready(function() {
+        loadArticleDetail();
+    });
+    
+    async function loadArticleDetail() {
+        try {
+            // Get article ID from URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const articleId = urlParams.get('id');
+            
+            if (!articleId) {
+                window.location.href = 'hotel-insights.html';
+                return;
+            }
+            
+            // Load articles data
+            const response = await fetch('./data/insights.json');
+            allArticles = await response.json();
+            
+            // Find article
+            currentArticle = allArticles.find(a => a.articleId === articleId);
+            
+            if (!currentArticle) {
+                alert('ไม่พบบทความ');
+                window.location.href = 'hotel-insights.html';
+                return;
+            }
+            
+            // Display article
+            displayArticle();
+            
+            // Load related articles
+            loadRelatedArticles();
+            
+            // Increment view count (in production, call API)
+            currentArticle.views++;
+            
+        } catch (error) {
+            console.error('Error loading article:', error);
+            alert('เกิดข้อผิดพลาดในการโหลดบทความ');
+        }
+    }
+    
+    function displayArticle() {
+        const categoryClass = getCategoryClass(currentArticle.category);
+        
+        // Update title
+        document.title = currentArticle.title + ' - Hotel Insights - JobCrew';
+        $('#pageTitle').text(currentArticle.title + ' - Hotel Insights - JobCrew');
+        
+        // Header
+        $('#articleCategory').addClass(categoryClass).text(currentArticle.category);
+        $('#articleTitle').text(currentArticle.title);
+        $('#authorAvatar').attr('src', currentArticle.author.avatar).attr('alt', currentArticle.author.name);
+        $('#authorName').text(currentArticle.author.name);
+        $('#authorPosition').text(currentArticle.author.position);
+        $('#publishDate').text(formatDate(currentArticle.publishDate));
+        $('#readTime').text(currentArticle.readTime);
+        $('#viewCount').text(formatNumber(currentArticle.views));
+        $('#likeCount').text(currentArticle.likes);
+        $('#commentCount').text(currentArticle.comments);
+        
+        // Content
+        $('#featuredImage').attr('src', currentArticle.featuredImage).attr('alt', currentArticle.title);
+        $('#articleExcerpt').text(currentArticle.excerpt);
+        $('#articleContent').html(currentArticle.content);
+        
+        // Tags
+        const tagsHtml = currentArticle.tags.map(tag => `<span class="tag">${tag}</span>`).join('');
+        $('#articleTags').html(tagsHtml);
+    }
+    
+    function loadRelatedArticles() {
+        // Get related articles (same category, exclude current)
+        let related = allArticles.filter(a => 
+            a.category === currentArticle.category && 
+            a.articleId !== currentArticle.articleId
+        ).slice(0, 3);
+        
+        if (related.length === 0) {
+            $('#relatedArticles').html('<div class="col-12"><p class="text-muted">ไม่มีบทความที่เกี่ยวข้อง</p></div>');
+            return;
+        }
+        
+        const html = related.map(article => {
+            const categoryClass = getCategoryClass(article.category);
+            return `
+                <div class="col-md-4">
+                    <a href="article-detail.html?id=${article.articleId}" class="related-article-card">
+                        <img src="${article.featuredImage}" alt="${article.title}" class="related-article-img">
+                        <div class="p-3">
+                            <span class="category-badge ${categoryClass}">${article.category}</span>
+                            <h6 class="fw-bold mb-2">${article.title}</h6>
+                            <div class="small text-muted">
+                                <i class="bi bi-clock me-1"></i>${article.readTime} min read
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            `;
+        }).join('');
+        
+        $('#relatedArticles').html(html);
+    }
+    
+    function shareArticle(platform) {
+        const url = encodeURIComponent(window.location.href);
+        const text = encodeURIComponent(currentArticle.title);
+        
+        let shareUrl;
+        switch(platform) {
+            case 'facebook':
+                shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+                break;
+            case 'twitter':
+                shareUrl = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
+                break;
+            case 'line':
+                shareUrl = `https://social-plugins.line.me/lineit/share?url=${url}`;
+                break;
+        }
+        
+        if (shareUrl) {
+            window.open(shareUrl, '_blank', 'width=600,height=400');
+        }
+    }
+    
+    function copyLink() {
+        const url = window.location.href;
+        
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(url).then(() => {
+                alert('คัดลอกลิงก์แล้ว!');
+            });
+        } else {
+            const tempInput = document.createElement('input');
+            tempInput.value = url;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+            alert('คัดลอกลิงก์แล้ว!');
+        }
+    }
+    
+    function getCategoryClass(category) {
+        switch(category) {
+            case 'Career Advice': return 'career';
+            case 'Industry Trends': return 'trends';
+            case 'Leadership': return 'leadership';
+            default: return 'career';
+        }
+    }
+    
+    function formatDate(dateString) {
+        const date = new Date(dateString);
+        const months = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 
+                       'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'];
+        return `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear() + 543}`;
+    }
+    
+    function formatNumber(num) {
+        if (num >= 1000) {
+            return (num / 1000).toFixed(1) + 'K';
+        }
+        return num;
+    }
+    </script>
+</body>
+</html>

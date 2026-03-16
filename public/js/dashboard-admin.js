@@ -38,6 +38,16 @@ function loadAdminDashboard() {
             </a>
         </li>
         <li class="nav-item">
+            <a class="nav-link ${currentView === 'internships' ? 'active' : ''}" href="dashboard.html?view=internships">
+                <i class="bi bi-briefcase"></i> <span>จัดการตำแหน่งฝึกงาน</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link ${currentView === 'articles' ? 'active' : ''}" href="dashboard.html?view=articles">
+                <i class="bi bi-newspaper"></i> <span>จัดการบทความ Hotel Insights</span>
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link ${currentView === 'admins' ? 'active' : ''}" href="dashboard.html?view=admins">
                 <i class="bi bi-shield-check"></i> <span data-i18n="dashboard.admin.admins">จัดการผู้ดูแลระบบ</span>
             </a>
@@ -85,6 +95,12 @@ function loadAdminDashboard() {
             break;
         case 'schools':
             loadAdminSchools();
+            break;
+        case 'internships':
+            loadAdminInternships();
+            break;
+        case 'articles':
+            loadAdminArticles();
             break;
         case 'admins':
             loadAdminManagement();

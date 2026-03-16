@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เพิ่มโรงแรมใหม่ - Admin - JobCrew</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/dashboard.css">
+</head>
+<body>
+    <div class="container-fluid py-4">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <a href="dashboard.html?mode=admin&view=hotels" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left me-2"></i>กลับ
+            </a>
+            <h3 class="mb-0 fw-bold"><i class="bi bi-plus-circle me-2"></i>เพิ่มโรงแรมใหม่</h3>
+            <div style="width: 100px;"></div>
+        </div>
+
+        <form id="addHotelForm">
+            <!-- Basic Info -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-white">
+                    <h6 class="mb-0 fw-bold"><i class="bi bi-info-circle me-2"></i>ข้อมูลพื้นฐาน</h6>
+                </div>
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">Hotel ID <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" name="hotelId" required placeholder="hotel013">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">Brand Name <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" name="brandName" required placeholder="Marriott">
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label fw-semibold">Hotel Name (Full) <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" name="hotelName" required placeholder="Bangkok Marriott Hotel Sukhumvit">
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label fw-semibold">Tagline</label>
+                            <input type="text" class="form-control" name="tagline" placeholder="Where Excellence Meets Service">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label fw-semibold">Location <span class="text-danger">*</span></label>
+                            <select class="form-select" name="location" required>
+                                <option value="">-- เลือกสถานที่ --</option>
+                                <option value="Bangkok">Bangkok</option>
+                                <option value="Phuket">Phuket</option>
+                                <option value="Chiang Mai">Chiang Mai</option>
+                                <option value="Pattaya">Pattaya</option>
+                                <option value="Samui">Samui</option>
+                                <option value="Hua Hin">Hua Hin</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label fw-semibold">Hotel Type <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" name="hotelType" required placeholder="5-Star Luxury Hotel">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label fw-semibold">Company Size</label>
+                            <input type="text" class="form-control" name="companySize" placeholder="300+ employees">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Images -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-white">
+                    <h6 class="mb-0 fw-bold"><i class="bi bi-image me-2"></i>รูปภาพ</h6>
+                </div>
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">Logo URL <span class="text-danger">*</span></label>
+                            <input type="url" class="form-control" name="logo" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">Cover Image URL <span class="text-danger">*</span></label>
+                            <input type="url" class="form-control" name="coverImage" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Status -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-white">
+                    <h6 class="mb-0 fw-bold"><i class="bi bi-gear me-2"></i>สถานะ</h6>
+                </div>
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <label class="form-label fw-semibold">Open Positions</label>
+                            <input type="number" class="form-control" name="openPositions" value="0">
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-check form-switch mt-4">
+                                <input class="form-check-input" type="checkbox" name="verified" id="verifiedCheck">
+                                <label class="form-check-label fw-semibold" for="verifiedCheck">
+                                    <i class="bi bi-patch-check-fill text-success me-1"></i>Verified
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-check form-switch mt-4">
+                                <input class="form-check-input" type="checkbox" name="featured" id="featuredCheck">
+                                <label class="form-check-label fw-semibold" for="featuredCheck">
+                                    <i class="bi bi-star-fill text-warning me-1"></i>Featured
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex gap-3 mb-4">
+                <button type="submit" class="btn btn-primary btn-lg px-5">
+                    <i class="bi bi-check-circle me-2"></i>บันทึกโรงแรม
+                </button>
+                <a href="dashboard.html?mode=admin&view=hotels" class="btn btn-outline-secondary btn-lg px-5">ยกเลิก</a>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    $('#addHotelForm').on('submit', function(e) {
+        e.preventDefault();
+        
+        const formData = {
+            hotelId: $('[name="hotelId"]').val(),
+            brandName: $('[name="brandName"]').val(),
+            hotelName: $('[name="hotelName"]').val(),
+            tagline: $('[name="tagline"]').val() || null,
+            location: $('[name="location"]').val(),
+            hotelType: $('[name="hotelType"]').val(),
+            companySize: $('[name="companySize"]').val() || null,
+            logo: $('[name="logo"]').val(),
+            coverImage: $('[name="coverImage"]').val(),
+            openPositions: parseInt($('[name="openPositions"]').val()) || 0,
+            verified: $('[name="verified"]').is(':checked'),
+            featured: $('[name="featured"]').is(':checked')
+        };
+        
+        console.log('New Hotel Data:', formData);
+        alert('✅ บันทึกโรงแรมใหม่สำเร็จ!\n\n(ในการใช้งานจริงจะส่งข้อมูลไป Backend API)');
+        window.location.href = 'dashboard.html?mode=admin&view=hotels';
+    });
+    </script>
+</body>
+</html>

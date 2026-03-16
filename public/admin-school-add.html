@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เพิ่มสถาบันใหม่ - Admin - JobCrew</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/dashboard.css">
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="d-flex align-items-center justify-content-between mb-4 pt-4">
+                    <div>
+                        <a href="dashboard.html?mode=admin&view=schools" class="btn btn-outline-secondary">
+                            <i class="bi bi-arrow-left me-2"></i>กลับ
+                        </a>
+                    </div>
+                    <h3 class="mb-0 fw-bold">
+                        <i class="bi bi-plus-circle me-2"></i>
+                        เพิ่มสถาบันการศึกษาใหม่
+                    </h3>
+                    <div style="width: 100px;"></div>
+                </div>
+
+                <form id="addSchoolForm">
+                    <div class="card shadow-sm mb-4">
+                        <div class="card-header bg-white">
+                            <h6 class="mb-0 fw-bold"><i class="bi bi-info-circle me-2"></i>ข้อมูลพื้นฐาน</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold">School ID <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="schoolId" required placeholder="school013">
+                                    <small class="text-muted">รหัสเฉพาะของสถาบัน (ไม่ซ้ำ)</small>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold">Short Name <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="shortName" required placeholder="มหาวิทยาลัยการโรงแรม">
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label fw-semibold">School Name (Full) <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="schoolName" required placeholder="มหาวิทยาลัยการโรงแรมและการท่องเที่ยว">
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label fw-semibold">Description <span class="text-danger">*</span></label>
+                                    <textarea class="form-control" name="description" rows="3" required placeholder="คำอธิบายสถาบัน..."></textarea>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label fw-semibold">Type <span class="text-danger">*</span></label>
+                                    <select class="form-select" name="type" required>
+                                        <option value="">-- เลือกประเภท --</option>
+                                        <option value="University">University</option>
+                                        <option value="College">College</option>
+                                        <option value="Training Center">Training Center</option>
+                                        <option value="Vocational School">Vocational School</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label fw-semibold">Location <span class="text-danger">*</span></label>
+                                    <select class="form-select" name="location" required>
+                                        <option value="">-- เลือกสถานที่ --</option>
+                                        <option value="Bangkok">Bangkok</option>
+                                        <option value="Phuket">Phuket</option>
+                                        <option value="Chiang Mai">Chiang Mai</option>
+                                        <option value="Pattaya">Pattaya</option>
+                                        <option value="Samui">Samui</option>
+                                        <option value="Hua Hin">Hua Hin</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label fw-semibold">Established Year</label>
+                                    <input type="number" class="form-control" name="establishedYear" placeholder="2020">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card shadow-sm mb-4">
+                        <div class="card-header bg-white">
+                            <h6 class="mb-0 fw-bold"><i class="bi bi-image me-2"></i>รูปภาพ</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row g-3">
+                                <div class="col-md-4">
+                                    <label class="form-label fw-semibold">Logo URL <span class="text-danger">*</span></label>
+                                    <input type="url" class="form-control" name="logo" required placeholder="https://...">
+                                </div>
+                                <div class="col-md-8">
+                                    <label class="form-label fw-semibold">Cover Image URL <span class="text-danger">*</span></label>
+                                    <input type="url" class="form-control" name="coverImage" required placeholder="https://...">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card shadow-sm mb-4">
+                        <div class="card-header bg-white">
+                            <h6 class="mb-0 fw-bold"><i class="bi bi-geo-alt me-2"></i>ที่อยู่และการติดต่อ</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <label class="form-label fw-semibold">Address <span class="text-danger">*</span></label>
+                                    <textarea class="form-control" name="address" rows="2" required placeholder="ที่อยู่เต็ม..."></textarea>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label fw-semibold">Website <span class="text-danger">*</span></label>
+                                    <input type="url" class="form-control" name="website" required placeholder="https://...">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label fw-semibold">Email <span class="text-danger">*</span></label>
+                                    <input type="email" class="form-control" name="contactEmail" required placeholder="info@school.ac.th">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label fw-semibold">Phone <span class="text-danger">*</span></label>
+                                    <input type="tel" class="form-control" name="contactPhone" required placeholder="02-xxx-xxxx">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card shadow-sm mb-4">
+                        <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                            <h6 class="mb-0 fw-bold"><i class="bi bi-book me-2"></i>หลักสูตร</h6>
+                            <button type="button" class="btn btn-sm btn-primary" onclick="addProgramField()">
+                                <i class="bi bi-plus-circle me-1"></i>เพิ่มหลักสูตร
+                            </button>
+                        </div>
+                        <div class="card-body">
+                            <div id="programsContainer">
+                                <!-- Programs will be added here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card shadow-sm mb-4">
+                        <div class="card-header bg-white">
+                            <h6 class="mb-0 fw-bold"><i class="bi bi-award me-2"></i>ข้อมูลเพิ่มเติม</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold">Accreditations (คั่นด้วย comma)</label>
+                                    <textarea class="form-control" name="accreditations" rows="2" placeholder="ACCA, ASEAN MRA, ISO 9001"></textarea>
+                                    <small class="text-muted">ใส่หลายรายการคั่นด้วย comma</small>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold">Partnerships (คั่นด้วย comma)</label>
+                                    <textarea class="form-control" name="partnerships" rows="2" placeholder="Marriott, Hilton, Accor"></textarea>
+                                    <small class="text-muted">ใส่หลายรายการคั่นด้วย comma</small>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold">Job Placement Rate</label>
+                                    <input type="text" class="form-control" name="jobPlacementRate" placeholder="95%">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold">Tuition Fee</label>
+                                    <input type="text" class="form-control" name="tuitionFee" placeholder="฿180,000/ปี">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card shadow-sm mb-4">
+                        <div class="card-header bg-white">
+                            <h6 class="mb-0 fw-bold"><i class="bi bi-gear me-2"></i>สถานะ</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-check form-switch mb-2">
+                                <input class="form-check-input" type="checkbox" name="verified" id="verifiedCheck">
+                                <label class="form-check-label fw-semibold" for="verifiedCheck">
+                                    <i class="bi bi-patch-check-fill text-success me-1"></i>Verified
+                                </label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" name="featured" id="featuredCheck">
+                                <label class="form-check-label fw-semibold" for="featuredCheck">
+                                    <i class="bi bi-star-fill text-warning me-1"></i>Featured
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex gap-3 mb-4">
+                        <button type="submit" class="btn btn-primary btn-lg px-5">
+                            <i class="bi bi-check-circle me-2"></i>บันทึกสถาบัน
+                        </button>
+                        <a href="dashboard.html?mode=admin&view=schools" class="btn btn-outline-secondary btn-lg px-5">
+                            ยกเลิก
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+    let programCount = 0;
+    
+    $(document).ready(function() {
+        // Add first program field
+        addProgramField();
+    });
+    
+    function addProgramField() {
+        programCount++;
+        const html = `
+            <div class="program-item border rounded p-3 mb-3" id="program${programCount}">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h6 class="mb-0 fw-bold">หลักสูตร #${programCount}</h6>
+                    <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeProgramField(${programCount})">
+                        <i class="bi bi-trash"></i> ลบ
+                    </button>
+                </div>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label">ชื่อหลักสูตร <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control program-name" required placeholder="การจัดการโรงแรมและการท่องเที่ยว">
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">ระดับ <span class="text-danger">*</span></label>
+                        <select class="form-select program-degree" required>
+                            <option value="">-- เลือก --</option>
+                            <option value="Bachelor">Bachelor</option>
+                            <option value="Master">Master</option>
+                            <option value="Diploma">Diploma</option>
+                            <option value="Certificate">Certificate</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">ระยะเวลา <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control program-duration" required placeholder="4 ปี">
+                    </div>
+                </div>
+            </div>
+        `;
+        $('#programsContainer').append(html);
+    }
+    
+    function removeProgramField(id) {
+        if ($('.program-item').length > 1) {
+            $(`#program${id}`).remove();
+        } else {
+            alert('ต้องมีอย่างน้อย 1 หลักสูตร');
+        }
+    }
+    
+    $('#addSchoolForm').on('submit', function(e) {
+        e.preventDefault();
+        
+        // Collect programs
+        const programs = [];
+        $('.program-item').each(function() {
+            const name = $(this).find('.program-name').val();
+            const degree = $(this).find('.program-degree').val();
+            const duration = $(this).find('.program-duration').val();
+            
+            if (name && degree && duration) {
+                programs.push({ name, degree, duration });
+            }
+        });
+        
+        if (programs.length === 0) {
+            alert('กรุณาเพิ่มหลักสูตรอย่างน้อย 1 หลักสูตร');
+            return;
+        }
+        
+        // Collect form data
+        const formData = {
+            schoolId: $('[name="schoolId"]').val(),
+            schoolName: $('[name="schoolName"]').val(),
+            shortName: $('[name="shortName"]').val(),
+            description: $('[name="description"]').val(),
+            type: $('[name="type"]').val(),
+            location: $('[name="location"]').val(),
+            establishedYear: parseInt($('[name="establishedYear"]').val()) || null,
+            logo: $('[name="logo"]').val(),
+            coverImage: $('[name="coverImage"]').val(),
+            address: $('[name="address"]').val(),
+            website: $('[name="website"]').val(),
+            contactEmail: $('[name="contactEmail"]').val(),
+            contactPhone: $('[name="contactPhone"]').val(),
+            programs: programs,
+            accreditations: $('[name="accreditations"]').val() ? $('[name="accreditations"]').val().split(',').map(s => s.trim()) : [],
+            partnerships: $('[name="partnerships"]').val() ? $('[name="partnerships"]').val().split(',').map(s => s.trim()) : [],
+            jobPlacementRate: $('[name="jobPlacementRate"]').val() || null,
+            tuitionFee: $('[name="tuitionFee"]').val() || null,
+            verified: $('[name="verified"]').is(':checked'),
+            featured: $('[name="featured"]').is(':checked')
+        };
+        
+        console.log('New School Data:', formData);
+        
+        // In production, send to API
+        // await fetch('/api/schools', { method: 'POST', body: JSON.stringify(formData) });
+        
+        alert('✅ บันทึกสถาบันใหม่สำเร็จ!\n\n(ในการใช้งานจริงจะส่งข้อมูลไป Backend API)');
+        
+        // Redirect back
+        window.location.href = 'dashboard.html?mode=admin&view=schools';
+    });
+    </script>
+</body>
+</html>
