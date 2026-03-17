@@ -48,6 +48,16 @@ function loadAdminDashboard() {
             </a>
         </li>
         <li class="nav-item">
+            <a class="nav-link ${currentView === 'salaries' ? 'active' : ''}" href="dashboard.html?view=salaries">
+                <i class="bi bi-currency-dollar"></i> <span>จัดการข้อมูลเงินเดือน</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link ${currentView === 'market-trends' ? 'active' : ''}" href="dashboard.html?view=market-trends">
+                <i class="bi bi-graph-up-arrow"></i> <span>จัดการแนวโน้มตลาด</span>
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link ${currentView === 'admins' ? 'active' : ''}" href="dashboard.html?view=admins">
                 <i class="bi bi-shield-check"></i> <span data-i18n="dashboard.admin.admins">จัดการผู้ดูแลระบบ</span>
             </a>
@@ -101,6 +111,12 @@ function loadAdminDashboard() {
             break;
         case 'articles':
             loadAdminArticles();
+            break;
+        case 'salaries':
+            loadAdminSalaries();
+            break;
+        case 'market-trends':
+            loadAdminMarketTrends();
             break;
         case 'admins':
             loadAdminManagement();
