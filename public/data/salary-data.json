@@ -1,0 +1,254 @@
+[
+  {
+    "positionId": "salary001",
+    "jobTitle": "Front Desk Agent",
+    "jobTitleTH": "พนักงานต้อนรับ",
+    "department": "Front Office",
+    "level": "Entry Level",
+    "location": "Bangkok",
+    "salaryRange": {
+      "min": 15000,
+      "max": 25000,
+      "average": 20000,
+      "currency": "THB"
+    },
+    "experience": "0-2 years",
+    "education": "High School / Vocational Certificate",
+    "skills": ["Customer Service", "Communication", "Hotel PMS", "English"],
+    "benefits": ["Health Insurance", "Meals", "Uniform", "Service Charge"],
+    "growth": "+5%",
+    "demand": "High",
+    "openPositions": 245
+  },
+  {
+    "positionId": "salary002",
+    "jobTitle": "Front Office Manager",
+    "jobTitleTH": "ผู้จัดการแผนกต้อนรับ",
+    "department": "Front Office",
+    "level": "Management",
+    "location": "Bangkok",
+    "salaryRange": {
+      "min": 45000,
+      "max": 80000,
+      "average": 62500,
+      "currency": "THB"
+    },
+    "experience": "5-8 years",
+    "education": "Bachelor's Degree",
+    "skills": ["Leadership", "Operations Management", "Revenue Management", "English"],
+    "benefits": ["Health Insurance", "Bonus", "Company Car", "Housing Allowance"],
+    "growth": "+8%",
+    "demand": "Medium",
+    "openPositions": 42
+  },
+  {
+    "positionId": "salary003",
+    "jobTitle": "Chef de Partie",
+    "jobTitleTH": "หัวหน้าแผนกครัว",
+    "department": "Kitchen",
+    "level": "Mid Level",
+    "location": "Phuket",
+    "salaryRange": {
+      "min": 25000,
+      "max": 40000,
+      "average": 32500,
+      "currency": "THB"
+    },
+    "experience": "3-5 years",
+    "education": "Culinary Diploma",
+    "skills": ["Cooking", "Menu Planning", "Food Safety", "Team Leadership"],
+    "benefits": ["Health Insurance", "Meals", "Uniform", "Accommodation"],
+    "growth": "+6%",
+    "demand": "High",
+    "openPositions": 128
+  },
+  {
+    "positionId": "salary004",
+    "jobTitle": "Executive Chef",
+    "jobTitleTH": "หัวหน้าเชฟทั้งหมด",
+    "department": "Kitchen",
+    "level": "Senior Management",
+    "location": "Bangkok",
+    "salaryRange": {
+      "min": 80000,
+      "max": 150000,
+      "average": 115000,
+      "currency": "THB"
+    },
+    "experience": "10+ years",
+    "education": "Culinary Arts Degree",
+    "skills": ["Menu Development", "Cost Control", "Team Management", "Creativity"],
+    "benefits": ["Health Insurance", "Annual Bonus", "Company Car", "International Training"],
+    "growth": "+10%",
+    "demand": "Medium",
+    "openPositions": 18
+  },
+  {
+    "positionId": "salary005",
+    "jobTitle": "Housekeeping Supervisor",
+    "jobTitleTH": "หัวหน้าแม่บ้าน",
+    "department": "Housekeeping",
+    "level": "Supervisor",
+    "location": "Chiang Mai",
+    "salaryRange": {
+      "min": 20000,
+      "max": 35000,
+      "average": 27500,
+      "currency": "THB"
+    },
+    "experience": "3-5 years",
+    "education": "High School / Certificate",
+    "skills": ["Team Leadership", "Quality Control", "Inventory Management", "Cleaning Standards"],
+    "benefits": ["Health Insurance", "Meals", "Uniform", "Service Charge"],
+    "growth": "+4%",
+    "demand": "High",
+    "openPositions": 87
+  },
+  {
+    "positionId": "salary006",
+    "jobTitle": "Sales & Marketing Manager",
+    "jobTitleTH": "ผู้จัดการฝ่ายขายและการตลาด",
+    "department": "Sales & Marketing",
+    "level": "Management",
+    "location": "Pattaya",
+    "salaryRange": {
+      "min": 50000,
+      "max": 90000,
+      "average": 70000,
+      "currency": "THB"
+    },
+    "experience": "5-7 years",
+    "education": "Bachelor's Degree",
+    "skills": ["Digital Marketing", "Sales Strategy", "B2B Relations", "Analytics"],
+    "benefits": ["Health Insurance", "Commission", "Company Car", "Travel Allowance"],
+    "growth": "+12%",
+    "demand": "High",
+    "openPositions": 56
+  },
+  {
+    "positionId": "salary007",
+    "jobTitle": "Food & Beverage Manager",
+    "jobTitleTH": "ผู้จัดการแผนกอาหารและเครื่องดื่ม",
+    "department": "F&B",
+    "level": "Management",
+    "location": "Samui",
+    "salaryRange": {
+      "min": 45000,
+      "max": 75000,
+      "average": 60000,
+      "currency": "THB"
+    },
+    "experience": "5-8 years",
+    "education": "Bachelor's Degree",
+    "skills": ["Operations Management", "Cost Control", "Customer Service", "Menu Development"],
+    "benefits": ["Health Insurance", "Bonus", "Meals", "Accommodation"],
+    "growth": "+7%",
+    "demand": "Medium",
+    "openPositions": 34
+  },
+  {
+    "positionId": "salary008",
+    "jobTitle": "Bartender",
+    "jobTitleTH": "บาร์เทนเดอร์",
+    "department": "F&B",
+    "level": "Entry-Mid Level",
+    "location": "Bangkok",
+    "salaryRange": {
+      "min": 18000,
+      "max": 35000,
+      "average": 26500,
+      "currency": "THB"
+    },
+    "experience": "1-3 years",
+    "education": "High School / Bartending Certificate",
+    "skills": ["Mixology", "Customer Service", "Product Knowledge", "Speed"],
+    "benefits": ["Health Insurance", "Tips", "Meals", "Training"],
+    "growth": "+9%",
+    "demand": "High",
+    "openPositions": 156
+  },
+  {
+    "positionId": "salary009",
+    "jobTitle": "Spa Therapist",
+    "jobTitleTH": "นักบำบัดสปา",
+    "department": "Spa & Wellness",
+    "level": "Entry-Mid Level",
+    "location": "Phuket",
+    "salaryRange": {
+      "min": 18000,
+      "max": 32000,
+      "average": 25000,
+      "currency": "THB"
+    },
+    "experience": "1-4 years",
+    "education": "Spa Therapy Certificate",
+    "skills": ["Massage", "Customer Service", "Product Knowledge", "Wellness"],
+    "benefits": ["Health Insurance", "Commission", "Meals", "Product Discounts"],
+    "growth": "+11%",
+    "demand": "High",
+    "openPositions": 92
+  },
+  {
+    "positionId": "salary010",
+    "jobTitle": "Hotel General Manager",
+    "jobTitleTH": "ผู้จัดการทั่วไปโรงแรม",
+    "department": "Executive",
+    "level": "Executive",
+    "location": "International",
+    "salaryRange": {
+      "min": 150000,
+      "max": 300000,
+      "average": 225000,
+      "currency": "THB"
+    },
+    "experience": "15+ years",
+    "education": "Bachelor's/Master's Degree",
+    "skills": ["Strategic Leadership", "P&L Management", "Stakeholder Relations", "Operations Excellence"],
+    "benefits": ["Full Package", "Annual Bonus", "Company Car", "Housing", "International Opportunities"],
+    "growth": "+5%",
+    "demand": "Low",
+    "openPositions": 8
+  },
+  {
+    "positionId": "salary011",
+    "jobTitle": "Event Coordinator",
+    "jobTitleTH": "ผู้ประสานงานจัดงาน",
+    "department": "Events & Catering",
+    "level": "Mid Level",
+    "location": "Bangkok",
+    "salaryRange": {
+      "min": 25000,
+      "max": 45000,
+      "average": 35000,
+      "currency": "THB"
+    },
+    "experience": "2-4 years",
+    "education": "Bachelor's Degree",
+    "skills": ["Event Planning", "Vendor Management", "Communication", "Problem Solving"],
+    "benefits": ["Health Insurance", "Bonus", "Networking Events", "Travel Opportunities"],
+    "growth": "+10%",
+    "demand": "High",
+    "openPositions": 64
+  },
+  {
+    "positionId": "salary012",
+    "jobTitle": "Revenue Manager",
+    "jobTitleTH": "ผู้จัดการรายได้",
+    "department": "Revenue Management",
+    "level": "Management",
+    "location": "Bangkok",
+    "salaryRange": {
+      "min": 55000,
+      "max": 95000,
+      "average": 75000,
+      "currency": "THB"
+    },
+    "experience": "5-7 years",
+    "education": "Bachelor's Degree",
+    "skills": ["Data Analytics", "Pricing Strategy", "Forecasting", "Hotel Systems"],
+    "benefits": ["Health Insurance", "Performance Bonus", "Training", "Career Growth"],
+    "growth": "+15%",
+    "demand": "High",
+    "openPositions": 28
+  }
+]

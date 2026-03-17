@@ -1,0 +1,258 @@
+{
+  "lastUpdated": "2026-03-17",
+  "overview": {
+    "averageSalaryIncrease": "+7.5%",
+    "totalOpenPositions": 1248,
+    "topDemandDepartments": ["F&B", "Front Office", "Sales & Marketing"],
+    "skillsInDemand": ["Digital Marketing", "Revenue Management", "Sustainability", "Multi-language"]
+  },
+  "salaryTrends": [
+    {
+      "year": 2023,
+      "averageSalary": 32000,
+      "growth": 5.2
+    },
+    {
+      "year": 2024,
+      "averageSalary": 34500,
+      "growth": 7.8
+    },
+    {
+      "year": 2025,
+      "averageSalary": 37200,
+      "growth": 7.8
+    },
+    {
+      "year": 2026,
+      "averageSalary": 40000,
+      "growth": 7.5
+    }
+  ],
+  "departmentDemand": [
+    {
+      "department": "F&B",
+      "demand": "Very High",
+      "openPositions": 342,
+      "avgSalary": 28500,
+      "growth": "+9%"
+    },
+    {
+      "department": "Front Office",
+      "demand": "High",
+      "openPositions": 287,
+      "avgSalary": 25000,
+      "growth": "+6%"
+    },
+    {
+      "department": "Sales & Marketing",
+      "demand": "High",
+      "openPositions": 156,
+      "avgSalary": 52000,
+      "growth": "+12%"
+    },
+    {
+      "department": "Housekeeping",
+      "demand": "High",
+      "openPositions": 198,
+      "avgSalary": 22000,
+      "growth": "+4%"
+    },
+    {
+      "department": "Kitchen",
+      "demand": "Medium",
+      "openPositions": 146,
+      "avgSalary": 35000,
+      "growth": "+7%"
+    },
+    {
+      "department": "Spa & Wellness",
+      "demand": "High",
+      "openPositions": 92,
+      "avgSalary": 24000,
+      "growth": "+11%"
+    },
+    {
+      "department": "Executive",
+      "demand": "Low",
+      "openPositions": 27,
+      "avgSalary": 185000,
+      "growth": "+5%"
+    }
+  ],
+  "locationTrends": [
+    {
+      "location": "Bangkok",
+      "avgSalary": 45000,
+      "costOfLiving": "High",
+      "opportunities": "Excellent",
+      "growth": "+8%"
+    },
+    {
+      "location": "Phuket",
+      "avgSalary": 38000,
+      "costOfLiving": "Medium-High",
+      "opportunities": "Very Good",
+      "growth": "+10%"
+    },
+    {
+      "location": "Chiang Mai",
+      "avgSalary": 30000,
+      "costOfLiving": "Medium",
+      "opportunities": "Good",
+      "growth": "+7%"
+    },
+    {
+      "location": "Pattaya",
+      "avgSalary": 35000,
+      "costOfLiving": "Medium",
+      "opportunities": "Good",
+      "growth": "+6%"
+    },
+    {
+      "location": "Samui",
+      "avgSalary": 36000,
+      "costOfLiving": "Medium-High",
+      "opportunities": "Good",
+      "growth": "+9%"
+    },
+    {
+      "location": "Hua Hin",
+      "avgSalary": 32000,
+      "costOfLiving": "Medium",
+      "opportunities": "Moderate",
+      "growth": "+5%"
+    }
+  ],
+  "emergingRoles": [
+    {
+      "role": "Sustainability Manager",
+      "demand": "Growing",
+      "avgSalary": 65000,
+      "description": "จัดการโครงการด้านความยั่งยืนและสิ่งแวดล้อมในโรงแรม"
+    },
+    {
+      "role": "Digital Marketing Specialist",
+      "demand": "High",
+      "avgSalary": 45000,
+      "description": "บริหารช่องทางการตลาดออนไลน์และโซเชียลมีเดีย"
+    },
+    {
+      "role": "Guest Experience Manager",
+      "demand": "Growing",
+      "avgSalary": 55000,
+      "description": "ดูแลประสบการณ์แขกตั้งแต่ก่อนถึงหลังการเข้าพัก"
+    },
+    {
+      "role": "Revenue Analyst",
+      "demand": "Very High",
+      "avgSalary": 48000,
+      "description": "วิเคราะห์ข้อมูลเพื่อเพิ่มรายได้และ optimization"
+    },
+    {
+      "role": "Wellness Director",
+      "demand": "Growing",
+      "avgSalary": 70000,
+      "description": "บริหารโปรแกรมสุขภาพและความเป็นอยู่ที่ดีในรีสอร์ท"
+    }
+  ],
+  "skillsInDemand": [
+    {
+      "skill": "Revenue Management",
+      "demandLevel": "Very High",
+      "salaryImpact": "+25%",
+      "description": "การจัดการราคาและช่องทางจำหน่ายเพื่อเพิ่มรายได้"
+    },
+    {
+      "skill": "Digital Marketing",
+      "demandLevel": "Very High",
+      "salaryImpact": "+20%",
+      "description": "การตลาดออนไลน์, SEO, SEM, Social Media"
+    },
+    {
+      "skill": "Multi-language (3+ languages)",
+      "demandLevel": "High",
+      "salaryImpact": "+15%",
+      "description": "ภาษาอังกฤษ, จีน, รัสเซีย, เกาหลี เป็นต้น"
+    },
+    {
+      "skill": "Data Analytics",
+      "demandLevel": "High",
+      "salaryImpact": "+22%",
+      "description": "การวิเคราะห์ข้อมูลเพื่อการตัดสินใจ"
+    },
+    {
+      "skill": "Sustainability Practices",
+      "demandLevel": "Growing",
+      "salaryImpact": "+12%",
+      "description": "ความรู้ด้านการดำเนินงานที่ยั่งยืน"
+    },
+    {
+      "skill": "Hotel Management Systems",
+      "demandLevel": "High",
+      "salaryImpact": "+10%",
+      "description": "Opera, Protel, Cloudbeds, etc."
+    }
+  ],
+  "industryInsights": [
+    {
+      "title": "การท่องเที่ยวฟื้นตัวเต็มที่",
+      "description": "อุตสาหกรรมโรงแรมและท่องเที่ยวกลับมาเติบโตแข็งแกร่งหลังโควิด โดยมีนักท่องเที่ยวต่างชาติเพิ่มขึ้น 145% เมื่อเทียบกับปี 2023",
+      "impact": "เพิ่มโอกาสงานและเงินเดือน",
+      "icon": "bi-graph-up-arrow"
+    },
+    {
+      "title": "ความต้องการทักษะดิจิทัลสูงขึ้น",
+      "description": "โรงแรมต้องการพนักงานที่มีทักษะด้านเทคโนโลยีและดิจิทัลมากขึ้น เพื่อรองรับการเปลี่ยนแปลงพฤติกรรมของลูกค้า",
+      "impact": "เงินเดือนสูงขึ้น 15-25% สำหรับตำแหน่งที่ต้องใช้ digital skills",
+      "icon": "bi-laptop"
+    },
+    {
+      "title": "ความยั่งยืนเป็นปัจจัยสำคัญ",
+      "description": "นักท่องเที่ยวให้ความสำคัญกับความยั่งยืนมากขึ้น ทำให้โรงแรมต้องการบุคลากรที่มีความรู้ด้านนี้",
+      "impact": "เกิดตำแหน่งงานใหม่และโอกาสสูง",
+      "icon": "bi-recycle"
+    },
+    {
+      "title": "Experience Economy",
+      "description": "ลูกค้าต้องการประสบการณ์มากกว่าแค่ที่พัก ทำให้ตำแหน่ง Guest Experience, Event Coordinator มีความต้องการสูง",
+      "impact": "ตำแหน่งใหม่เกิดขึ้น เงินเดือนดี",
+      "icon": "bi-stars"
+    },
+    {
+      "title": "ขาดแคลนบุคลากรคุณภาพ",
+      "description": "อุตสาหกรรมยังคงขาดแคลนบุคลากรที่มีคุณภาพ โดยเฉพาะตำแหน่งระดับกลางถึงบริหาร",
+      "impact": "เงินเดือนเพิ่มสูงขึ้นเพื่อดึงดูดคนเก่ง",
+      "icon": "bi-people-fill"
+    }
+  ],
+  "certifications": [
+    {
+      "name": "Certified Hotel Administrator (CHA)",
+      "provider": "AHLEI",
+      "salaryImpact": "+18%",
+      "duration": "Self-paced",
+      "cost": "15,000-25,000 THB"
+    },
+    {
+      "name": "Certified Revenue Management Executive (CRME)",
+      "provider": "HSMAI",
+      "salaryImpact": "+30%",
+      "duration": "6 months",
+      "cost": "40,000-60,000 THB"
+    },
+    {
+      "name": "Certified Hospitality Digital Marketer (CHDM)",
+      "provider": "AHLEI",
+      "salaryImpact": "+22%",
+      "duration": "3 months",
+      "cost": "20,000-35,000 THB"
+    },
+    {
+      "name": "Sommelier Certification",
+      "provider": "Court of Master Sommeliers",
+      "salaryImpact": "+25%",
+      "duration": "1-2 years",
+      "cost": "50,000-120,000 THB"
+    }
+  ]
+}

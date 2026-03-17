@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market Trends - แนวโน้มตลาดแรงงาน | JobCrew</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-gradient fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold" href="index.html">
+                <img src="https://supershin.github.io/Project.Job/logo/logo.jpg" alt="JobCrew Logo" class="navbar-brand-logo"> JobCrew
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">หน้าหลัก</a></li>
+                    <li class="nav-item"><a class="nav-link" href="jobs.html">หางาน</a></li>
+                    <li class="nav-item"><a class="nav-link" href="internships.html">ฝึกงาน</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">เรียนรู้เพิ่มเติม</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="hospitality-schools.html">สถาบันการศึกษา</a></li>
+                            <li><a class="dropdown-item" href="hotel-partners.html">โรงแรมพาร์ทเนอร์</a></li>
+                            <li><a class="dropdown-item" href="hotel-insights.html">Hotel Insights</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown">Salary Insights</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="hotel-salary-guide.html">คู่มือเงินเดือน</a></li>
+                            <li><a class="dropdown-item active" href="market-trends.html">แนวโน้มตลาดแรงงาน</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="dashboard.html">Dashboard</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero-section text-white text-center py-5" style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); margin-top: 70px;">
+        <div class="container py-4">
+            <h1 class="display-5 fw-bold mb-3">📈 Market Trends</h1>
+            <p class="lead">แนวโน้มตลาดแรงงานอุตสาหกรรมโรงแรม</p>
+            <p>วิเคราะห์ข้อมูล 2023-2026</p>
+        </div>
+    </section>
+
+    <!-- Overview Stats -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row g-4" id="overviewStats">
+                <!-- Will be populated by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Salary Trends Chart -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="card border-0 shadow-lg">
+                <div class="card-body p-4">
+                    <h3 class="fw-bold mb-4 text-center">แนวโน้มเงินเดือนเฉลี่ย 2023-2026</h3>
+                    <canvas id="salaryTrendChart" height="100"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Department Demand -->
+    <section class="py-5">
+        <div class="container">
+            <h3 class="fw-bold mb-4 text-center">ความต้องการบุคลากรแยกตามแผนก</h3>
+            <div class="row g-4" id="departmentDemand">
+                <!-- Will be populated by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Location Trends -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <h3 class="fw-bold mb-4 text-center">แนวโน้มตามพื้นที่</h3>
+            <div class="row g-4" id="locationTrends">
+                <!-- Will be populated by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Emerging Roles -->
+    <section class="py-5">
+        <div class="container">
+            <h3 class="fw-bold mb-4 text-center">🚀 ตำแหน่งงานใหม่ที่กำลังมา</h3>
+            <div class="row g-4" id="emergingRoles">
+                <!-- Will be populated by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills in Demand -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <h3 class="fw-bold mb-4 text-center">💡 ทักษะที่ต้องการในตลาด</h3>
+            <div class="row g-4" id="skillsInDemand">
+                <!-- Will be populated by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Industry Insights -->
+    <section class="py-5">
+        <div class="container">
+            <h3 class="fw-bold mb-4 text-center">📊 Industry Insights</h3>
+            <div class="row g-4" id="industryInsights">
+                <!-- Will be populated by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <h3 class="fw-bold mb-4 text-center">🎓 Certifications ที่เพิ่มมูลค่า</h3>
+            <div class="row g-4" id="certifications">
+                <!-- Will be populated by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="py-5 text-white" style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);">
+        <div class="container text-center">
+            <h2 class="fw-bold mb-4">พร้อมที่จะเป็นส่วนหนึ่งของอุตสาหกรรม?</h2>
+            <div class="d-flex gap-3 justify-content-center flex-wrap">
+                <a href="hotel-salary-guide.html" class="btn btn-light btn-lg px-4"><i class="bi bi-book me-2"></i>ดูคู่มือเงินเดือน</a>
+                <a href="jobs.html" class="btn btn-outline-light btn-lg px-4"><i class="bi bi-search me-2"></i>หางาน</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4">
+        <div class="container text-center">
+            <p class="mb-0">&copy; 2026 JobCrew. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    let marketData = null;
+
+    $(document).ready(async function() {
+        await loadMarketData();
+    });
+
+    async function loadMarketData() {
+        try {
+            const response = await fetch('./data/market-trends.json');
+            marketData = await response.json();
+            
+            displayOverview();
+            displaySalaryTrendChart();
+            displayDepartmentDemand();
+            displayLocationTrends();
+            displayEmergingRoles();
+            displaySkillsInDemand();
+            displayIndustryInsights();
+            displayCertifications();
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
+
+    function displayOverview() {
+        const html = `
+            <div class="col-md-3">
+                <div class="card border-0 shadow-sm text-center h-100">
+                    <div class="card-body">
+                        <div class="display-4 text-success mb-2"><i class="bi bi-graph-up-arrow"></i></div>
+                        <h3 class="fw-bold mb-1">${marketData.overview.averageSalaryIncrease}</h3>
+                        <p class="text-muted mb-0">เติบโตเฉลี่ย</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card border-0 shadow-sm text-center h-100">
+                    <div class="card-body">
+                        <div class="display-4 text-primary mb-2"><i class="bi bi-briefcase"></i></div>
+                        <h3 class="fw-bold mb-1">${marketData.overview.totalOpenPositions}</h3>
+                        <p class="text-muted mb-0">ตำแหน่งว่าง</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body">
+                        <h6 class="fw-bold mb-3">Top Demand Departments</h6>
+                        <div class="d-flex gap-2 flex-wrap">
+                            ${marketData.overview.topDemandDepartments.map(dept => 
+                                `<span class="badge bg-primary">${dept}</span>`
+                            ).join('')}
+                        </div>
+                        <h6 class="fw-bold mt-3 mb-2">Skills in Demand</h6>
+                        <div class="d-flex gap-2 flex-wrap">
+                            ${marketData.overview.skillsInDemand.map(skill => 
+                                `<span class="badge bg-success">${skill}</span>`
+                            ).join('')}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        $('#overviewStats').html(html);
+    }
+
+    function displaySalaryTrendChart() {
+        const ctx = document.getElementById('salaryTrendChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: marketData.salaryTrends.map(t => t.year),
+                datasets: [{
+                    label: 'เงินเดือนเฉลี่ย (THB)',
+                    data: marketData.salaryTrends.map(t => t.averageSalary),
+                    borderColor: '#667eea',
+                    backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                    tension: 0.4,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: true },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return 'THB ' + context.parsed.y.toLocaleString();
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: false,
+                        ticks: {
+                            callback: function(value) {
+                                return 'THB ' + value.toLocaleString();
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    function displayDepartmentDemand() {
+        let html = '';
+        marketData.departmentDemand.forEach(dept => {
+            const demandClass = dept.demand === 'Very High' ? 'bg-danger' : dept.demand === 'High' ? 'bg-warning' : 'bg-info';
+            html += `
+                <div class="col-md-6 col-lg-4">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <h5 class="fw-bold mb-0">${dept.department}</h5>
+                                <span class="badge ${demandClass}">${dept.demand}</span>
+                            </div>
+                            <div class="row text-center">
+                                <div class="col-6 mb-2">
+                                    <small class="text-muted d-block">Open Positions</small>
+                                    <strong class="text-primary">${dept.openPositions}</strong>
+                                </div>
+                                <div class="col-6 mb-2">
+                                    <small class="text-muted d-block">Avg Salary</small>
+                                    <strong>฿${dept.avgSalary.toLocaleString()}</strong>
+                                </div>
+                                <div class="col-12">
+                                    <small class="text-muted d-block">Growth</small>
+                                    <strong class="text-success">${dept.growth}</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+        $('#departmentDemand').html(html);
+    }
+
+    function displayLocationTrends() {
+        let html = '';
+        marketData.locationTrends.forEach(loc => {
+            html += `
+                <div class="col-md-6 col-lg-4">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body">
+                            <h5 class="fw-bold mb-3"><i class="bi bi-geo-alt text-primary me-2"></i>${loc.location}</h5>
+                            <div class="mb-2">
+                                <small class="text-muted">Avg Salary:</small>
+                                <strong class="float-end">฿${loc.avgSalary.toLocaleString()}</strong>
+                            </div>
+                            <div class="mb-2">
+                                <small class="text-muted">Cost of Living:</small>
+                                <strong class="float-end">${loc.costOfLiving}</strong>
+                            </div>
+                            <div class="mb-2">
+                                <small class="text-muted">Opportunities:</small>
+                                <strong class="float-end">${loc.opportunities}</strong>
+                            </div>
+                            <div>
+                                <small class="text-muted">Growth:</small>
+                                <strong class="float-end text-success">${loc.growth}</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+        $('#locationTrends').html(html);
+    }
+
+    function displayEmergingRoles() {
+        let html = '';
+        marketData.emergingRoles.forEach(role => {
+            html += `
+                <div class="col-md-6">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <h5 class="fw-bold mb-0">${role.role}</h5>
+                                <span class="badge bg-success">${role.demand}</span>
+                            </div>
+                            <p class="text-muted mb-2">${role.description}</p>
+                            <h5 class="text-primary fw-bold mb-0">฿${role.avgSalary.toLocaleString()}/month</h5>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+        $('#emergingRoles').html(html);
+    }
+
+    function displaySkillsInDemand() {
+        let html = '';
+        marketData.skillsInDemand.forEach(skill => {
+            const demandClass = skill.demandLevel === 'Very High' ? 'bg-danger' : skill.demandLevel === 'High' ? 'bg-warning' : 'bg-info';
+            html += `
+                <div class="col-md-6">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <h5 class="fw-bold mb-0">${skill.skill}</h5>
+                                <span class="badge ${demandClass}">${skill.demandLevel}</span>
+                            </div>
+                            <p class="text-muted mb-2">${skill.description}</p>
+                            <div class="bg-light p-2 rounded">
+                                <small class="text-muted">Salary Impact:</small>
+                                <strong class="text-success float-end">${skill.salaryImpact}</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+        $('#skillsInDemand').html(html);
+    }
+
+    function displayIndustryInsights() {
+        let html = '';
+        marketData.industryInsights.forEach(insight => {
+            html += `
+                <div class="col-md-6">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body">
+                            <div class="display-4 text-primary mb-3"><i class="${insight.icon}"></i></div>
+                            <h5 class="fw-bold mb-2">${insight.title}</h5>
+                            <p class="text-muted mb-2">${insight.description}</p>
+                            <div class="alert alert-success mb-0">
+                                <strong>Impact:</strong> ${insight.impact}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+        $('#industryInsights').html(html);
+    }
+
+    function displayCertifications() {
+        let html = '';
+        marketData.certifications.forEach(cert => {
+            html += `
+                <div class="col-md-6">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body">
+                            <h5 class="fw-bold mb-2">${cert.name}</h5>
+                            <p class="text-muted mb-2">by ${cert.provider}</p>
+                            <div class="row text-center mb-2">
+                                <div class="col-4">
+                                    <small class="text-muted d-block">Impact</small>
+                                    <strong class="text-success">${cert.salaryImpact}</strong>
+                                </div>
+                                <div class="col-4">
+                                    <small class="text-muted d-block">Duration</small>
+                                    <strong>${cert.duration}</strong>
+                                </div>
+                                <div class="col-4">
+                                    <small class="text-muted d-block">Cost</small>
+                                    <strong>${cert.cost}</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+        $('#certifications').html(html);
+    }
+    </script>
+</body>
+</html>
