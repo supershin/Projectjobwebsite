@@ -173,8 +173,7 @@
     <!-- Custom CSS -->
     <link href="./css/style.css" rel="stylesheet">
 </head>
-<body>
-    <!-- Navbar -->
+<body>    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-gradient fixed-top">
         <div class="container-fluid">
             <a class="navbar-brand fw-bold" href="index.html">
@@ -185,32 +184,35 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto align-items-center">
-                    <!-- Language Switcher -->
-                    <li class="nav-item dropdown me-2">
-                        <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown">
-                            <i class="bi bi-translate"></i>
-                            <span id="currentLanguage">TH</span>
+                    <li class="nav-item dropdown language-switcher">
+                        <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-globe"></i>
+                            <span class="current-lang-text">ไทย</span>
                         </a>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item language-option" href="#" data-lang="th">
-                                <i class="bi bi-check-circle-fill text-success me-2"></i> ไทย
-                            </a></li>
-                            <li><a class="dropdown-item language-option" href="#" data-lang="en">
-                                <i class="bi bi-circle me-2"></i> English
-                            </a></li>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown">
+                            <li>
+                                <a class="dropdown-item lang-switcher active" href="#" data-lang="th">
+                                    <i class="bi bi-check-circle-fill me-2"></i>
+                                    <span>ไทย (Thai)</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item lang-switcher" href="#" data-lang="en">
+                                    <i class="bi bi-check-circle-fill me-2"></i>
+                                    <span>English</span>
+                                </a>
+                            </li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
-                            <img src="https://ui-avatars.com/api/?name=User&background=random" alt="User" class="rounded-circle me-2" width="32" height="32" id="userAvatar">
-                            <span id="userName">User</span>
+                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown">
+                            <img src="https://ui-avatars.com/api/?name=Admin&background=0D4C92&color=fff" alt="Admin" class="rounded-circle me-2" width="32" height="32" id="navUserAvatar">
+                            <span id="navUserName">Admin</span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="dashboard.html"><i class="bi bi-speedometer2"></i> <span data-i18n="nav.dashboard">Dashboard</span></a></li>
-                            <li><a class="dropdown-item" href="dashboard.html?view=profile"><i class="bi bi-person"></i> <span data-i18n="dashboard.profile">โปรไฟล์</span></a></li>
-                            <li><a class="dropdown-item" href="dashboard.html?view=settings"><i class="bi bi-gear"></i> <span data-i18n="dashboard.settings">ตั้งค่า</span></a></li>
+                            <li><a class="dropdown-item" href="dashboard.html?mode=admin"><i class="bi bi-speedometer2"></i> Dashboard</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#" id="logoutBtn"><i class="bi bi-box-arrow-right"></i> <span data-i18n="nav.logout">ออกจากระบบ</span></a></li>
+                            <li><a class="dropdown-item" href="#" onclick="logout(); return false;"><i class="bi bi-box-arrow-right"></i> ออกจากระบบ</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -290,5 +292,6 @@
     <script src="./js/admin-salary-management.js"></script>
     <script src="./js/dashboard-functions.js"></script>
     <script src="./js/job-functions-updated.js"></script>
+    <script src="./js/auth-state.js"></script>
 </body>
 </html>

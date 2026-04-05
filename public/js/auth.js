@@ -243,3 +243,41 @@ function checkUserTypeFromURL() {
         $('#typeEmployer').prop('checked', true);
     }
 }
+
+// ========================================
+// Notification Function
+// ========================================
+function showNotification(message, type = 'info') {
+    // Create notification element
+    const notification = $('<div>')
+        .addClass(`alert alert-${type === 'error' ? 'danger' : type} alert-dismissible fade show notification-toast`)
+        .css({
+            position: 'fixed',
+            top: '80px',
+            right: '20px',
+            zIndex: '9999',
+            minWidth: '300px',
+            boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
+        })
+        .html(`
+            ${message}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        `);
+    
+    // Append to body
+    $('body').append(notification);
+    
+    // Auto remove after 3 seconds
+    setTimeout(() => {
+        notification.fadeOut(300, function() {
+            $(this).remove();
+        });
+    }, 3000);
+}
+
+// ========================================
+// Export functions for use in other scripts
+// ========================================
+if (typeof window !== 'undefined') {
+    window.showNotification = showNotification;
+}

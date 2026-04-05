@@ -344,7 +344,18 @@
                             <li><a class="dropdown-item" href="#" data-lang="en">English (EN)</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item"><a class="nav-link" href="login.html">เข้าสู่ระบบ</a></li>
+                                        <li class="nav-item dropdown user-dropdown" style="display: none;">
+                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown">
+                            <img src="https://ui-avatars.com/api/?name=User&background=random" alt="User" class="rounded-circle me-2" width="32" height="32" id="navUserAvatar">
+                            <span id="navUserName">User</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="dashboard.html"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#" onclick="logout(); return false;"><i class="bi bi-box-arrow-right me-2"></i>ออกจากระบบ</a></li>
+                        </ul>
+                    </li>
+<li class="nav-item"><a class="nav-link" href="login.html">เข้าสู่ระบบ</a></li>
                     <li class="nav-item"><a class="nav-link btn btn-primary-custom ms-2" href="register.html">สมัครสมาชิก</a></li>
                 </ul>
             </div>
@@ -481,5 +492,6 @@
     
     <!-- Hotel Insights JS -->
     <script src="./js/hotel-insights.js"></script>
+    <script src="./js/auth-state.js"></script>
 </body>
 </html>

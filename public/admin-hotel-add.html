@@ -10,25 +10,46 @@
     <link href="./css/style.css" rel="stylesheet">
     <link href="./css/dashboard.css" rel="stylesheet">
 </head>
-<body>
-    <!-- Navbar -->
+<body>    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-gradient fixed-top">
         <div class="container-fluid">
             <a class="navbar-brand fw-bold" href="index.html">
                 <img src="https://supershin.github.io/Project.Job/logo/logo.jpg" alt="JobCrew Logo" class="navbar-brand-logo"> JobCrew
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"><span class="navbar-toggler-icon"></span></button>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item dropdown language-switcher">
+                        <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-globe"></i>
+                            <span class="current-lang-text">ไทย</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown">
+                            <li>
+                                <a class="dropdown-item lang-switcher active" href="#" data-lang="th">
+                                    <i class="bi bi-check-circle-fill me-2"></i>
+                                    <span>ไทย (Thai)</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item lang-switcher" href="#" data-lang="en">
+                                    <i class="bi bi-check-circle-fill me-2"></i>
+                                    <span>English</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown">
-                            <img src="https://ui-avatars.com/api/?name=Admin&background=0D4C92&color=fff" alt="Admin" class="rounded-circle me-2" width="32" height="32">
-                            <span>Admin</span>
+                            <img src="https://ui-avatars.com/api/?name=Admin&background=0D4C92&color=fff" alt="Admin" class="rounded-circle me-2" width="32" height="32" id="navUserAvatar">
+                            <span id="navUserName">Admin</span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
                             <li><a class="dropdown-item" href="dashboard.html?mode=admin"><i class="bi bi-speedometer2"></i> Dashboard</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="index.html"><i class="bi bi-box-arrow-right"></i> ออกจากระบบ</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="logout(); return false;"><i class="bi bi-box-arrow-right"></i> ออกจากระบบ</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -167,5 +188,9 @@
         window.location.href = 'dashboard.html?mode=admin&view=hotels';
     });
     </script>
+    <script src="./js/translations.js"></script>
+    <script src="./js/translations-extended.js"></script>
+    <script src="./js/language.js"></script>
+    <script src="./js/auth-state.js"></script>
 </body>
 </html>
